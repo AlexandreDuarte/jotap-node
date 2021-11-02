@@ -52,14 +52,14 @@ body {
 }
 
 p {
-  width: calc(min(100%, 800px) - 40px);
+  width: 90%;
   margin: 5px 0px;
   font-size: 15px;
   color: var(--text-color);
 } 
 
 h1 {
-  width: calc(min(100%, 800px) - 40px);
+  width: 90%;
   margin: 5px 0px;
   font-size: 17px;
   color: var(--text-color);
