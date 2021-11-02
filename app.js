@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/obras');
+//mongoose.connect('mongodb://localhost:27017/obras');
 
 const obraSchema = new mongoose.Schema({
     title: String,
