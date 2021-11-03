@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 16 11" width="16pt" height="11pt"><defs><clipPath id="_clipPath_wNvGatr5Vj0kUcr5qpd8jMWSFjRZhyll"><rect width="16" height="11"/></clipPath></defs><g clip-path="url(#_clipPath_wNvGatr5Vj0kUcr5qpd8jMWSFjRZhyll)"><clipPath id="_clipPath_MTxrc6kXNm9jsyHCJPtPFtOoQVFac6Fl"><rect x="0" y="0" width="16" height="11" transform="matrix(1,0,0,1,0,0)" fill="rgb(255,255,255)"/></clipPath><g clip-path="url(#_clipPath_MTxrc6kXNm9jsyHCJPtPFtOoQVFac6Fl)"><g><path d=" M 0 8 L 16 8 L 16 9 L 0 9 L 0 8 Z " fill="rgb(0,102,0)"/><path d=" M 0 10 L 16 10 L 16 11 L 0 11 L 0 10 Z " fill="rgb(255,0,0)"/><path d=" M 0 10 L 5 10 L 5 11 L 0 11 L 0 10 Z " fill="rgb(0,102,0)"/><path d=" M 0 8 L 5 8 L 5 9 L 0 9 L 0 8 Z " fill="rgb(0,102,0)"/><path d=" M 0 6 L 5 6 L 5 7 L 0 7 L 0 6 Z " fill="rgb(0,102,0)"/><path d=" M 5 10 L 16 10 L 16 11 L 5 11 L 5 10 Z " fill="rgb(255,0,0)"/><path d=" M 5 8 L 16 8 L 16 9 L 5 9 L 5 8 Z " fill="rgb(255,0,0)"/><path d=" M 5 6 L 16 6 L 16 7 L 5 7 L 5 6 Z " fill="rgb(255,0,0)"/><path d=" M 7 4 L 16 4 L 16 5 L 7 5 L 7 4 Z " fill="rgb(255,0,0)"/><path d=" M 7 2 L 16 2 L 16 3.103 L 7 3.103 L 7 2 Z " fill="rgb(255,0,0)"/><path d=" M 7 0 L 16 0 L 16 1 L 7 1 L 7 0 Z " fill="rgb(255,0,0)"/><path d=" M 0 0 L 6 0 L 6 5 L 0 5 L 0 0 Z " fill="rgb(0,102,0)"/></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="isolation:isolate" viewBox="0 0 16 11" width="16pt" height="11pt">
+    <defs>
+        <clipPath id="_clipPath_wNvGatr5Vj0kUcr5qpd8jMWSFjRZhyll">
+            <rect width="16" height="11" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#_clipPath_wNvGatr5Vj0kUcr5qpd8jMWSFjRZhyll)">
+        <clipPath id="_clipPath_MTxrc6kXNm9jsyHCJPtPFtOoQVFac6Fl">
+            <rect x="0" y="0" width="16" height="11" transform="matrix(1,0,0,1,0,0)" fill="rgb(255,255,255)" />
+        </clipPath>
+        <g clip-path="url(#_clipPath_MTxrc6kXNm9jsyHCJPtPFtOoQVFac6Fl)">
+            <g>
+                <path d=" M 0 8 L 16 8 L 16 9 L 0 9 L 0 8 Z " fill="rgb(0,102,0)" />
+                <path d=" M 0 10 L 16 10 L 16 11 L 0 11 L 0 10 Z " fill="rgb(255,0,0)" />
+                <path d=" M 0 10 L 5 10 L 5 11 L 0 11 L 0 10 Z " fill="rgb(0,102,0)" />
+                <path d=" M 0 8 L 5 8 L 5 9 L 0 9 L 0 8 Z " fill="rgb(0,102,0)" />
+                <path d=" M 0 6 L 5 6 L 5 7 L 0 7 L 0 6 Z " fill="rgb(0,102,0)" />
+                <path d=" M 5 10 L 16 10 L 16 11 L 5 11 L 5 10 Z " fill="rgb(255,0,0)" />
+                <path d=" M 5 8 L 16 8 L 16 9 L 5 9 L 5 8 Z " fill="rgb(255,0,0)" />
+                <path d=" M 5 6 L 16 6 L 16 7 L 5 7 L 5 6 Z " fill="rgb(255,0,0)" />
+                <path d=" M 7 4 L 16 4 L 16 5 L 7 5 L 7 4 Z " fill="rgb(255,0,0)" />
+                <path d=" M 7 2 L 16 2 L 16 3.103 L 7 3.103 L 7 2 Z " fill="rgb(255,0,0)" />
+                <path d=" M 7 0 L 16 0 L 16 1 L 7 1 L 7 0 Z " fill="rgb(255,0,0)" />
+                <path d=" M 0 0 L 6 0 L 6 5 L 0 5 L 0 0 Z " fill="rgb(0,102,0)" />
+            </g>
+        </g>
+    </g>
+</svg>

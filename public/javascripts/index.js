@@ -92,7 +92,7 @@ function setupNavListeners() {
 
 var languageChange = false;
 
-var steps = 20;
+var steps = 15;
 
 function triggerLanguageChange() {
 
@@ -101,7 +101,7 @@ function triggerLanguageChange() {
     english = !english;
 
     languageChange = true;
-    var count = 1;
+    var count = 0;
     var colorRed = [255, 0, 0];
     var colorGreen = [0, 102, 0];
     var colorDre = [206, 51, 49];
@@ -115,13 +115,15 @@ function triggerLanguageChange() {
 
     var intervalID = window.setInterval(() => {
 
-        if (count == steps*2-5) {
+        if (count == steps) {
 
             if (!english) {
                 for (let i = 0; i < pathPortuguese.length; i++) {
-                    if (pathPortuguese[i].id == "back-1") {
+                    if (pathPortuguese[i].id == "back-0") {
+                        pathPortuguese[i].setAttribute('fill', 'rgb(0,102,0)');
+                    } else if (pathPortuguese[i].id == "back-1") {
                         pathPortuguese[i].setAttribute('fill', 'rgb(255,0,0)');
-                    } else if (pathPortuguese[i].id.includes("back")) {
+                    } else if (pathPortuguese[i].id == "back-2") {
                         pathPortuguese[i].setAttribute('fill', 'rgba(0,0,0,0)');
                     } else if (pathPortuguese[i].id.includes('red')) {
                         pathPortuguese[i].setAttribute('fill', `rgb(${colorRed[0]}, ${colorRed[1]}, ${colorRed[2]})`);
@@ -151,21 +153,9 @@ function triggerLanguageChange() {
         for (let i = 0; i < pathPortuguese.length; i++) {
 
             let portList = getCoords(pathPortuguese[i]);
-            let skipIter = false;
 
             for (let j = 0; j < portList.length; j++) {
-                if (pathMod*count >= pathMod*(steps-5 + (1 - (1+pathMod)/2)*5) && pathPortuguese[i].id.includes("dre")) {
-                    portList[j] += pathMod * deltaPath[i][j] / steps;
-                } else if(pathMod*count <= pathMod*(steps-5 + ((1+pathMod)/2)*5) && !pathPortuguese[i].id.includes("dre")) {
-                    portList[j] += pathMod * deltaPath[i][j] / steps;
-                } else {
-                    skipIter = true;
-                    break;
-                }
-            }
-
-            if(skipIter) {
-                continue;
+                portList[j] += pathMod * deltaPath[i][j] / steps;
             }
 
             pathPortuguese[i].setAttribute('d', ` M ${portList[0]} ${portList[1]} L ${portList[2]} ${portList[3]} L ${portList[4]} ${portList[5]} L ${portList[6]} ${portList[7]} Z `);

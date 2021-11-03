@@ -7,18 +7,18 @@
         </clipPath>
     </defs>
     <g clip-path="url(#_clipPath_9IX0HFBd4YuP5eAvsqSoZYm5oQ0d3NUI)">
-        <path id="back-0" d=" M 0 0 L 7 0 L 7 11 L 0 11 L Z " fill="rgba(0,0,0,0)" />
+        <path id="back-0" d=" M 0 0 L 7 0 L 7 11 L 0 11 L Z " fill="rgb(0,102,0)" />
         <path id="back-1" d=" M 7 0 L 16 0 L 16 11 L 7 11 Z " fill="rgb(255,0,0)" />
         <path id="back-2" d=" M 7 0 L 7 0 L 16 11 L 7 11 Z " fill="rgba(0,0,0,0)" />
-        <path id="rect-red-dre" d=" M 7 10 L 7 10 L 7 11 L 7 11 Z " fill="rgb(0,102,0)" />
-        <path id="rect-red-dre" d=" M 7 8 L 7 8 L 7 10 L 7 10 Z " fill="rgb(0,102,0)" />
-        <path id="rect-red-dre" d=" M 7 6 L 7 6 L 7 8 L 7 8 Z " fill="rgb(0,102,0)" />
+        <path id="rect-green-dre" d=" M 0 10 L 7 10 L 7 11 L 0 11 Z " fill="rgb(0,102,0)" />
+        <path id="rect-green-dre" d=" M 0 8 L 7 8 L 7 10 L 0 10 Z " fill="rgb(0,102,0)" />
+        <path id="rect-green-dre" d=" M 0 6 L 7 6 L 7 8 L 0 8 Z " fill="rgb(0,102,0)" />
         <path id="rect-red-dre" d=" M 7 10 L 16 10 L 16 11 L 7 11 Z " fill="rgb(255,0,0)" />
         <path id="rect-red-dre" d=" M 7 8 L 16 8 L 16 10 L 7 10 Z " fill="rgb(255,0,0)" />
         <path id="rect-red-dre" d=" M 7 6 L 16 6 L 16 8 L 7 8 Z " fill="rgb(255,0,0)" />
         <path id="rect-red-dre" d=" M 7 4 L 16 4 L 16 6 L 7 6 Z " fill="rgb(255,0,0)" />
         <path id="rect-red-dre" d=" M 7 2 L 16 2 L 16 4 L 7 4 Z " fill="rgb(255,0,0)" />
         <path id="rect-red-dre" d=" M 7 0 L 16 0 L 16 2 L 7 2 Z " fill="rgb(255,0,0)" />
-        <path id="rect-green-blue" d=" M 0 0 L 7 0 L 7 11 L 0 11 Z " fill="rgb(0,102,0)" />
+        <path id="rect-green-blue" d=" M 0 0 L 7 0 L 7 6 L 0 6 Z " fill="rgb(0,102,0)" />
     </g>
 </svg>
