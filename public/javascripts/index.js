@@ -92,6 +92,8 @@ function setupNavListeners() {
 
 var languageChange = false;
 
+var steps = 20;
+
 function triggerLanguageChange() {
 
     if (languageChange) return;
@@ -99,7 +101,7 @@ function triggerLanguageChange() {
     english = !english;
 
     languageChange = true;
-    var count = 0;
+    var count = 1;
     var colorRed = [255, 0, 0];
     var colorGreen = [0, 102, 0];
     var colorDre = [206, 51, 49];
@@ -113,22 +115,28 @@ function triggerLanguageChange() {
 
     var intervalID = window.setInterval(() => {
 
-        if (count == 30) {
+        if (count == steps*2-5) {
 
             if (!english) {
                 for (let i = 0; i < pathPortuguese.length; i++) {
-                    if (pathPortuguese[i].id == "back-0") {
-                        pathPortuguese[i].setAttribute('fill', 'rgb(0,102,0)');
-                    } else if (pathPortuguese[i].id == "back-1") {
+                    if (pathPortuguese[i].id == "back-1") {
                         pathPortuguese[i].setAttribute('fill', 'rgb(255,0,0)');
-                    } else if (pathPortuguese[i].id == "back-2") {
+                    } else if (pathPortuguese[i].id.includes("back")) {
                         pathPortuguese[i].setAttribute('fill', 'rgba(0,0,0,0)');
+                    } else if (pathPortuguese[i].id.includes('red')) {
+                        pathPortuguese[i].setAttribute('fill', `rgb(${colorRed[0]}, ${colorRed[1]}, ${colorRed[2]})`);
+                    } else if (pathPortuguese[i].id.includes('green')) {
+                        pathPortuguese[i].setAttribute('fill', `rgb(${colorGreen[0]}, ${colorGreen[1]}, ${colorGreen[2]})`);
                     }
                 }
             } else {
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     if (pathPortuguese[i].id.includes("back")) {
                         pathPortuguese[i].setAttribute('fill', 'rgba(0,0,0,0)');
+                    } else if (pathPortuguese[i].id.includes('dre')) {
+                        pathPortuguese[i].setAttribute('fill', `rgb(${colorDre[0]}, ${colorDre[1]}, ${colorDre[2]})`);
+                    } else if (pathPortuguese[i].id.includes('blue')) {
+                        pathPortuguese[i].setAttribute('fill', `rgb(${colorBlue[0]}, ${colorBlue[1]}, ${colorBlue[2]})`);
                     }
                 }
             }
@@ -143,9 +151,21 @@ function triggerLanguageChange() {
         for (let i = 0; i < pathPortuguese.length; i++) {
 
             let portList = getCoords(pathPortuguese[i]);
+            let skipIter = false;
 
             for (let j = 0; j < portList.length; j++) {
-                portList[j] += pathMod * deltaPath[i][j] / 30;
+                if (pathMod*count >= pathMod*(steps-5 + (1 - (1+pathMod)/2)*5) && pathPortuguese[i].id.includes("dre")) {
+                    portList[j] += pathMod * deltaPath[i][j] / steps;
+                } else if(pathMod*count <= pathMod*(steps-5 + ((1+pathMod)/2)*5) && !pathPortuguese[i].id.includes("dre")) {
+                    portList[j] += pathMod * deltaPath[i][j] / steps;
+                } else {
+                    skipIter = true;
+                    break;
+                }
+            }
+
+            if(skipIter) {
+                continue;
             }
 
             pathPortuguese[i].setAttribute('d', ` M ${portList[0]} ${portList[1]} L ${portList[2]} ${portList[3]} L ${portList[4]} ${portList[5]} L ${portList[6]} ${portList[7]} Z `);
@@ -155,10 +175,10 @@ function triggerLanguageChange() {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
 
                     if (pathPortuguese[i].id.includes('red')) {
-                        let newColor = stepColor(color, colorRed, 30);
+                        let newColor = stepColor(color, colorRed, steps);
                         pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                     } else if (pathPortuguese[i].id.includes('green')) {
-                        let newColor = stepColor(color, colorGreen, 30);
+                        let newColor = stepColor(color, colorGreen, steps);
                         pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                     }
                 }
@@ -167,10 +187,10 @@ function triggerLanguageChange() {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
 
                     if (pathPortuguese[i].id.includes('dre')) {
-                        let newColor = stepColor(color, colorDre, 30);
+                        let newColor = stepColor(color, colorDre, steps);
                         pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                     } else if (pathPortuguese[i].id.includes('blue')) {
-                        let newColor = stepColor(color, colorBlue, 30);
+                        let newColor = stepColor(color, colorBlue, steps);
                         pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                     }
                 }
@@ -178,7 +198,7 @@ function triggerLanguageChange() {
         }
 
         count++;
-    }, 500 / 30);
+    }, 200 / steps);
 }
 
 function stepColor(color, targetColor, step) {
