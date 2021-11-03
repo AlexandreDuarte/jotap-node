@@ -13,11 +13,19 @@ var navBar;
 var navText;
 var navMenuButton;
 
+var lastScrollTop;
+
+var navOffset;
+
+var mouseLeftFlag = false;
+
 window.onresize = () => {
     collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 };
 
 window.onload = () => {
+
+
 
     pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
     pathAmerican = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
@@ -49,6 +57,32 @@ window.onload = () => {
     navMenuButton = document.getElementById("nav-arrow-button");
 
     setupNavListeners();
+
+    navOffset = 0;
+    lastScrollTop = 0;
+
+    window.addEventListener('scroll', e => {
+
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        console.log(navOffset);
+
+        if (scrollTop > lastScrollTop) { 
+            navOffset = Math.max(navOffset - scrollTop + lastScrollTop, -50);
+            navBar.style.top = `${navOffset}px`;
+        }
+
+        else {
+            navOffset = Math.min(navOffset - scrollTop + lastScrollTop, 0);
+            navBar.style.top = `${navOffset}px`;
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+
+    setTimeout(() => {
+        if (!mouseLeftFlag) document.getElementById('language-select').className = "bandw";
+    }, 3000);
 };
 
 function setupNavListeners() {
@@ -88,9 +122,22 @@ function setupNavListeners() {
             collapseMenu();
         }
     });
+
+    document.getElementById('language-select-shell').addEventListener('mouseenter', e => {
+        if (!languageChangeAnim) document.getElementById('language-select').className = "";
+        mouseLeftFlag = false;
+    });
+
+    document.getElementById('language-select-shell').addEventListener('mouseleave', e => {
+        if (!languageChangeAnim) document.getElementById('language-select').className = "bandw";
+        mouseLeftFlag = true;
+    });
 }
 
 var languageChange = false;
+var languageChangeAnim = false;
+
+var endAnimTimeout;
 
 var steps = 15;
 
@@ -98,9 +145,15 @@ function triggerLanguageChange() {
 
     if (languageChange) return;
 
+    if (languageChangeAnim) {
+        window.clearTimeout(endAnimTimeout);
+    }
+
     english = !english;
 
     languageChange = true;
+    languageChangeAnim = true;
+
     var count = 0;
     var colorRed = [255, 0, 0];
     var colorGreen = [0, 102, 0];
@@ -142,7 +195,13 @@ function triggerLanguageChange() {
                     }
                 }
             }
-            
+
+            endAnimTimeout = setTimeout(() => {
+                languageChangeAnim = false;
+                if (mouseLeftFlag) document.getElementById('language-select').className = "bandw";
+            }, 2000);
+
+
 
             languageChange = false;
             pathMod = -pathMod;
@@ -159,7 +218,7 @@ function triggerLanguageChange() {
             }
 
             pathPortuguese[i].setAttribute('d', ` M ${portList[0]} ${portList[1]} L ${portList[2]} ${portList[3]} L ${portList[4]} ${portList[5]} L ${portList[6]} ${portList[7]} Z `);
-        
+
             if (!english) {
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
@@ -192,7 +251,7 @@ function triggerLanguageChange() {
 }
 
 function stepColor(color, targetColor, step) {
-    return [parseInt(color[0]) + (targetColor[0] - parseInt(color[0]))/step, parseInt(color[1]) + (targetColor[1] - parseInt(color[1]))/step, parseInt(color[2]) + (targetColor[2] - parseInt(color[2]))/step];
+    return [parseInt(color[0]) + (targetColor[0] - parseInt(color[0])) / step, parseInt(color[1]) + (targetColor[1] - parseInt(color[1])) / step, parseInt(color[2]) + (targetColor[2] - parseInt(color[2])) / step];
 }
 
 function getCoords(element) {

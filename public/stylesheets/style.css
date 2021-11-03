@@ -58,16 +58,22 @@ body {
 
 #language-select {
   position: fixed;
-  right: 5%;
-  bottom: 5%;
+  right: 4vh;
+  bottom: calc(4vh - 30px*11/32);
   width: 30px;
   height: 30px;
+  transition: filter 500ms;
+}
+
+.bandw {
+  filter: saturate(400%) grayscale(100%) invert(80%) contrast(150%) brightness(40%);
+  transition: filter 500ms;
 }
 
 #language-select-shell {
   position: fixed;
-  right: 5%;
-  bottom: 5%;
+  right: 4vh;
+  bottom: calc(4vh - 30px*11/32);
   width: 30px;
   height: 30px;
   z-index: 1;
