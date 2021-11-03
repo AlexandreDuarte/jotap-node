@@ -9,7 +9,13 @@ var usersRouter = require('./routes/users');
 
 var mongoose = require('mongoose');
 
-//mongoose.connect('mongodb://localhost:27017/obras');
+const uri = "mongodb+srv://jotap:vXlnuT67av6qQPYM@jota-web.jefgf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  //const collection = client.db("test").collection("devices");
+  client.close();
+});
 
 const obraSchema = new mongoose.Schema({
     title: String,
@@ -24,7 +30,7 @@ obraSchema.method.getFilepath = () => {
     return '/data/' + this.category + '/' + this.filename + '.png';
 };
 
-const obra = mongoose.model('piece', obraSchema);
+const obra = mongoose.model('obra', obraSchema);
 
 var app = express();
 
