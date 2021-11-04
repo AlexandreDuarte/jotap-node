@@ -23,6 +23,12 @@ var animationIntervalID;
 
 var show = true;
 
+window.onpopstate = () => {
+    if (window.location.href.split('/')[3] === "sobre") {
+        requestContent("sobrepage");
+    } else requestContent("homepage");
+}
+
 
 window.onresize = () => {
     collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
