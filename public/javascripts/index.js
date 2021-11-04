@@ -19,6 +19,11 @@ var navOffset;
 
 var mouseLeftFlag = false;
 
+var animationIntervalID;
+
+var show = true;
+
+
 window.onresize = () => {
     collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 };
@@ -63,20 +68,39 @@ window.onload = () => {
 
     window.addEventListener('scroll', e => {
 
+        if (collapsableMenuBG.className === "nav-extended") return;
+
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
         console.log(navOffset);
-
-        if (scrollTop > lastScrollTop) { 
-            navOffset = Math.max(navOffset - scrollTop + lastScrollTop, -50);
-            navBar.style.top = `${navOffset}px`;
-        }
-
-        else {
-            navOffset = Math.min(navOffset - scrollTop + lastScrollTop, 0);
-            navBar.style.top = `${navOffset}px`;
-        }
         
+        if (scrollTop > lastScrollTop) {
+            if (show) {
+                show = false;
+                window.clearInterval(animationIntervalID);
+                animationIntervalID = setInterval(() => {
+                    if (navOffset > -50) {
+                        navOffset -= 5;
+                        navBar.style.top = `${navOffset}px`;
+                    } else {
+                        window.clearInterval(animationIntervalID);
+                    }
+                }, 20);
+            }
+        }
+        else if (!show) {
+            show = true;
+            window.clearInterval(animationIntervalID);
+            animationIntervalID = setInterval(() => {
+                if (navOffset < 0) {
+                    navOffset += 5;
+                    navBar.style.top = `${navOffset}px`;
+                } else {
+                    window.clearInterval(animationIntervalID);
+                }
+            }, 20);
+        }
+
         lastScrollTop = scrollTop;
     });
 
