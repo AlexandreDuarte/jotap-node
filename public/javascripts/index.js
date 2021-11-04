@@ -31,7 +31,6 @@ window.onresize = () => {
 window.onload = () => {
 
 
-
     pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
     pathAmerican = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
 
@@ -43,15 +42,12 @@ window.onload = () => {
         let deltaSub = [];
 
         for (let j = 0; j < portList.length; j++) {
-            console.log(portList[j], amerList[j]);
             deltaSub.push(amerList[j] - portList[j]);
         }
 
         deltaPath.push(deltaSub);
 
     }
-
-    console.log(deltaPath);
 
     collapsableMenu = document.getElementById("nav-menu-left");
     collapsableMenuBG = document.getElementById("nav-menu-left-background");
@@ -63,6 +59,11 @@ window.onload = () => {
 
     setupNavListeners();
 
+    if (window.location.href.split('/')[3] === "sobre") {
+        requestContent("sobrepage");
+    } else requestContent("homepage");
+
+
     navOffset = 0;
     lastScrollTop = 0;
 
@@ -72,8 +73,6 @@ window.onload = () => {
 
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        console.log(navOffset);
-        
         if (scrollTop > lastScrollTop) {
             if (show) {
                 show = false;
@@ -115,7 +114,7 @@ function setupNavListeners() {
 
     collapsableMenuButton.addEventListener('mouseout', e => {
 
-        if (e.offsetY >= collapsableMenuButtonlet.offsetHeight + collapsableMenuButton.offsetTop) return;
+        if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
 
         if (collapsableMenuBG.className === "nav-extended") {
             collapseMenu();
@@ -380,7 +379,6 @@ function navMenuButtonPress(el) {
 }
 
 function extendMenu() {
-    if (midAnimation) return;
     midAnimation = true;
 
     collapsableMenuButton.className = "selected";
@@ -409,6 +407,36 @@ function collapseMenu() {
         controller.abort();
     }, { signal: controller.signal });
 
+
+}
+
+function requestContent(contentIDs) {
+    var request = new XMLHttpRequest();
+
+    request.onload = function () {
+        console.log(this.responseText);
+        document.getElementById("content").innerHTML = this.responseText;
+
+        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+    };
+
+    request.open("GET", contentIDs);
+    request.send();
+}
+
+function centerTextButton() {
+    if (window.location.href.split('/').length == 3) return;
+
+    window.history.pushState({}, '', window.location.href.split('/')[0] + '/' + window.location.href.split('/')[1] + '/' + window.location.href.split('/')[2]);
+    requestContent("homepage");
+
+}
+
+function sobreButton() {
+    if (window.location.href.split('/')[3] === "sobre") return;
+
+    window.history.pushState({}, '', window.location.href + 'sobre');
+    requestContent("sobrepage");
 
 }
 

@@ -290,6 +290,7 @@ ol {
   align-items: center;
   width: max(350px, 30%);
   margin: auto;
+  cursor: pointer;
 }
 
 .nav-right {

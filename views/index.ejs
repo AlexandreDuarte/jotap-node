@@ -15,32 +15,7 @@
 </head>
 
 <body>
-    <nav id="nav-bar" class="nav-open">
-        <div class="nav-left">
-            <button id="nav-button-left" class="not-selected">PORTFÓLIO</button>
-            <button id="nav-button">EXPOSIÇÕES</button>
-            <nav id="nav-menu-left">
-                <div id="nav-menu-left-background">
-                    <div id="nav-menu-left-buffer"></div>
-                    <button id="nav-menu-left-button" class="nav-menu-button">TELAS</button>
-                    <button id="nav-menu-left-button" class="nav-menu-button">MURAIS</button>
-                    <button id="nav-menu-left-button" class="nav-menu-button">TRIDIMENSIONAIS</button>
-                    <div id="nav-menu-left-buffer"></div>
-                </div>
-            </nav>
-        </div>
-        <div class="nav-center-all">
-            <p id="nav-text" class="nav-text-in">João Ribeiro</p>
-            <div id="nav-center" class="nav-center-in"></div>
-        </div>
-        <div class="nav-right">
-            <button id="nav-button">SOBRE</button>
-            <button id="nav-button">CONTACTOS</button>
-        </div>
-        <button id="nav-arrow-button" onclick="navButtonPress()"></button>
-
-
-    </nav>
+    <%- include('navbar.ejs') %> 
 
     <button id="language-select-shell" onclick="triggerLanguageChange()"></button>
     <object id="language-select" class="" data="/images/flag.svg" type="image/svg+xml">
@@ -49,31 +24,9 @@
     <object id="language-select-hidden" data="/images/american-flag.svg" type="image/svg+xml">
     </object>
 
-    <section class="section-banner">
-        <div id="banner">
-            <div id="banner-background"></div>
-            
-            <div id="arrow-left" class="banner-button"></div>
-            <div id="selection-bar" class="selection-bar">
-                <ol>
-                    <li class="bar"></li><li class="bar"></li><li class="bar"></li>
-                </ol>
-            </div>
-            <div id="selected-bar" class="bar selection-bar selected"></div>
-            <div id="arrow-right" class="banner-button"></div>
-        </div>
-        <h1 id="banner-title">Titulo do painel</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor vel velit id ornare. Pellentesque a enim
-            metus. Nunc vel efficitur leo. Aenean commodo massa diam, aliquam viverra lacus aliquet sit amet. Vivamus
-            pulvinar non urna nec viverra. Nam viverra, est a vehicula tincidunt, quam enim maximus dui, sit amet ornare
-            velit felis quis purus. Nullam sapien tortor, tempor sed luctus at, fermentum non nibh. Mauris urna neque,
-            pellentesque nec finibus vitae, pulvinar eu turpis. Quisque non purus luctus, dapibus justo in, dictum est.
-            In tempus tincidunt facilisis. Proin id turpis ultricies, sollicitudin arcu sed, cursus nunc. Pellentesque
-            consectetur odio quis tellus hendrerit, at scelerisque lorem posuere. </p>
-    </section>
-    <section class="section-list">
-
-    </section>
+    <div id="content">
+        
+    </div>
 </body>
 
 </html>
