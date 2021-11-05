@@ -14,6 +14,8 @@
 
   --text-color: #505050;
 
+  --nav-height: 50px;
+
   scrollbar-color: var(--nav-highlight-color) var(--nav-color);
 
   font-family: 'Roboto', sans-serif;
@@ -100,7 +102,7 @@ h1 {
   display: flex;
   position: fixed;
   width: 100%;
-  height: max(50px, 5vh);
+  height: var(--nav-height);
   top: 0;
   background-color: var(--nav-secondary-color);
   isolation: isolate;
@@ -114,7 +116,7 @@ h1 {
 
 #nav-menu-left {
   /*left: calc(100%*0.35/4 - max(calc(0.3*(100% - max(400px, 30%))/2), 150px)/2);*/
-  top: max(50px, 5vh);
+  top: var(--nav-height);
   position: absolute;
   width: max(calc(0.3*(100% - max(400px, 30%))/2), 150px);
   overflow: hidden;
@@ -288,7 +290,7 @@ ol {
 #nav-center {
   background-color: var(--nav-color);
   width: 100%;
-  height: max(50px, 5vh);
+  height: var(--nav-height);
   box-shadow: 5px 0px 10px var(--nav-color)
               -5px 0px 10px var(--nav-color);
   transform-origin: 50% 50%;
@@ -360,7 +362,7 @@ ol {
   width: 100%;
   user-select: none;
   font-size: 13px;
-  height: calc(max(50px, 5vh)/2);
+  height: calc(var(--nav-height)/2);
   background-color: var(--nav-color);
   color: var(--nav-highlight-color);
   cursor: pointer;
@@ -381,7 +383,7 @@ ol {
 }
 
 #nav-menu-left-buffer {
-  height: calc(max(50px, 5vh)/4);
+  height: calc(var(--nav-height)/4);
   background-color: var(--nav-color);
 }
 
@@ -397,7 +399,7 @@ ol {
   filter: invert(5%) sepia(2%) saturate(5867%) hue-rotate(163deg) brightness(92%) contrast(88%);    
   z-index: 1;
   right: calc(50% - max(20px, 2vh)/2);
-  top: max(50px, 5vh);
+  top: var(--nav-height);
   cursor: pointer;
 
 }
@@ -429,7 +431,7 @@ ol {
 }
 
 .grid-item:hover * p {
-  height: 40px;
+  height: 35px;
   transition: height 400ms;
 }
 
