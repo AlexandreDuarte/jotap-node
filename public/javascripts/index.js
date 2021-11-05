@@ -24,10 +24,16 @@ var animationIntervalID;
 var show = true;
 
 window.onpopstate = () => {
-    if (window.location.href.split('/')[3] === "sobre") {
+    if (window.location.pathname === "/sobre") {
         requestContent("sobrepage");
+    } else if (window.location.pathname === "/contactos") {
+        requestContent("contactospage");
+    } else if (window.location.pathname === "/exposicoes") {
+        requestContent("exposicoespage");
+    } else if (window.location.pathname === "/portfolio") {
+        requestContent("portfoliopage");
     } else requestContent("homepage");
-}
+};
 
 
 window.onresize = () => {
@@ -65,8 +71,16 @@ window.onload = () => {
 
     setupNavListeners();
 
-    if (window.location.href.split('/')[3] === "sobre") {
+    
+
+    if (window.location.pathname === "/sobre") {
         requestContent("sobrepage");
+    } else if (window.location.pathname === "/contactos") {
+        requestContent("contactospage");
+    } else if (window.location.pathname === "/exposicoes") {
+        requestContent("exposicoespage");
+    } else if (window.location.pathname === "/portfolio") {
+        requestContent("portfoliopage");
     } else requestContent("homepage");
 
 
@@ -82,28 +96,20 @@ window.onload = () => {
         if (scrollTop > lastScrollTop) {
             if (show) {
                 show = false;
-                window.clearInterval(animationIntervalID);
-                animationIntervalID = setInterval(() => {
-                    if (navOffset > -50) {
-                        navOffset -= 5;
-                        navBar.style.top = `${navOffset}px`;
-                    } else {
-                        window.clearInterval(animationIntervalID);
-                    }
-                }, 20);
+                if (navOffset > -50) {
+                    navOffset = -50;
+                    navBar.style.top = `${navOffset}px`;
+                    navBar.style.transition = "top 100ms";
+                }
             }
         }
         else if (!show) {
             show = true;
-            window.clearInterval(animationIntervalID);
-            animationIntervalID = setInterval(() => {
-                if (navOffset < 0) {
-                    navOffset += 5;
-                    navBar.style.top = `${navOffset}px`;
-                } else {
-                    window.clearInterval(animationIntervalID);
-                }
-            }, 20);
+            if (navOffset < 0) {
+                navOffset = 0;
+                navBar.style.top = `${navOffset}px`;
+                navBar.style.transition = "top 100ms";
+            }
         }
 
         lastScrollTop = scrollTop;
@@ -431,20 +437,45 @@ function requestContent(contentIDs) {
 }
 
 function centerTextButton() {
-    if (window.location.href.split('/').length == 3) return;
+    if (window.location.href === window.location.origin) return;
 
-    window.history.pushState({}, '', window.location.href.split('/')[0] + '/' + window.location.href.split('/')[1] + '/' + window.location.href.split('/')[2]);
+    window.history.pushState({}, '', window.location.origin);
     requestContent("homepage");
 
 }
 
 function sobreButton() {
-    if (window.location.href.split('/')[3] === "sobre") return;
+    if (window.location.pathname === "/sobre") return;
 
-    window.history.pushState({}, '', window.location.href + 'sobre');
+    window.history.pushState({}, '', window.location.origin + "/" + 'sobre');
     requestContent("sobrepage");
 
 }
+
+function contactosButton() {
+    if (window.location.pathname === "/contactos") return;
+
+    window.history.pushState({}, '', window.location.origin + "/"+ 'contactos');
+    requestContent("contactospage");
+
+}
+
+function portfolioButton() {
+    if (window.location.pathname === "/portfolio") return;
+
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio');
+    requestContent("portfoliopage");
+
+}
+
+function exposicoesButton() {
+    if (window.location.pathname === "/exposicoes") return;
+
+    window.history.pushState({}, '', window.location.origin + "/" + 'exposicoes');
+    requestContent("exposicoespage");
+
+}
+
 
 
 

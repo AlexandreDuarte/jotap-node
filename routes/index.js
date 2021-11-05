@@ -6,15 +6,40 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/sobre/', function(req, res, next) {
+router.get('/sobre', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/sobrepage/', function(req, res, next) {
+router.get('/exposicoes', function(req, res, next) {
+  res.render('index');
+});
+
+router.get('/contactos', function(req, res, next) {
+  res.render('index');
+});
+
+router.get('/portfolio', function(req, res, next) {
+  res.render('index');
+});
+
+router.get('/sobrepage', function(req, res, next) {
   res.render('sobre');
 });
 
-router.get('/homepage/', function(req, res, next) {
+router.get('/exposicoespage', function(req, res, next) {
+  res.render('exposicoes');
+});
+
+router.get('/contactospage', function(req, res, next) {
+  res.render('contactos');
+});
+
+router.get('/portfoliopage', function(req, res, next) {
+  res.render('portfolio');
+});
+
+
+router.get('/homepage', function(req, res, next) {
   res.render('homepage');
 });
 
