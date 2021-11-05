@@ -158,6 +158,7 @@ section {
   height: 200px;
   margin-left: auto;
   margin-right: auto;
+  border-bottom: 1px solid var(--nav-secundary-color);
 }
 
 
@@ -406,30 +407,61 @@ ol {
 }
 
 .grid-container {
-  width: 90vw;
+  width: 100%;
   display: grid;
   grid-template-columns: auto auto;
-  margin-top: 7.5vw;
-  column-gap: 10vw;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  column-gap: 2vw;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-  row-gap: 5vw;
+  row-gap: 4vw;
 }
 
 .grid-item {
-  background-color: var(--background-color);
-  width: 30vw;
-  aspect-ratio: 1;
+  background-color: transparent;
+  width: calc(max(70vw, 800px)/2 - 3vw);
+  aspect-ratio: 4/3;
   overflow: hidden;
+  transform: scale(100%);
+  transition: transform 400ms;
+}
+
+.grid-item:hover * p {
+  height: 40px;
+  transition: height 400ms;
+}
+
+.grid-item:hover {
+  transform: scale(110%);
+  transition: transform 400ms;
+  cursor: pointer;
 }
 
 .grid-p {
-  height: calc(30vw*0.9 - 30vw*3/4 - 15px);
-  white-space: pre-wrap;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2; 
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  bottom: 0;
+  height: 0;
+  transition: height 400ms;
+}
+
+.grid-h {
+  mix-blend-mode: difference;
+  position: relative;
+  padding-top: 5px;
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .grid-item-content {
+  position: relative;
   margin: 5%;
   width: 90%;
   aspect-ratio: 4/3;
@@ -437,6 +469,18 @@ ol {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.grid-info {
+  display: flex;
+  flex-flow: column nowrap;
+  position: absolute;
+  margin-top: auto;
+  padding-top: 5px;
+  background:var(--section-background);
+  width: 100%;
+  opacity: 0.6;
+  bottom: 0;
 }
 
 .rotate-1 {
