@@ -450,6 +450,7 @@ ol {
   bottom: 0;
   height: 0;
   transition: height 400ms;
+  user-select: none;
 }
 
 .grid-h {
@@ -458,6 +459,7 @@ ol {
   padding-top: 5px;
   margin-top: auto;
   margin-bottom: 0;
+  user-select: none;
 }
 
 .grid-item-content {
