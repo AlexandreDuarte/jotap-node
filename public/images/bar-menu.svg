@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16.0px"
+   height="16.0px"
+   viewBox="0 0 16.0 16.0"
+   version="1.1"
+   id="SVGRoot"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs16" />
+  <g
+     id="layer1">
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;fill-rule:evenodd;stroke-width:0.953466"
+       id="rect74"
+       width="10"
+       height="2"
+       x="3"
+       y="4" />
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;fill-rule:evenodd;stroke-width:0.953466"
+       id="rect76"
+       width="10"
+       height="2"
+       x="3"
+       y="7" />
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;fill-rule:evenodd;stroke-width:0.953466"
+       id="rect78"
+       width="10"
+       height="2"
+       x="3"
+       y="10" />
+  </g>
+</svg>
