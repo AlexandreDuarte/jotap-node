@@ -57,12 +57,14 @@ body {
 }
 
 #language-select {
-  position: fixed;
-  right: 4vh;
-  bottom: calc(4vh - 30px*11/32);
   width: 30px;
   height: 30px;
   transition: filter 500ms;
+}
+
+#flag-container {
+  width: 30px;
+  height: 30px;
 }
 
 .bandw {
@@ -70,10 +72,16 @@ body {
   transition: filter 500ms;
 }
 
-#language-select-shell {
-  position: fixed;
-  right: 4vh;
+.flag-sticky {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  position: sticky;
   bottom: calc(4vh - 30px*11/32);
+  width: calc(100% - 8vh);
+}
+
+#language-select-shell {
+  position: absolute;
   width: 30px;
   height: 30px;
   z-index: 1;
@@ -146,8 +154,42 @@ section {
   width: max(70vw, 800px);
 }
 
+footer {
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: var(--nav-color);
+  width: 100%;
+  height: 60px;
+  margin-top: 20px;
+}
+
+.text-footer {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.icon {
+  width: 30px;
+  aspect-ratio: 1;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(90%);
+  margin: 5px;
+}
+
+.icon-face {
+  background-image: url(../images/facebook.svg);
+}
+
+.icon-insta {
+  background-image: url(../images/instagram.svg);
+}
+
 .section-banner {
   margin-top: 70px;
+  border-bottom: 1px solid var(--nav-secondary-color);
+  padding-bottom: 20px;
 }
 
 .section-list {
@@ -181,26 +223,36 @@ section {
 
 #banner {
   position: relative;
-  overflow: clip;
+  overflow: hidden;
   width: calc(80vw - 40px);
   aspect-ratio: 16/9;
   
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+  display: inline-box;
+  display: -webkit-inline-box;
 
   margin: 20px 0px;
 }
 
-#banner-background {
+.banner-background {
   width: 100%;
   aspect-ratio: 16/9;
-  background-image: url('../images/background.jpg');
   background-size: 100% auto;
   background-position-y: center;
   background-repeat: no-repeat;
   position: relative;
+  transform: translateX(-100%);
+}
+
+.banner-background-left {
+  background-image: url('../images/back-back.jpg');
+}
+
+.banner-background-center {
+  background-image: url('../images/background.jpg');
+}
+
+.banner-background-right {
+  background-image: url('../data/tela/obra-1.jpg');
 }
 
 ol {
@@ -251,6 +303,7 @@ ol {
   transform: rotate(180deg);
   cursor: pointer;
   opacity: 0.686;
+  z-index: 1;
 }
 
 #arrow-right {
@@ -261,6 +314,7 @@ ol {
   background-size: contain;
   cursor: pointer;
   opacity: 0.686;
+  z-index: 1;
 }
 
 .intro-background {

@@ -23,6 +23,7 @@ var animationIntervalID;
 
 var show = true;
 
+
 window.onpopstate = () => {
     if (window.location.pathname === "/sobre") {
         requestContent("sobrepage");
@@ -476,7 +477,59 @@ function exposicoesButton() {
 
 }
 
+var bannerPos = 0;
 
+function leftBannerButton() {
+    if (bannerPos == 1) return;
+
+    bannerPos += 1;
+
+    if(bannerPos == 1) {
+        document.getElementById("arrow-left").style.opacity = "0";
+    } else {
+        document.getElementById("arrow-right").style.opacity = "0.7";
+    }
+
+    let elements = document.getElementsByClassName("banner-background");
+
+    for (let i = 0; i < 3; i++) {
+        elements[i].style.transform = `translateX(${(bannerPos-1)*100}%)`;
+        elements[i].style.transition = 'transform 100ms';
+    }
+
+    let bar = document.getElementById("selected-bar");
+
+    
+    bar.style.transform = `translateX(${(-0.5-bannerPos)*100}%)`;
+    bar.style.transition = 'transform 100ms';
+}
+
+function rightBannerButton() {
+    if (bannerPos == -1) {
+        return;
+    }
+
+    bannerPos -= 1;
+
+    if(bannerPos == -1) {
+        document.getElementById("arrow-right").style.opacity = "0";
+    } else {
+        document.getElementById("arrow-left").style.opacity = "0.7";
+    }
+
+    let elements = document.getElementsByClassName("banner-background");
+
+    for (let i = 0; i < 3; i++) {
+        elements[i].style.transform = `translateX(${(bannerPos-1)*100}%)`;   
+        elements[i].style.transition = 'transform 100ms';
+    }
+
+    let bar = document.getElementById("selected-bar");
+
+    
+    bar.style.transform = `translateX(${(-0.5-bannerPos)*100}%)`;
+    bar.style.transition = 'transform 100ms';
+}
 
 
 function whichAnimationEvent() {
