@@ -23,6 +23,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
+
 body::-webkit-scrollbar {
   width: auto;
 }
@@ -156,6 +157,7 @@ section {
   border-right: 1px solid var(--nav-secondary-color);
   border-left: 1px solid var(--nav-secondary-color);
   width: max(70vw, 800px);
+  min-height: calc(100vh - 120px);
 }
 
 footer {
@@ -170,6 +172,7 @@ footer {
 .text-footer {
   margin-top: auto;
   margin-bottom: auto;
+  width: calc(100% - 100px);
 }
 
 .icon {
