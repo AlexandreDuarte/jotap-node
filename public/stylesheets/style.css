@@ -470,7 +470,7 @@ ol {
 .grid-container {
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
   margin-top: 2vw;
   margin-bottom: 2vw;
   column-gap: 2vw;
@@ -482,7 +482,7 @@ ol {
 
 .grid-item {
   background-color: transparent;
-  width: calc(max(70vw, 800px)/2 - 3vw);
+  width: max(60vw, 800px);
   aspect-ratio: 4/3;
   overflow: hidden;
   transform: scale(100%);
@@ -528,7 +528,6 @@ ol {
   margin: 5%;
   width: 90%;
   aspect-ratio: 4/3;
-  background-image: url(../data/tela/obra-1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

@@ -1,5 +1,5 @@
 <section class="section-banner"><div class="grid-container">
-    <% for( let i = 0; i < 4; i++ ) { %>
-    <%- include('griditem.ejs') %>
+    <% for( let i = 0; i < obras.length; i++ ) { %>
+    <%- include('griditem.ejs', {obra: obras[i]}) %>
     <% } %>
 </div></section>

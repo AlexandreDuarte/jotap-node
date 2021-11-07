@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const obraSchema = new mongoose.Schema({
     titlept: String,
     titleen: String,
@@ -9,9 +11,10 @@ const obraSchema = new mongoose.Schema({
     public: Boolean
 });
 
-obraSchema.method.getFilepath = () => {
-    return '/data/' + this.category + '/' + this.filename;
-};
+obraSchema.virtual('style').get(function () {
+    return 'background-image: url(/data/' + this.category + '/' + this.filename + ');';
+});
+
 
 const obra = mongoose.model('obra', obraSchema);
 

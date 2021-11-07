@@ -34,11 +34,6 @@ router.get('/contactospage', function(req, res, next) {
   res.render('contactos');
 });
 
-router.get('/portfoliopage', function(req, res, next) {
-  res.render('portfolio');
-});
-
-
 router.get('/homepage', function(req, res, next) {
   res.render('homepage');
 });
