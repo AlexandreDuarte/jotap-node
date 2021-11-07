@@ -265,7 +265,6 @@ footer {
 ol {
   list-style: none;
   padding: 0;
-  cursor: pointer;
   margin: 15px 0px;
 }
 
@@ -276,6 +275,7 @@ ol {
   background-color: var(--nav-secondary-color);
   opacity: 0.8;
   margin: 0;
+  cursor: pointer;
 }
 
 .selection-bar {
