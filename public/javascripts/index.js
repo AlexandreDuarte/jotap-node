@@ -511,13 +511,13 @@ function updateBannerElements() {
     if (bannerPos == 1) {
         document.getElementById("arrow-right").style.opacity = "0";
     } else {
-        document.getElementById("arrow-left").style.opacity = "0.7";
+        document.getElementById("arrow-right").style.opacity = "0.7";
     }
 
     if (bannerPos == -1) {
         document.getElementById("arrow-left").style.opacity = "0";
     } else {
-        document.getElementById("arrow-right").style.opacity = "0.7";
+        document.getElementById("arrow-left").style.opacity = "0.7";
     }
 
     let elements = document.getElementsByClassName("banner-background");
