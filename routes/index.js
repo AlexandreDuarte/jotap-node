@@ -6,32 +6,24 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/sobre', function(req, res, next) {
+router.get('/about', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/exposicoes', function(req, res, next) {
+router.get('/exhibitions', function(req, res, next) {
   res.render('index');
-});
-
-router.get('/contactos', function(req, res, next) {
-  res.render('index');
-});
+})
 
 router.get('/portfolio', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/sobrepage', function(req, res, next) {
+router.get('/aboutpage', function(req, res, next) {
   res.render('sobre');
 });
 
-router.get('/exposicoespage', function(req, res, next) {
+router.get('/exhibitionspage', function(req, res, next) {
   res.render('exposicoes');
-});
-
-router.get('/contactospage', function(req, res, next) {
-  res.render('contactos');
 });
 
 router.get('/homepage', function(req, res, next) {

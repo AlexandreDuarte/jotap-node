@@ -3,7 +3,7 @@ var pathPortuguese, pathAmerican;
 var deltaPath = [];
 var pathMod = 1;
 
-var english = false;
+var english;
 
 var collapsableMenu;
 var collapsableMenuBG;
@@ -23,14 +23,26 @@ var animationIntervalID;
 
 var show = true;
 
+var supportedLanguages = {
+    PT: {
+        pt: "",
+        en: "hide"
+    },
+    EN: {
+        pt: "hide",
+        en: ""
+    }
+}
+
+var currentLanguage;
+var hash;
 
 window.onpopstate = () => {
-    if (window.location.pathname === "/sobre") {
-        requesteContentPage("sobrepage");
-    } else if (window.location.pathname === "/contactos") {
-        requesteContentPage("contactospage");
-    } else if (window.location.pathname === "/exposicoes") {
-        requesteContentPage("exposicoespage");
+    
+    if (window.location.pathname === "/about") {
+        requesteContentPage("aboutpage");
+    } else if (window.location.pathname === "/exhibitions") {
+        requesteContentPage("exhibitionspage");
     } else if (window.location.pathname === "/portfolio") {
         requesteContentPage("portfoliopage");
     } else requesteContentPage("homepage");
@@ -43,6 +55,8 @@ window.onresize = () => {
 
 window.onload = () => {
 
+
+    
 
     pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
     pathAmerican = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
@@ -74,12 +88,10 @@ window.onload = () => {
 
 
 
-    if (window.location.pathname === "/sobre") {
-        requesteContentPage("sobrepage");
-    } else if (window.location.pathname === "/contactos") {
-        requesteContentPage("contactospage");
-    } else if (window.location.pathname === "/exposicoes") {
-        requesteContentPage("exposicoespage");
+    if (window.location.pathname === "/about") {
+        requesteContentPage("aboutpage");
+    } else if (window.location.pathname === "/exhibitions") {
+        requesteContentPage("exhibitionspage");
     } else if (window.location.pathname === "/portfolio") {
         requesteContentPage("portfoliopage");
     } else requesteContentPage("homepage");
@@ -116,6 +128,33 @@ window.onload = () => {
         lastScrollTop = scrollTop;
     });
 
+    if (window.location.hash == "#en") {
+        triggerLanguageChange();
+
+        english = true;
+
+        let ptTextFields = document.querySelectorAll('[lang="pt"]');
+
+        ptTextFields.forEach(function (value) {
+            value.className = "hide";
+        });
+        
+        currentLanguage = supportedLanguages.EN;
+        hash = "#en"
+    } else {
+
+        english = false;
+
+        let enTextFields = document.querySelectorAll('[lang="en"]');
+
+        enTextFields.forEach(function (value) {
+            value.className = "hide";
+        });
+
+        currentLanguage = supportedLanguages.PT;
+        hash = "";
+    }
+
     setTimeout(() => {
         if (!mouseLeftFlag) document.getElementById('language-select').className = "bandw";
     }, 3000);
@@ -125,7 +164,7 @@ function setupNavListeners() {
     collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
     collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 
-    collapsableMenuButton.addEventListener('mouseout', e => {
+    collapsableMenuButton.addEventListener('mouseleave', e => {
 
         if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
 
@@ -220,6 +259,9 @@ function triggerLanguageChange() {
                         pathPortuguese[i].setAttribute('fill', `rgb(${colorGreen[0]}, ${colorGreen[1]}, ${colorGreen[2]})`);
                     }
                 }
+                currentLanguage = supportedLanguages.PT;
+                hash = "";
+
             } else {
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     if (pathPortuguese[i].id.includes("back")) {
@@ -230,7 +272,22 @@ function triggerLanguageChange() {
                         pathPortuguese[i].setAttribute('fill', `rgb(${colorBlue[0]}, ${colorBlue[1]}, ${colorBlue[2]})`);
                     }
                 }
+                currentLanguage = supportedLanguages.EN;
+                hash="#en";
             }
+
+            window.history.pushState({}, '', location.href.replace(location.hash,"") + hash);
+
+            let enTextFields = document.querySelectorAll('[lang="en"]');
+            let ptTextFields = document.querySelectorAll('[lang="pt"]');
+
+            enTextFields.forEach(function (value) {
+                value.className = currentLanguage.en;
+            });
+
+            ptTextFields.forEach(function (value) {
+                value.className = currentLanguage.pt;
+            });
 
             endAnimTimeout = setTimeout(() => {
                 languageChangeAnim = false;
@@ -428,8 +485,19 @@ function requesteContentPage(contentIDs) {
     var request = new XMLHttpRequest();
 
     request.onload = function () {
-        console.log(this.responseText);
-        document.getElementById("content").innerHTML = this.responseText;
+        let content = document.getElementById("content");
+        content.innerHTML = this.responseText;
+
+        let enTextFields = content.querySelectorAll('[lang="en"]');
+        let ptTextFields = content.querySelectorAll('[lang="pt"]');
+
+        enTextFields.forEach(function (value) {
+            value.className = currentLanguage.en;
+        });
+
+        ptTextFields.forEach(function (value) {
+            value.className = currentLanguage.pt;
+        });
 
         collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
     };
@@ -442,8 +510,22 @@ function requesteContent(contentIDs) {
     var request = new XMLHttpRequest();
 
     request.onload = function () {
-        console.log(this.responseText);
-        document.getElementById("content").innerHTML += this.responseText;
+        let content = document.getElementById("content");
+        content.innerHTML += this.responseText;
+
+        let child = content.lastChild;
+
+        let enTextFields = child.querySelectorAll('[lang="en"]');
+        let ptTextFields = child.querySelectorAll('[lang="pt"]');
+
+        enTextFields.forEach(function (value) {
+            value.className = currentLanguage.en;
+        });
+
+        ptTextFields.forEach(function (value) {
+            value.className = currentLanguage.pt;
+        });
+
 
         collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
     };
@@ -457,40 +539,32 @@ function requesteContent(contentIDs) {
 function centerTextButton() {
     if (window.location.href === window.location.origin) return;
 
-    window.history.pushState({}, '', window.location.origin);
+    window.history.pushState({}, '', window.location.origin + "/" + hash);
     requesteContentPage("homepage");
 
 }
 
-function sobreButton() {
-    if (window.location.pathname === "/sobre") return;
+function aboutButton() {
+    if (window.location.pathname === "/about") return;
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'sobre');
-    requesteContentPage("sobrepage");
-
-}
-
-function contactosButton() {
-    if (window.location.pathname === "/contactos") return;
-
-    window.history.pushState({}, '', window.location.origin + "/" + 'contactos');
-    requesteContentPage("contactospage");
+    window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
+    requesteContentPage("aboutpage");
 
 }
 
 function portfolioButton() {
     if (window.location.pathname === "/portfolio") return;
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio');
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + hash);
     requesteContentPage("portfoliopage");
 
 }
 
-function exposicoesButton() {
-    if (window.location.pathname === "/exposicoes") return;
+function exhibitionsButton() {
+    if (window.location.pathname === "/exhibitions") return;
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'exposicoes');
-    requesteContentPage("exposicoespage");
+    window.history.pushState({}, '', window.location.origin + "/" + 'exhibitions' + hash);
+    requesteContentPage("exhibitionspage");
 
 }
 
@@ -501,7 +575,7 @@ function leftBannerButton() {
 
     bannerPos -= 1;
 
-    
+
 
     updateBannerElements();
 
@@ -549,6 +623,11 @@ function updateBannerElements() {
 
     bar.style.transform = `translateX(${(-0.5 + bannerPos) * 100}%)`;
     bar.style.transition = 'transform 100ms';
+}
+
+function closeImageoverlay() {
+    document.getElementById("imageoverlay").outerHTML = "";
+    imagePageOverlay = false;
 }
 
 var imagePageOverlay;

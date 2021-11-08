@@ -1,9 +1,19 @@
 <div id="imageoverlay">
     <div id="grid-imageoverlay">
+        <button id="back" onclick="closeImageoverlay()">
+            <span lang="pt">VOLTAR</span>
+            <span lang="en">BACK</span>
+        </button>
         <img id="imageoverlay-image" src="<%= obra.src %>">
         <div id="imageoverlay-description">
-            <h1><%= obra.titlept %></h1>
-            <p><%= obra.descriptionpt %></p>
+            <h1>
+                <span lang="pt"><%= obra.titlept %></span>
+                <span lang="en"><%= obra.titleen %></span>
+            </h1>
+            <p>
+                <span lang="pt"><%= obra.descriptionpt %></span>
+                <span lang="en"><%= obra.descriptionen %></span>
+            </p>
         </div>
     </div>
 

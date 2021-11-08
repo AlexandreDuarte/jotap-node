@@ -1,7 +1,13 @@
 <nav id="nav-bar" class="nav-open">
     <div class="nav-left">
-        <button id="nav-button-left" class="not-selected" onclick="portfolioButton()">PORTFÓLIO</button>
-        <button id="nav-button" onclick="exposicoesButton()">EXPOSIÇÕES</button>
+        <button id="nav-button-left" class="not-selected" onclick="portfolioButton()">
+            <span lang="pt">PORTFÓLIO</span>
+            <span lang="en">PORTFOLIO</span>
+        </button>
+        <button id="nav-button" onclick="exhibitionsButton()">
+            <span lang="pt">EXPOSIÇÕES</span>
+            <span lang="en">EXHIBITIONS</span>
+        </button>
         <nav id="nav-menu-left">
             <div id="nav-menu-left-background">
                 <div id="nav-menu-left-buffer"></div>
@@ -17,7 +23,10 @@
         <div id="nav-center" class="nav-center-in"></div>
     </div>
     <div class="nav-right">
-        <button id="nav-button" onclick="sobreButton()">SOBRE</button>
+        <button id="nav-button" onclick="aboutButton()">
+            <span lang="pt">SOBRE</span>
+            <span lang="en">ABOUT</span>
+        </button>
     </div>
     <button id="nav-arrow-button" onclick="navButtonPress()"></button>
 
