@@ -3,7 +3,7 @@
   --nav-secondary-color: #52506ebb;
   --nav-highlight-color: #a7a5c5bb;*/
 
-  --nav-color: #1a1a1a;
+  --nav-color: #2c2c2c;
   --nav-secondary-color: #d5d5d5af;
   --nav-highlight-color: #f2f2f2;
   --nav-highlight-color-transparent: #f2f2f200;
@@ -403,7 +403,7 @@ ol {
   background-color: var(--nav-color);
   color: var(--nav-highlight-color);
   text-decoration-color: var(--nav-highlight-color);
-  box-shadow: inset 0px 2px 4px black;
+  box-shadow: inset 0px 2px 4px #202020;
   /*text-decoration: underline;
   text-underline-offset: 0.1rem;*/
   transition: background-color 100ms, color 100ms/*, text-underline-offset 200ms, text-decoration-color 200ms*/;
@@ -412,7 +412,7 @@ ol {
 .selected {
   background-color: var(--nav-color);
   color: var(--nav-highlight-color);
-  box-shadow: inset 0px 2px 4px black;
+  box-shadow: inset 0px 2px 4px #202020;
 }
 
 .nav-menu-button {
@@ -477,7 +477,7 @@ ol {
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-  row-gap: 4vw;
+  row-gap: 2vw;
 }
 
 .grid-item {
@@ -529,8 +529,10 @@ ol {
   width: 90%;
   aspect-ratio: 4/3;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-color: var(--background-color);
+  border: 1px solid var(--nav-secondary-color);
 }
 
 .grid-info {
