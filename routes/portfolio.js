@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var Obra = require('../models/obraschema');
 var router = express.Router();
 
+router.get('/imageoverlay', async function (req, res, next) {
+  let obra = await Obra.findById({ _id: req.query.id }).exec();
+  res.render('imageoverlay', { obra: obra });
+});
 
 router.get('/', async function (req, res, next) {
 
@@ -16,5 +20,7 @@ router.get('/', async function (req, res, next) {
 
   res.render('portfolio', { obras: obras });
 });
+
+
 
 module.exports = router;

@@ -15,6 +15,10 @@ obraSchema.virtual('style').get(function () {
     return 'background-image: url(/data/' + this.category + '/' + this.filename + ');';
 });
 
+obraSchema.virtual('src').get(function () {
+    return '/data/' + this.category + '/' + this.filename;
+})
+
 
 const obra = mongoose.model('obra', obraSchema);
 

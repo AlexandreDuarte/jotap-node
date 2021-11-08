@@ -26,14 +26,14 @@ var show = true;
 
 window.onpopstate = () => {
     if (window.location.pathname === "/sobre") {
-        requestContent("sobrepage");
+        requesteContentPage("sobrepage");
     } else if (window.location.pathname === "/contactos") {
-        requestContent("contactospage");
+        requesteContentPage("contactospage");
     } else if (window.location.pathname === "/exposicoes") {
-        requestContent("exposicoespage");
+        requesteContentPage("exposicoespage");
     } else if (window.location.pathname === "/portfolio") {
-        requestContent("portfoliopage");
-    } else requestContent("homepage");
+        requesteContentPage("portfoliopage");
+    } else requesteContentPage("homepage");
 };
 
 
@@ -75,14 +75,14 @@ window.onload = () => {
 
 
     if (window.location.pathname === "/sobre") {
-        requestContent("sobrepage");
+        requesteContentPage("sobrepage");
     } else if (window.location.pathname === "/contactos") {
-        requestContent("contactospage");
+        requesteContentPage("contactospage");
     } else if (window.location.pathname === "/exposicoes") {
-        requestContent("exposicoespage");
+        requesteContentPage("exposicoespage");
     } else if (window.location.pathname === "/portfolio") {
-        requestContent("portfoliopage");
-    } else requestContent("homepage");
+        requesteContentPage("portfoliopage");
+    } else requesteContentPage("homepage");
 
 
     navOffset = 0;
@@ -423,7 +423,8 @@ function collapseMenu() {
 
 }
 
-function requestContent(contentIDs) {
+function requesteContentPage(contentIDs) {
+    imagePageOverlay = false;
     var request = new XMLHttpRequest();
 
     request.onload = function () {
@@ -437,11 +438,27 @@ function requestContent(contentIDs) {
     request.send();
 }
 
+function requesteContent(contentIDs) {
+    var request = new XMLHttpRequest();
+
+    request.onload = function () {
+        console.log(this.responseText);
+        document.getElementById("content").innerHTML += this.responseText;
+
+        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+    };
+
+    request.open("GET", contentIDs);
+    request.send();
+}
+
+
+
 function centerTextButton() {
     if (window.location.href === window.location.origin) return;
 
     window.history.pushState({}, '', window.location.origin);
-    requestContent("homepage");
+    requesteContentPage("homepage");
 
 }
 
@@ -449,7 +466,7 @@ function sobreButton() {
     if (window.location.pathname === "/sobre") return;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'sobre');
-    requestContent("sobrepage");
+    requesteContentPage("sobrepage");
 
 }
 
@@ -457,7 +474,7 @@ function contactosButton() {
     if (window.location.pathname === "/contactos") return;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'contactos');
-    requestContent("contactospage");
+    requesteContentPage("contactospage");
 
 }
 
@@ -465,7 +482,7 @@ function portfolioButton() {
     if (window.location.pathname === "/portfolio") return;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio');
-    requestContent("portfoliopage");
+    requesteContentPage("portfoliopage");
 
 }
 
@@ -473,7 +490,7 @@ function exposicoesButton() {
     if (window.location.pathname === "/exposicoes") return;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'exposicoes');
-    requestContent("exposicoespage");
+    requesteContentPage("exposicoespage");
 
 }
 
@@ -532,6 +549,15 @@ function updateBannerElements() {
 
     bar.style.transform = `translateX(${(-0.5 + bannerPos) * 100}%)`;
     bar.style.transition = 'transform 100ms';
+}
+
+var imagePageOverlay;
+
+function openImagePage(id) {
+    if (!imagePageOverlay) {
+        requesteContent(`portfoliopage/imageoverlay?id=${id}`);
+        imagePageOverlay = true;
+    }
 }
 
 
