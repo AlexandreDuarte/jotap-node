@@ -481,6 +481,7 @@ function collapseMenu() {
 }
 
 function requesteContentPage(contentIDs) {
+    bannerPos = 0;
     imagePageOverlay = false;
     var request = new XMLHttpRequest();
 
