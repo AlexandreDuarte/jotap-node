@@ -1,5 +1,26 @@
 <nav id="nav-bar" class="nav-open">
+    
+    <div id="nav-menu-left-buffer"></div>
     <div class="nav-left">
+        <button id="nav-small-screen-button" class="not-selected"><i class="icon-bar"></i></button>
+        <nav id="nav-small-screen-menu">
+            <div id="nav-small-screen-menu-background">
+                <div id="nav-menu-left-buffer"></div>
+                <button id="nav-small-screen-menu-button" class="nav-menu-button"  onclick="portfolioButton()">
+                    <span lang="pt">PORTFÓLIO</span>
+                    <span lang="en">PORTFOLIO</span>
+                </button>
+                <button id="nav-small-screen-menu-button" class="nav-menu-button"  onclick="exhibitionsButton()">
+                    <span lang="pt">EXPOSIÇÕES</span>
+                    <span lang="en">EXHIBITIONS</span>
+                </button>
+                <button id="nav-small-screen-menu-button" class="nav-menu-button" onclick="aboutButton()">
+                    <span lang="pt">SOBRE</span>
+                    <span lang="en">ABOUT</span>
+                </button>
+                <div id="nav-menu-left-buffer"></div>
+            </div>
+        </nav>
         <button id="nav-button-left" class="not-selected" onclick="portfolioButton()">
             <span lang="pt">PORTFÓLIO</span>
             <span lang="en">PORTFOLIO</span>
@@ -10,7 +31,6 @@
         </button>
         <nav id="nav-menu-left">
             <div id="nav-menu-left-background">
-                <div id="nav-menu-left-buffer"></div>
                 <button id="nav-menu-left-button" class="nav-menu-button">
                     <span lang="pt">TELAS</span>
                     <span lang="en">CANVAS</span>

@@ -37,8 +37,11 @@ var supportedLanguages = {
 var currentLanguage;
 var hash;
 
+var narrowListeners = false;
+var wideListeners = false;
+
 window.onpopstate = () => {
-    
+
     if (window.location.pathname === "/about") {
         requesteContentPage("aboutpage");
     } else if (window.location.pathname === "/exhibitions") {
@@ -51,15 +54,44 @@ window.onpopstate = () => {
 
 window.onresize = () => {
     collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+
+    identifyCollapsableMenu();
+
 };
 
 window.onload = () => {
 
 
-    
-
     pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
     pathAmerican = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
+
+
+    if (window.location.hash == "#en") {
+        triggerLanguageChange();
+
+        english = true;
+
+        let ptTextFields = document.querySelectorAll('[lang="pt"]');
+
+        ptTextFields.forEach(function (value) {
+            value.className = "hide";
+        });
+
+        currentLanguage = supportedLanguages.EN;
+        hash = "#en"
+    } else {
+
+        english = false;
+
+        let enTextFields = document.querySelectorAll('[lang="en"]');
+
+        enTextFields.forEach(function (value) {
+            value.className = "hide";
+        });
+
+        currentLanguage = supportedLanguages.PT;
+        hash = "";
+    }
 
     for (let i = 0; i < pathPortuguese.length; i++) {
 
@@ -76,17 +108,27 @@ window.onload = () => {
 
     }
 
-    collapsableMenu = document.getElementById("nav-menu-left");
-    collapsableMenuBG = document.getElementById("nav-menu-left-background");
-    collapsableMenuButton = document.getElementById("nav-button-left");
+    
     navCenter = document.getElementById("nav-center");
     navBar = document.getElementById("nav-bar");
     navText = document.getElementById("nav-text");
     navMenuButton = document.getElementById("nav-arrow-button");
+    identifyCollapsableMenu();
 
-    setupNavListeners();
+
+    setupNavListenersWideScreen();
 
 
+
+    document.getElementById('language-select-shell').addEventListener('mouseenter', e => {
+        if (!languageChangeAnim) document.getElementById('language-select').className = "";
+        mouseLeftFlag = false;
+    });
+
+    document.getElementById('language-select-shell').addEventListener('mouseleave', e => {
+        if (!languageChangeAnim) document.getElementById('language-select').className = "bandw";
+        mouseLeftFlag = true;
+    });
 
     if (window.location.pathname === "/about") {
         requesteContentPage("aboutpage");
@@ -128,39 +170,36 @@ window.onload = () => {
         lastScrollTop = scrollTop;
     });
 
-    if (window.location.hash == "#en") {
-        triggerLanguageChange();
 
-        english = true;
-
-        let ptTextFields = document.querySelectorAll('[lang="pt"]');
-
-        ptTextFields.forEach(function (value) {
-            value.className = "hide";
-        });
-        
-        currentLanguage = supportedLanguages.EN;
-        hash = "#en"
-    } else {
-
-        english = false;
-
-        let enTextFields = document.querySelectorAll('[lang="en"]');
-
-        enTextFields.forEach(function (value) {
-            value.className = "hide";
-        });
-
-        currentLanguage = supportedLanguages.PT;
-        hash = "";
-    }
 
     setTimeout(() => {
         if (!mouseLeftFlag) document.getElementById('language-select').className = "bandw";
     }, 3000);
 };
 
-function setupNavListeners() {
+function identifyCollapsableMenu() {
+    if (window.innerWidth <= 1015) {
+        collapsableMenu = document.getElementById("nav-small-screen-menu");
+        collapsableMenuBG = document.getElementById("nav-small-screen-menu-background");
+        collapsableMenuButton = document.getElementById("nav-small-screen-button");
+        if (!narrowListeners) {
+            setupNavListenersWideScreen();
+            narrowListners = true;
+        }
+    }
+    else {
+        collapsableMenu = document.getElementById("nav-menu-left");
+        collapsableMenuBG = document.getElementById("nav-menu-left-background");
+        collapsableMenuButton = document.getElementById("nav-button-left");
+        if (!wideListeners) {
+            setupNavListenersWideScreen();
+            wideListeners = true;
+        }
+    }
+}
+
+function setupNavListenersWideScreen() {
+
     collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
     collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 
@@ -196,16 +235,6 @@ function setupNavListeners() {
         if (collapsableMenuBG.className === "nav-extended") {
             collapseMenu();
         }
-    });
-
-    document.getElementById('language-select-shell').addEventListener('mouseenter', e => {
-        if (!languageChangeAnim) document.getElementById('language-select').className = "";
-        mouseLeftFlag = false;
-    });
-
-    document.getElementById('language-select-shell').addEventListener('mouseleave', e => {
-        if (!languageChangeAnim) document.getElementById('language-select').className = "bandw";
-        mouseLeftFlag = true;
     });
 }
 
@@ -273,10 +302,10 @@ function triggerLanguageChange() {
                     }
                 }
                 currentLanguage = supportedLanguages.EN;
-                hash="#en";
+                hash = "#en";
             }
 
-            window.history.pushState({}, '', location.href.replace(location.hash,"") + hash);
+            window.history.pushState({}, '', location.href.replace(location.hash, "") + hash);
 
             let enTextFields = document.querySelectorAll('[lang="en"]');
             let ptTextFields = document.querySelectorAll('[lang="pt"]');
@@ -474,6 +503,7 @@ function collapseMenu() {
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimation = false;
+        collapsableMenuBG.className = "";
         controller.abort();
     }, { signal: controller.signal });
 
