@@ -607,7 +607,6 @@ ol {
   grid-template-columns: auto auto;
   column-gap: 10px;
   margin: auto;
-  margin-top: 10vh;
   justify-content: center;
   align-items: center;
   row-gap: 0;
