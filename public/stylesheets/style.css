@@ -511,7 +511,7 @@ ol {
   background-color: transparent;
   width: max(60vw, 800px);
   aspect-ratio: 4/3;
-  overflow: hidden;
+  overflow: clip;
   transform: scale(100%);
   transition: transform 400ms;
 }
