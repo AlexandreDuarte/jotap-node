@@ -736,6 +736,7 @@ ol {
   }
   .grid-item:hover * p {
     all:unset;
+    height: 0;
   }
 
   
