@@ -294,6 +294,7 @@ ol {
 }
 
 .selection-bar {
+  display: block;
   position: absolute;
   bottom: 0px;
   left: calc(calc(80vw - 40px)/2);
@@ -351,7 +352,7 @@ ol {
 }
 
 #nav-text {
-  width: var(--nav-center-width);
+  width: min(50vw, var(--nav-center-width));
   position: absolute;
   color: var(--nav-highlight-color);
   font-size: 25px;
@@ -374,7 +375,7 @@ ol {
 .nav-center-all {
   display: flex;
   align-items: center;
-  width: var(--nav-center-width);
+  width: min(50vw, var(--nav-center-width));
   margin: 0;
   cursor: pointer;
 }
@@ -491,69 +492,7 @@ ol {
   display: none;
 }
 
-@media only screen and (max-width: 1015px) {
-  #nav-button, #nav-button-left, #nav-menu-left {
-    display: none;
-  }
 
-  #nav-small-screen-button {
-    display: block;
-    margin: auto auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    aspect-ratio: 1;
-    background-image: url("../images/bar-menu.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    
-    background-color: rgba(0,0,0,0);
-    border: none;
-    box-shadow: none;
-    filter: brightness(240%);
-    cursor: pointer;
-  }
-
-  #nav-small-screen-button:hover {
-    top: 1px;
-    left: 1px;
-    filter: brightness(600%);
-  }
-
-  #nav-arrow-button {
-    display: none;
-  }
-
-  #nav-bar {
-    background-color: var(--nav-color);
-    opacity: 1;
-  }
-
-  #nav-small-screen-menu {
-    display: block;
-    top: var(--nav-height);
-    position: absolute;
-    width: var(--nav-button-width);
-    overflow: hidden;
-  }
-  
-  #nav-small-screen-menu-background {
-    display: flex;
-    flex-flow: column nowrap;
-    width: 100%;
-    height: auto;
-    position: absolute;
-    overflow: hidden;
-    transform: translateY(-100%);
-  }
-
-  #nav-small-screen-menu-button {
-    
-  font-size: 15px;
-  height: var(--nav-height);
-  }
-}
 
 .grid-container {
   width: 100%;
@@ -578,7 +517,7 @@ ol {
 }
 
 .grid-item:hover * p {
-  height: 35px;
+  height: 2rem;
   transition: height 400ms;
 }
 
@@ -676,8 +615,14 @@ ol {
 }
 
 #imageoverlay-image {
-  height: 80vh;
+  height: min(80vh, 60vw);
+  width: min(80vh, 60vw);
   justify-self: center;
+  
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
 }
 
 #imageoverlay-description {
@@ -689,6 +634,139 @@ ol {
   height: max-content;
 }
 
+@media only screen and (max-width: 1015px) {
+
+  #nav-button, #nav-button-left, #nav-menu-left {
+    display: none;
+  }
+
+  #nav-small-screen-button {
+    display: block;
+    margin: auto auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    aspect-ratio: 1;
+    background-image: url("../images/bar-menu.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    background-color: rgba(0,0,0,0);
+    border: none;
+    box-shadow: none;
+    filter: brightness(600%);
+    cursor: pointer;
+  }
+
+  #nav-small-screen-button:hover {
+    top: 1px;
+    left: 1px;
+    filter: brightness(1400%);
+  }
+
+  #nav-arrow-button {
+    display: none;
+  }
+
+  #nav-bar {
+    background-color: var(--nav-color);
+    opacity: 1;
+  }
+
+  #nav-small-screen-menu {
+    display: block;
+    top: var(--nav-height);
+    position: absolute;
+    width: var(--nav-button-width);
+    overflow: hidden;
+  }
+  
+  #nav-small-screen-menu-background {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    overflow: hidden;
+    transform: translateY(-100%);
+  }
+
+  #nav-small-screen-menu-button {
+    
+  font-size: 15px;
+  height: 2.5rem;
+  }
+
+  .section-banner {
+    width: calc(100vw - 40px);
+    justify-content: flex-start;
+  }
+
+  #banner {
+    width: 100%;
+  }
+
+  .selection-bar {
+    display: none;
+  }
+
+  #grid-imageoverlay {
+    grid-template-columns: auto;
+  
+  }
+  
+
+  .grid-item{
+    width: min(calc(100vw - 40px), 800px);
+    margin: 0;
+  }
+
+  
+
+  .grid-item-content {
+    width: 100%;
+    margin: 0;
+  }
+
+  
+  .grid-item:hover {
+    all:unset;
+  }
+
+  
+  .grid-container {
+    width: calc(100vw - 40px);
+    height: fit-content;
+    margin-top: 55px;
+  }
+
+  #grid-imageoverlay {
+    width: 80vw;
+    height: 80vh;
+    grid-template-columns: auto;
+  }
+
+  #imageoverlay-image {
+    height: 60vh;
+    width: 80vw;
+    margin: 1.5rem;
+  }
+
+  #imageoverlay-description {
+    margin: 0 1.5rem;
+  }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+  
+
+
+
+  
+}
 
 .rotate-1 {
   animation: rotate-one 400ms ease-in forwards;

@@ -108,7 +108,7 @@ window.onload = () => {
 
     }
 
-    
+
     navCenter = document.getElementById("nav-center");
     navBar = document.getElementById("nav-bar");
     navText = document.getElementById("nav-text");
@@ -182,42 +182,52 @@ function identifyCollapsableMenu() {
         collapsableMenu = document.getElementById("nav-small-screen-menu");
         collapsableMenuBG = document.getElementById("nav-small-screen-menu-background");
         collapsableMenuButton = document.getElementById("nav-small-screen-button");
+        
+        collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
+        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+        
         if (!narrowListeners) {
-            setupNavListenersWideScreen();
+            setupNavListenersWideScreen(true);
             narrowListners = true;
         }
     }
     else {
+
+
         collapsableMenu = document.getElementById("nav-menu-left");
         collapsableMenuBG = document.getElementById("nav-menu-left-background");
         collapsableMenuButton = document.getElementById("nav-button-left");
+
+        
+        collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
+        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
         if (!wideListeners) {
-            setupNavListenersWideScreen();
+            setupNavListenersWideScreen(false);
             wideListeners = true;
         }
     }
 }
 
-function setupNavListenersWideScreen() {
+function setupNavListenersWideScreen(narrowScreen) {
 
-    collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
-    collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 
-    collapsableMenuButton.addEventListener('mouseleave', e => {
+        collapsableMenuButton.addEventListener('mouseleave', e => {
 
-        if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
+            if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
 
-        if (collapsableMenuBG.className === "nav-extended") {
-            collapseMenu();
-        }
-    });
+            if (collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        });
 
-    collapsableMenuButton.addEventListener('mouseenter', e => {
+        collapsableMenuButton.addEventListener('mouseenter', e => {
 
-        if (collapsableMenuBG.className !== "nav-extended") {
-            extendMenu();
-        }
-    });
+            if (collapsableMenuBG.className !== "nav-extended") {
+                extendMenu();
+            }
+        });
+
+    
 
     navBar.addEventListener('mouseleave', e => {
 
