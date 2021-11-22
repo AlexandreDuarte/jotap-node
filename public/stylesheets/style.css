@@ -612,6 +612,7 @@ ol {
   row-gap: 0;
   background-color: #f2f2f2;
   border: 1px solid var(--nav-secondary-color);
+  top: 10vh;
 }
 
 #imageoverlay-image {
@@ -713,7 +714,7 @@ ol {
 
   #grid-imageoverlay {
     grid-template-columns: auto;
-  
+    align-content: center;
   }
   
 
@@ -731,6 +732,9 @@ ol {
 
   
   .grid-item:hover {
+    all:unset;
+  }
+  .grid-item:hover * p {
     all:unset;
   }
 
