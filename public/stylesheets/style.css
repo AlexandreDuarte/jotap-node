@@ -637,6 +637,11 @@ ol {
 
 @media only screen and (max-width: 1015px) {
 
+  :root {
+    
+  --nav-height: 40px;
+  }
+
   #nav-button, #nav-button-left, #nav-menu-left {
     display: none;
   }
@@ -717,6 +722,9 @@ ol {
     align-content: center;
   }
   
+  #nav-text {
+    font-size: 20px;
+  }
 
   .grid-item{
     width: min(calc(100vw - 40px), 800px);
@@ -733,9 +741,14 @@ ol {
   
   .grid-item:hover {
     all:unset;
+    cursor: pointer;
   }
+
+  .grid-p {
+    height: 0;
+  }
+
   .grid-item:hover * p {
-    all:unset;
     height: 0;
   }
 
