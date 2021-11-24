@@ -40,6 +40,8 @@ var hash;
 var narrowListeners = false;
 var wideListeners = false;
 
+var narrowScreen;
+
 window.onpopstate = () => {
 
     if (window.location.pathname === "/about") {
@@ -190,6 +192,8 @@ function identifyCollapsableMenu() {
             setupNavListenersWideScreen(true);
             narrowListners = true;
         }
+
+        narrowScreen = true;
     }
     else {
 
@@ -205,6 +209,8 @@ function identifyCollapsableMenu() {
             setupNavListenersWideScreen(false);
             wideListeners = true;
         }
+
+        narrowScreen = false;
     }
 }
 
@@ -599,6 +605,7 @@ function aboutButton() {
 function portfolioButton() {
     if (window.location.pathname === "/portfolio") return;
 
+    if (narrowScreen) collapseMenu();
 
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + hash);
     requesteContentPage("portfoliopage");
