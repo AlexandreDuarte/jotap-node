@@ -503,6 +503,7 @@ function extendMenu() {
 }
 
 function collapseMenu() {
+
     midAnimation = true;
 
     collapsableMenuButton.className = "";
@@ -588,6 +589,8 @@ function centerTextButton() {
 function aboutButton() {
     if (window.location.pathname === "/about") return;
 
+    if (narrowScreen) collapseMenu();
+
     window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
     requesteContentPage("aboutpage");
 
@@ -596,6 +599,7 @@ function aboutButton() {
 function portfolioButton() {
     if (window.location.pathname === "/portfolio") return;
 
+
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + hash);
     requesteContentPage("portfoliopage");
 
@@ -603,6 +607,8 @@ function portfolioButton() {
 
 function exhibitionsButton() {
     if (window.location.pathname === "/exhibitions") return;
+    
+    if (narrowScreen) collapseMenu();
 
     window.history.pushState({}, '', window.location.origin + "/" + 'exhibitions' + hash);
     requesteContentPage("exhibitionspage");
