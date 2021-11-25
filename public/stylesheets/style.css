@@ -169,10 +169,12 @@ section {
   border-right: 1px solid var(--nav-secondary-color);
   border-left: 1px solid var(--nav-secondary-color);
   width: max(70vw, 800px);
-  min-height: calc(100vh - 120px);
+  min-height: 100vh;
 }
 
 footer {
+  position: relative;
+  bottom: 0;
   display: flex;
   flex-flow: row nowrap;
   background-color: var(--nav-secondary-color);
@@ -637,7 +639,10 @@ ol {
 
 @media only screen and (max-width: 1015px) {
 
-  
+  section {
+    width: calc(100vw - 40px);
+    height: 100vh;
+  }
 
   #nav-button, #nav-button-left, #nav-menu-left {
     display: none;
