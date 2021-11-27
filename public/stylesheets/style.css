@@ -738,7 +738,7 @@ ol {
 
   
   .grid-item:hover {
-    all:unset;
+    transform: unset;
     cursor: pointer;
   }
 
@@ -753,7 +753,7 @@ ol {
   
   .grid-container {
     width: calc(100vw - 40px);
-    height: fit-content;
+    height: auto;
     margin-top: 55px;
   }
 

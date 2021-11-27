@@ -679,12 +679,14 @@ function updateBannerElements() {
     bar.style.transition = 'transform 100ms';
 }
 
+
+var imagePageOverlay;
+
 function closeImageoverlay() {
     document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
 
-var imagePageOverlay;
 
 function openImagePage(id) {
     if (!imagePageOverlay) {

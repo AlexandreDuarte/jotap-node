@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/imageoverlay', async function (req, res, next) {
 
   const { rows } = await pool.query('SELECT * FROM obra WHERE id = $1', [req.query.id])
-
+  
   res.render('imageoverlay', { obra: rows[0] });
 });
 
