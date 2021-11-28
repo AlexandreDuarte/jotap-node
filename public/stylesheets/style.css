@@ -716,11 +716,6 @@ ol {
   .selection-bar {
     display: none;
   }
-
-  #grid-imageoverlay {
-    grid-template-columns: auto;
-    align-content: center;
-  }
   
   
 
@@ -761,6 +756,8 @@ ol {
     width: 80vw;
     height: 80vh;
     grid-template-columns: auto;
+    align-content: center;
+    top: 5vh;
   }
 
   #imageoverlay-image {
