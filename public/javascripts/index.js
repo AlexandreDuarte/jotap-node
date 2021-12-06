@@ -146,6 +146,8 @@ window.onload = () => {
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+        console.log(scrollTop);
+
         if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - 200) requestPortfolioItems(); 
 
         if (collapsableMenuBG.className === "nav-extended") return;
@@ -652,6 +654,7 @@ function centerTextButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + hash);
     requesteContentPage("homepage");
+    currentTab = tabs.ALL;
 
 }
 
@@ -662,6 +665,7 @@ function aboutButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
     requesteContentPage("aboutpage");
+    currentTab = tabs.ALL;
 
 }
 
@@ -672,6 +676,9 @@ function portfolioButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + hash);
     requesteContentPage("portfoliopage");
+    currentTab = tabs.PORTFOLIO;
+    portfolioRequests = 1;
+    portfolioPopulated = false;
 
 }
 
@@ -682,6 +689,7 @@ function exhibitionsButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + 'exhibitions' + hash);
     requesteContentPage("exhibitionspage");
+    currentTab = tabs.ALL;
 
 }
 
