@@ -49,7 +49,15 @@ body::-webkit-scrollbar-thumb {
   display: none;
 }
 
+html {
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
 body {
+  flex-grow: 1;
   background-color: var(--nav-color);
   display: flex;
   flex-flow: column nowrap;
