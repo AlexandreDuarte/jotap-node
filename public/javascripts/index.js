@@ -146,9 +146,7 @@ window.onload = () => {
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        console.log(scrollTop);
-
-        if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 200) requestPortfolioItems(); 
+        if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems(); 
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
@@ -214,10 +212,9 @@ function requestPortfolioItems() {
             let content = document.getElementById("portfolio-items-container");
             content.innerHTML += this.responseText;
 
-            let child = content.lastChild;
 
-            let enTextFields = child.querySelectorAll('[lang="en"]');
-            let ptTextFields = child.querySelectorAll('[lang="pt"]');
+            let enTextFields = content.querySelectorAll('[lang="en"]');
+            let ptTextFields = content.querySelectorAll('[lang="pt"]');
 
             enTextFields.forEach(function (value) {
                 value.className = currentLanguage.en;
