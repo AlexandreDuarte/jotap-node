@@ -148,7 +148,7 @@ window.onload = () => {
 
         console.log(scrollTop);
 
-        if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - 200) requestPortfolioItems(); 
+        if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 200) requestPortfolioItems(); 
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
