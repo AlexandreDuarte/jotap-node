@@ -38,8 +38,8 @@ var currentLanguage;
 var hash;
 
 var tabs = {
-    PORTFOLIO,
-    ALL
+    PORTFOLIO: "PORTFOLIO",
+    ALL: "ALL"
 }
 var currentTab = tabs.ALL;
 var portfolioPopulated = false;
