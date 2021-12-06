@@ -50,6 +50,7 @@ var wideListeners = false;
 var narrowScreen;
 
 var portfolioRequests = 0;
+var portfolioWaitingHttpResponse = false;
 
 window.onpopstate = () => {
 
@@ -146,7 +147,7 @@ window.onload = () => {
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems(); 
+        if (!portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems(); 
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
@@ -201,6 +202,7 @@ function requestCurrentPage() {
 
 function requestPortfolioItems() {
 
+    portfolioWaitingHttpResponse = true;
 
     var request = new XMLHttpRequest();
 
@@ -229,6 +231,7 @@ function requestPortfolioItems() {
 
             collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 
+            portfolioWaitingHttpResponse = false;
             
             portfolioRequests+=1;
         }
