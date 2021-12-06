@@ -206,6 +206,8 @@ function requestPortfolioItems() {
 
     request.onload = function () {
 
+        console.log(this.responseText);
+
         if (this.responseText === "") portfolioPopulated = true;
 
         else {
@@ -232,8 +234,9 @@ function requestPortfolioItems() {
         }
     };
     
+    
 
-    request.open("GET", "portfoliopage/griditems?page=" + portfolioRequests*5);
+    request.open("GET", `portfoliopage/griditems?page=${portfolioRequests*5}`);
     request.send();
 
 

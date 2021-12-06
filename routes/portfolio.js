@@ -23,7 +23,11 @@ router.get('/griditems', async function (req, res, next) {
 
   const { rows } = await pool.query('SELECT * FROM obra ORDER BY year OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
 
-  res.render('griditem-batch', { obras: rows });
+  if (rows) {
+    res.render('griditem-batch', { obras: rows });
+  } else {
+    res.send('');
+  }
 
 });
 
