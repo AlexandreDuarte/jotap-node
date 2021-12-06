@@ -68,6 +68,10 @@ body {
   background-color: var(--section-background);
 }
 
+#content {
+  min-height: calc(100vh - 50px);
+}
+
 #language-select-hidden {
   position: fixed;
   opacity: 0;

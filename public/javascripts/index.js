@@ -37,20 +37,23 @@ var supportedLanguages = {
 var currentLanguage;
 var hash;
 
+var tabs = {
+    PORTFOLIO,
+    ALL
+}
+var currentTab = tabs.ALL;
+var portfolioPopulated = false;
+
 var narrowListeners = false;
 var wideListeners = false;
 
 var narrowScreen;
 
+var portfolioRequests = 0;
+
 window.onpopstate = () => {
 
-    if (window.location.pathname === "/about") {
-        requesteContentPage("aboutpage");
-    } else if (window.location.pathname === "/exhibitions") {
-        requesteContentPage("exhibitionspage");
-    } else if (window.location.pathname === "/portfolio") {
-        requesteContentPage("portfoliopage");
-    } else requesteContentPage("homepage");
+    requestCurrentPage();
 };
 
 
@@ -132,23 +135,20 @@ window.onload = () => {
         mouseLeftFlag = true;
     });
 
-    if (window.location.pathname === "/about") {
-        requesteContentPage("aboutpage");
-    } else if (window.location.pathname === "/exhibitions") {
-        requesteContentPage("exhibitionspage");
-    } else if (window.location.pathname === "/portfolio") {
-        requesteContentPage("portfoliopage");
-    } else requesteContentPage("homepage");
-
+    
+    
 
     navOffset = 0;
     lastScrollTop = 0;
 
     window.addEventListener('scroll', e => {
 
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentTab.PORTFOLIO && scrollTop > window.outerHeight - 200) requestPortfolioItems(); 
+
         if (collapsableMenuBG.className === "nav-extended") return;
 
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
         if (scrollTop > lastScrollTop) {
             if (show) {
@@ -178,6 +178,66 @@ window.onload = () => {
         if (!mouseLeftFlag) document.getElementById('language-select').className = "bandw";
     }, 3000);
 };
+
+function requestCurrentPage() {
+    if (window.location.pathname === "/about") {
+        requesteContentPage("aboutpage");
+        currentTab = tabs.ALL;
+    } else if (window.location.pathname === "/exhibitions") {
+        requesteContentPage("exhibitionspage");
+        currentTab = tabs.ALL;
+    } else if (window.location.pathname === "/portfolio") {
+        requesteContentPage("portfoliopage");
+        currentTab = tabs.PORTFOLIO;
+        portfolioPopulated = false;
+    } else {
+        requesteContentPage("homepage");
+        currentTab = tabs.ALL;
+    }
+}
+
+
+function requestPortfolioItems() {
+
+    window.location.search = "page=5";
+
+    var request = new XMLHttpRequest();
+
+    request.onload = function () {
+
+        if (this.responseText === "") portfolioPopulated = true;
+
+        else {
+            let content = document.getElementById("content");
+            content.innerHTML += this.responseText;
+
+            let child = content.lastChild;
+
+            let enTextFields = child.querySelectorAll('[lang="en"]');
+            let ptTextFields = child.querySelectorAll('[lang="pt"]');
+
+            enTextFields.forEach(function (value) {
+                value.className = currentLanguage.en;
+            });
+
+            ptTextFields.forEach(function (value) {
+                value.className = currentLanguage.pt;
+            });
+
+
+            collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+
+            
+            portfolioRequests+=1;
+        }
+    };
+
+    request.open("GET", contentIDs);
+    request.send();
+
+
+
+}
 
 function identifyCollapsableMenu() {
     if (window.innerWidth <= 1015) {
@@ -529,6 +589,7 @@ function collapseMenu() {
 
 function requesteContentPage(contentIDs) {
     bannerPos = 0;
+    portfolioRequests = 0;
     imagePageOverlay = false;
     var request = new XMLHttpRequest();
 
