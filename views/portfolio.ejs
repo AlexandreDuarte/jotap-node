@@ -1,5 +1,3 @@
-<div class="grid-container">
-    <% for( let i = 0; i < obras.length; i++ ) { %>
-    <%- include('griditem.ejs', {obra: obras[i]}) %>
-    <% } %>
+<div id = "portfolio-items-container" class="grid-container">
+    <%- include('griditem-batch.ejs', {obras: obras}) %>
 </div>

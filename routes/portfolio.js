@@ -13,9 +13,17 @@ router.get('/imageoverlay', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
 
-  const { rows } = await pool.query('SELECT * FROM obra;');
+  const { rows } = await pool.query('SELECT * FROM obra ORDER BY year FETCH FIRST 5 ROW ONLY;');
 
   res.render('portfolio', { obras: rows });
+
+});
+
+router.get('/griditems', async function (req, res, next) {
+
+  const { rows } = await pool.query('SELECT * FROM obra ORDER BY year OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
+
+  res.render('griditem-batch', { obras: rows });
 
 });
 

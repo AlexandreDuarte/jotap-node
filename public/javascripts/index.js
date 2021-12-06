@@ -124,6 +124,7 @@ window.onload = () => {
     setupNavListenersWideScreen();
 
 
+    requestCurrentPage();
 
     document.getElementById('language-select-shell').addEventListener('mouseenter', e => {
         if (!languageChangeAnim) document.getElementById('language-select').className = "";
@@ -143,9 +144,9 @@ window.onload = () => {
 
     window.addEventListener('scroll', e => {
 
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (currentTab.PORTFOLIO && scrollTop > window.outerHeight - 200) requestPortfolioItems(); 
+        if (currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - 200) requestPortfolioItems(); 
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
@@ -189,6 +190,7 @@ function requestCurrentPage() {
     } else if (window.location.pathname === "/portfolio") {
         requesteContentPage("portfoliopage");
         currentTab = tabs.PORTFOLIO;
+        portfolioRequests = 1;
         portfolioPopulated = false;
     } else {
         requesteContentPage("homepage");
@@ -199,7 +201,6 @@ function requestCurrentPage() {
 
 function requestPortfolioItems() {
 
-    window.location.search = "page=5";
 
     var request = new XMLHttpRequest();
 
@@ -208,7 +209,7 @@ function requestPortfolioItems() {
         if (this.responseText === "") portfolioPopulated = true;
 
         else {
-            let content = document.getElementById("content");
+            let content = document.getElementById("portfolio-items-container");
             content.innerHTML += this.responseText;
 
             let child = content.lastChild;
@@ -231,8 +232,9 @@ function requestPortfolioItems() {
             portfolioRequests+=1;
         }
     };
+    
 
-    request.open("GET", contentIDs);
+    request.open("GET", "portfoliopage/griditems?page=" + portfolioRequests*5);
     request.send();
 
 
