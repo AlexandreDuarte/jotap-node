@@ -208,8 +208,6 @@ function requestPortfolioItems() {
 
     request.onload = function () {
 
-        console.log(this.responseText);
-
         if (this.responseText === "") portfolioPopulated = true;
 
         else {
@@ -231,10 +229,12 @@ function requestPortfolioItems() {
 
             collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 
-            portfolioWaitingHttpResponse = false;
             
             portfolioRequests+=1;
         }
+
+        portfolioWaitingHttpResponse = false;
+
     };
     
     
