@@ -239,8 +239,9 @@ function requestPortfolioItems() {
     };
     
     
-
+    console.log( `portfoliopage/griditems?page=${portfolioRequests*5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
     request.open("GET", `portfoliopage/griditems?page=${portfolioRequests*5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
+    
     request.send();
 
 
@@ -679,10 +680,10 @@ function portfolioButton(category) {
 
     if (narrowScreen) collapseMenu();
 
-    if (category) portfolioCategory = category;
+    portfolioCategory = category;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
-    requesteContentPage("portfoliopage");
+    requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
     portfolioPopulated = false;
