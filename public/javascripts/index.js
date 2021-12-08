@@ -191,6 +191,7 @@ function requestCurrentPage() {
         currentTab = tabs.ALL;
     } else if (window.location.pathname === "/portfolio") {
         requesteContentPage("portfoliopage" + window.location.search);
+        console.log("portfoliopage" + window.location.search);
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
         portfolioPopulated = false;
@@ -680,7 +681,7 @@ function portfolioButton(category) {
 
     if (narrowScreen) collapseMenu();
 
-    portfolioCategory = category;
+    if (category) portfolioCategory = category;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
     requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
