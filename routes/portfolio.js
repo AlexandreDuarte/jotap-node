@@ -13,7 +13,16 @@ router.get('/imageoverlay', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
 
-  const { rows } = await pool.query('SELECT * FROM obra ORDER BY year FETCH FIRST 5 ROW ONLY;');
+  let qfilter = "";
+
+  if (req.query.filter) {
+    if (req.query.filter === "other") {
+      qfilter = "WHERE category != canvas AND category != murals";
+    } else {
+      qfilter = "WHERE category = " + req.query.filter;
+    }
+  }
+  const { rows } = await pool.query('SELECT * FROM obra $1 ORDER BY year FETCH FIRST 5 ROW ONLY;', [qfilter]);
 
   res.render('portfolio', { obras: rows });
 
@@ -21,7 +30,17 @@ router.get('/', async function (req, res, next) {
 
 router.get('/griditems', async function (req, res, next) {
 
-  const { rows } = await pool.query('SELECT * FROM obra ORDER BY year OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
+  let qfilter = "";
+
+  if (req.query.filter) {
+    if (req.query.filter === "other") {
+      qfilter = "WHERE category != canvas AND category != murals";
+    } else {
+      qfilter = "WHERE category = " + req.query.filter;
+    }
+  }
+
+  const { rows } = await pool.query('SELECT * FROM obra $1 ORDER BY year OFFSET $2 FETCH FIRST 5 ROW ONLY;', [qfilter, req.query.page]);
 
   if (rows) {
     res.render('griditem-batch', { obras: rows });

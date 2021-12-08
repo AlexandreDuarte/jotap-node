@@ -51,6 +51,7 @@ var narrowScreen;
 
 var portfolioRequests = 0;
 var portfolioWaitingHttpResponse = false;
+var portfolioCategory = '';
 
 window.onpopstate = () => {
 
@@ -189,7 +190,7 @@ function requestCurrentPage() {
         requesteContentPage("exhibitionspage");
         currentTab = tabs.ALL;
     } else if (window.location.pathname === "/portfolio") {
-        requesteContentPage("portfoliopage");
+        requesteContentPage("portfoliopage" + window.location.search);
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
         portfolioPopulated = false;
@@ -239,7 +240,7 @@ function requestPortfolioItems() {
     
     
 
-    request.open("GET", `portfoliopage/griditems?page=${portfolioRequests*5}`);
+    request.open("GET", `portfoliopage/griditems?page=${portfolioRequests*5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
     request.send();
 
 
@@ -672,12 +673,15 @@ function aboutButton() {
 
 }
 
-function portfolioButton() {
+function portfolioButton(category) {
+
     if (window.location.pathname === "/portfolio") return;
 
     if (narrowScreen) collapseMenu();
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + hash);
+    if (category) portfolioCategory = category;
+
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (category ? `?filter=${category}` : '') + hash);
     requesteContentPage("portfoliopage");
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
