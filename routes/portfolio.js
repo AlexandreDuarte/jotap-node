@@ -17,9 +17,9 @@ router.get('/', async function (req, res, next) {
 
   if (req.query.filter) {
     if (req.query.filter === "other") {
-      qfilter = "WHERE category != canvas AND category != murals";
+      qfilter = "WHERE category != 'canvas' AND category != 'murals'";
     } else {
-      qfilter = "WHERE category = " + req.query.filter;
+      qfilter = "WHERE category = '" + req.query.filter + "'";
     }
   }
   const { rows } = await pool.query('SELECT * FROM obra $1 ORDER BY year FETCH FIRST 5 ROW ONLY;', [qfilter]);
@@ -34,9 +34,9 @@ router.get('/griditems', async function (req, res, next) {
 
   if (req.query.filter) {
     if (req.query.filter === "other") {
-      qfilter = "WHERE category != canvas AND category != murals";
+      qfilter = "WHERE category != 'canvas' AND category != 'murals'";
     } else {
-      qfilter = "WHERE category = " + req.query.filter;
+      qfilter = "WHERE category = '" + req.query.filter + "'";
     }
   }
 
