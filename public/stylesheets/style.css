@@ -468,7 +468,7 @@ ol {
 .nav-menu-button:hover {
   background-color: var(--nav-highlight-color-transparent);
   color: var(--nav-color);
-  transition: color 100ms ease-in;
+  /*transition: color 100ms ease-in;
   transition: background-color 100ms ease-in;
   /*text-decoration: underline 0.1rem;
   text-underline-offset: 0.1rem;*/
@@ -506,13 +506,37 @@ ol {
   display: none;
 }
 
+#portfolio-items-filter {
+  margin-top: 70px;
+  width: max(60vw, 800px);
+  display: flex;
+  flex-flow: row nowrap;
+}
 
+#portfolio-items-filter > .nav-menu-button {
+  background-color: var(--section-background);
+  color: var(--nav-color);
+}
+#portfolio-items-filter > .nav-menu-button:hover {
+background-color: var(--nav-color);
+  color: var(--section-background);
+  /*transition: color 100ms ease-in;
+  transition: background-color 100ms ease-in;
+  /*text-decoration: underline 0.1rem;
+  text-underline-offset: 0.1rem;*/
+  transition: background-color 100ms, color 100ms
+}
+
+#portfolio-items-filter > .selected {
+  background-color: var(--nav-color);
+  color: var(--section-background);
+  box-shadow: none;
+}
 
 .grid-container {
   width: 100%;
   display: grid;
   grid-template-columns: auto;
-  margin-top: 2vw;
   margin-bottom: 2vw;
   column-gap: 2vw;
   margin-left: auto;
@@ -712,8 +736,8 @@ ol {
 
   #nav-small-screen-menu-button {
     
-  font-size: 15px;
-  height: 2.5rem;
+    font-size: 15px;
+    height: 2.5rem;
   }
 
   .section-banner {
@@ -729,6 +753,28 @@ ol {
     display: none;
   }
   
+  #portfolio-items-filter {
+    /*margin-top: 60px;*/
+    width: min(calc(100vw - 40px), 800px);
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 70px auto 0 auto;
+  }
+  
+  #portfolio-items-filter > .nav-menu-button {
+    width: 100%;
+    height: 1.5rem;
+  }
+  /*#portfolio-items-filter > .nav-menu-button:hover {
+  background-color: var(--nav-color);
+    color: var(--section-background);
+    /*transition: color 100ms ease-in;
+    transition: background-color 100ms ease-in;
+    /*text-decoration: underline 0.1rem;
+    text-underline-offset: 0.1rem;
+    transition: background-color 100ms, color 100ms
+  }*/
   
 
   .grid-item{
@@ -761,7 +807,7 @@ ol {
   .grid-container {
     width: calc(100vw - 40px);
     height: auto;
-    margin-top: 55px;
+    margin-top: 2vw;
   }
 
   #grid-imageoverlay {

@@ -19,18 +19,18 @@ router.get('/', async function (req, res, next) {
     if (req.query.filter === "other") {
       const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural']);
       
-      res.render('portfolio', { obras: rows });
+      res.render('portfolio', { obras: rows, activefilter: [false, false, false, true] });
     } else {
       qfilter = req.query.filter;
       const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year FETCH FIRST 5 ROW ONLY;', [qfilter]);
       
-      res.render('portfolio', { obras: rows });
+      res.render('portfolio', { obras: rows, activefilter: [false, qfilter === "canvas", qfilter === "mural", false] });
     }
     
   } else {
     const { rows } = await pool.query('SELECT * FROM obra ORDER BY year FETCH FIRST 5 ROW ONLY;');
     
-    res.render('portfolio', { obras: rows });
+    res.render('portfolio', { obras: rows, activefilter: [true, false, false, false] });
   }
 
 

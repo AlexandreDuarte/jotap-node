@@ -253,6 +253,8 @@ function identifyCollapsableMenu() {
         collapsableMenuBG = document.getElementById("nav-small-screen-menu-background");
         collapsableMenuButton = document.getElementById("nav-small-screen-button");
         
+        collapsableMenu.style.display = "block";
+
         collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
         collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
         
@@ -265,12 +267,12 @@ function identifyCollapsableMenu() {
     }
     else {
 
-
         collapsableMenu = document.getElementById("nav-menu-left");
         collapsableMenuBG = document.getElementById("nav-menu-left-background");
         collapsableMenuButton = document.getElementById("nav-button-left");
 
-        
+        collapsableMenu.style.display = "block";
+
         collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
         collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
         if (!wideListeners) {
@@ -280,6 +282,7 @@ function identifyCollapsableMenu() {
 
         narrowScreen = false;
     }
+    collapsableMenu.style.display = "none";
 }
 
 function setupNavListenersWideScreen(narrowScreen) {
@@ -563,6 +566,8 @@ function navMenuButtonPress(el) {
 
 function extendMenu() {
     midAnimation = true;
+    
+    collapsableMenu.style.display = "block";
 
     collapsableMenuButton.className = "selected";
 
@@ -589,6 +594,7 @@ function collapseMenu() {
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimation = false;
         collapsableMenuBG.className = "";
+        collapsableMenu.style.display = "none";
         controller.abort();
     }, { signal: controller.signal });
 
@@ -690,6 +696,7 @@ function portfolioButton(category) {
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
     portfolioPopulated = false;
+
 
 }
 
