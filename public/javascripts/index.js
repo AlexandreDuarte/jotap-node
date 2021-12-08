@@ -313,9 +313,7 @@ function setupNavListenersWideScreen(narrowScreen) {
         }
     });
 
-    let collapsableMenuButtonBG = collapsableMenu;
-
-    collapsableMenuButtonBG.addEventListener('mouseleave', e => {
+    collapsableMenu.addEventListener('mouseleave', e => {
 
         if (e.offsetY <= 0) return;
 
@@ -577,6 +575,7 @@ function extendMenu() {
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimation = false;
+        console.log("extend end animation");
         controller.abort();
     }, { signal: controller.signal });
 }
@@ -594,6 +593,7 @@ function collapseMenu() {
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimation = false;
         collapsableMenuBG.className = "";
+        console.log("collapse end animation");
         collapsableMenu.style.display = "none";
         controller.abort();
     }, { signal: controller.signal });
