@@ -766,6 +766,7 @@ background-color: var(--nav-color);
   #portfolio-items-filter > .nav-menu-button {
     width: 100%;
     height: 1.5rem;
+    font-size: 11px;
   }
   /*#portfolio-items-filter > .nav-menu-button:hover {
   background-color: var(--nav-color);
