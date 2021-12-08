@@ -148,7 +148,7 @@ window.onload = () => {
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (!portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems(); 
+        if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems(); 
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
@@ -190,8 +190,9 @@ function requestCurrentPage() {
         requesteContentPage("exhibitionspage");
         currentTab = tabs.ALL;
     } else if (window.location.pathname === "/portfolio") {
-        requesteContentPage("portfoliopage" + window.location.search);
-        console.log("portfoliopage" + window.location.search);
+        portfolioCategory = window.location.search;
+        requesteContentPage("portfoliopage" + portfolioCategory);
+        console.log("portfoliopage" + portfolioCategory);
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
         portfolioPopulated = false;
