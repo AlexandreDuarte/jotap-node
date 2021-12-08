@@ -192,7 +192,6 @@ function requestCurrentPage() {
     } else if (window.location.pathname === "/portfolio") {
         portfolioCategory = window.location.search;
         requesteContentPage("portfoliopage" + portfolioCategory);
-        console.log("portfoliopage" + portfolioCategory);
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
         portfolioPopulated = false;
@@ -240,8 +239,6 @@ function requestPortfolioItems() {
 
     };
     
-    
-    console.log( `portfoliopage/griditems?page=${portfolioRequests*5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
     request.open("GET", `portfoliopage/griditems?page=${portfolioRequests*5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
     
     request.send();
@@ -682,7 +679,11 @@ function portfolioButton(category) {
 
     if (narrowScreen) collapseMenu();
 
-    if (category) portfolioCategory = category;
+    if (category) {
+        portfolioCategory = category
+    } else {
+        portfolioCategory = '';
+    };
 
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
     requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
