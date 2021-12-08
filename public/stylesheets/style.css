@@ -191,7 +191,7 @@ footer {
   flex-flow: row nowrap;
   background-color: var(--section-background);
   width: 100%;
-  height: 60px;
+  height: 50px;
   margin-top: 20px;
   border-top: 1px solid var(--nav-color);
   z-index: 1;
