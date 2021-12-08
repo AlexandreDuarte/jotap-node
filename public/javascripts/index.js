@@ -675,13 +675,13 @@ function aboutButton() {
 
 function portfolioButton(category) {
 
-    if (window.location.pathname === "/portfolio") return;
+    if (window.location.pathname === "/portfolio" && category === portfolioCategory) return;
 
     if (narrowScreen) collapseMenu();
 
     if (category) portfolioCategory = category;
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (category ? `?filter=${category}` : '') + hash);
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
     requesteContentPage("portfoliopage");
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
