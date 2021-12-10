@@ -690,8 +690,11 @@ function aboutButton() {
 
 function portfolioButton(category) {
 
-    if (narrowScreen) collapseMenu();
+    if (narrowScreen) {
+        collapsableMenuButton.className = "";
 
+        collapsableMenuBG.className = "nav-collapsed";
+    }
     if (window.location.pathname === "/portfolio" && category === portfolioCategory) return;
 
     if (category) {
