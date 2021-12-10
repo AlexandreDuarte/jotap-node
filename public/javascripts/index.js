@@ -564,8 +564,7 @@ function navMenuButtonPress(el) {
 
 function extendMenu() {
 
-    collapsableMenuBG.replaceWith(collapsableMenuBG.cloneNode(true));
-
+    if (midAnimationCollapse) return;
 
     midAnimationExtend = true;
     
@@ -585,7 +584,6 @@ function extendMenu() {
 
 function collapseMenu() {
 
-    collapsableMenuBG.replaceWith(collapsableMenuBG.cloneNode(true));
 
     
 
@@ -700,9 +698,7 @@ function portfolioButton(category) {
     portfolioRequests = 1;
     portfolioPopulated = false;
 
-    if (narrowScreen) {
-        collapsableMenu.style.display = "none";
-    }
+    
 
 
 }
