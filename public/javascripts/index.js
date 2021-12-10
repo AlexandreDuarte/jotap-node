@@ -699,7 +699,7 @@ function portfolioButton(category) {
     portfolioPopulated = false;
 
     if (narrowScreen) {
-        collapseMenu();
+        collapsableMenu.style.display = "none";
     }
 
 
