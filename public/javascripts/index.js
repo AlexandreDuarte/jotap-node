@@ -564,6 +564,9 @@ function navMenuButtonPress(el) {
 
 function extendMenu() {
 
+    collapsableMenuBG.replaceWith(collapsableMenuBG.cloneNode(true));
+
+
     midAnimationExtend = true;
     
     collapsableMenu.style.display = "block";
@@ -576,13 +579,14 @@ function extendMenu() {
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimationExtend = false;
-        if (!midAnimationCollapse && !midAnimationExtend) {
-            controller.abort();
-        }
+        controller.abort();
     }, { signal: controller.signal });
 }
 
 function collapseMenu() {
+
+    collapsableMenuBG.replaceWith(collapsableMenuBG.cloneNode(true));
+
     
 
     midAnimationCollapse = true;
@@ -597,9 +601,7 @@ function collapseMenu() {
         collapsableMenuBG.className = "";
         collapsableMenu.style.display = "none";
         midAnimationCollapse = false;
-        if (!midAnimationCollapse && !midAnimationExtend) {
-            controller.abort();
-        }
+        controller.abort();
     }, { signal: controller.signal });
 
 
