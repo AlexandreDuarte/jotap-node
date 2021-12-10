@@ -475,7 +475,7 @@ function getCoords(element) {
     return result;
 }
 
-var midAnimation = false;
+var midAnimation, midAnimationCollapse, midAnimationExtend = false;
 
 var endAnimation = whichAnimationEvent();
 
@@ -563,7 +563,7 @@ function navMenuButtonPress(el) {
 }
 
 function extendMenu() {
-    midAnimation = true;
+    midAnimationExtend = true;
     
     collapsableMenu.style.display = "block";
 
@@ -574,14 +574,14 @@ function extendMenu() {
     var controller = new AbortController();
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
-        midAnimation = false;
+        midAnimationExtend = false;
         controller.abort();
     }, { signal: controller.signal });
 }
 
 function collapseMenu() {
 
-    midAnimation = true;
+    midAnimationCollapse = true;
 
     collapsableMenuButton.className = "";
 
@@ -590,11 +590,9 @@ function collapseMenu() {
     var controller = new AbortController();
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
-        if (midAnimation) {
-            collapsableMenuBG.className = "";
-            collapsableMenu.style.display = "none";
-            midAnimation = false;
-        }
+        collapsableMenuBG.className = "";
+        collapsableMenu.style.display = "none";
+        midAnimationCollapse = false;
         controller.abort();
     }, { signal: controller.signal });
 
