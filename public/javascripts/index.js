@@ -585,7 +585,8 @@ function extendMenu() {
 function collapseMenu() {
 
 
-    
+    if (midAnimationExtend) return;
+
 
     midAnimationCollapse = true;
 
