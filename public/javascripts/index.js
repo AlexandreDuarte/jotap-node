@@ -626,7 +626,6 @@ function requesteContentPage(contentIDs) {
             value.className = currentLanguage.pt;
         });
 
-        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
     };
 
     request.open("GET", contentIDs);
@@ -685,11 +684,6 @@ function aboutButton() {
 
 function portfolioButton(category) {
 
-    if (narrowScreen) {
-        collapsableMenuButton.className = "";
-
-        collapsableMenuBG.className = "nav-collapsed";
-    }
     if (window.location.pathname === "/portfolio" && category === portfolioCategory) return;
 
     if (category) {
@@ -703,6 +697,10 @@ function portfolioButton(category) {
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
     portfolioPopulated = false;
+
+    if (narrowScreen) {
+        collapseMenu();
+    }
 
 
 }
