@@ -563,8 +563,6 @@ function navMenuButtonPress(el) {
 }
 
 function extendMenu() {
-    console.log("extend Animation start");
-
 
     midAnimationExtend = true;
     
@@ -578,7 +576,6 @@ function extendMenu() {
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimationExtend = false;
-        console.log("extend Animation end");
         if (!midAnimationCollapse && !midAnimationExtend) {
             controller.abort();
         }
@@ -587,7 +584,6 @@ function extendMenu() {
 
 function collapseMenu() {
     
-    console.log("collapse Animation start");
 
     midAnimationCollapse = true;
 
@@ -601,7 +597,6 @@ function collapseMenu() {
         collapsableMenuBG.className = "";
         collapsableMenu.style.display = "none";
         midAnimationCollapse = false;
-        console.log("collapse Animation end");
         if (!midAnimationCollapse && !midAnimationExtend) {
             controller.abort();
         }
