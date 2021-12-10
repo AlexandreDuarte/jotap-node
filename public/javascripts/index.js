@@ -575,7 +575,6 @@ function extendMenu() {
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimation = false;
-        console.log("extend end animation");
         controller.abort();
     }, { signal: controller.signal });
 }
@@ -591,10 +590,11 @@ function collapseMenu() {
     var controller = new AbortController();
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
-        midAnimation = false;
-        collapsableMenuBG.className = "";
-        console.log("collapse end animation");
-        collapsableMenu.style.display = "none";
+        if (midAnimation) {
+            collapsableMenuBG.className = "";
+            collapsableMenu.style.display = "none";
+            midAnimation = false;
+        }
         controller.abort();
     }, { signal: controller.signal });
 
