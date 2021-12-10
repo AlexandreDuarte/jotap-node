@@ -812,6 +812,10 @@ background-color: var(--nav-color);
     margin-top: 2vw;
   }
 
+  .grid-h {
+    font-size: 13px;
+  }
+
   #grid-imageoverlay {
     width: 80vw;
     height: 80vh;
