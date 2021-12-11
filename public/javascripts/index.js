@@ -563,8 +563,8 @@ function navMenuButtonPress(el) {
 }
 
 function extendMenu() {
+    console.log("extend Animation start");
 
-    if (midAnimationCollapse) return;
 
     midAnimationExtend = true;
     
@@ -578,14 +578,15 @@ function extendMenu() {
 
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimationExtend = false;
+        collapsableMenu.style.display = "block";
+        console.log("extend Animation end");
         controller.abort();
     }, { signal: controller.signal });
 }
 
 function collapseMenu() {
 
-
-    if (midAnimationExtend) return;
+    console.log("collapse Animation start");
 
 
     midAnimationCollapse = true;
@@ -600,6 +601,7 @@ function collapseMenu() {
         collapsableMenuBG.className = "";
         collapsableMenu.style.display = "none";
         midAnimationCollapse = false;
+        console.log("collapse Animation end");
         controller.abort();
     }, { signal: controller.signal });
 
@@ -627,6 +629,7 @@ function requesteContentPage(contentIDs) {
             value.className = currentLanguage.pt;
         });
 
+        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
     };
 
     request.open("GET", contentIDs);
@@ -685,6 +688,8 @@ function aboutButton() {
 
 function portfolioButton(category) {
 
+    if (narrowScreen) collapseMenu();
+
     if (window.location.pathname === "/portfolio" && category === portfolioCategory) return;
 
     if (category) {
@@ -699,10 +704,6 @@ function portfolioButton(category) {
     portfolioRequests = 1;
     portfolioPopulated = false;
 
-    
-    if (narrowScreen) {
-        collapseMenu();
-    }
 
 }
 
