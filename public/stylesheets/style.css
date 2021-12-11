@@ -100,6 +100,7 @@ body {
   bottom: calc(4vh - 30px*11/32);
   width: calc(100% - 8vh);
   z-index: 3;
+  margin-top: 20px;
 }
 
 #language-select-shell {
@@ -264,8 +265,8 @@ footer {
 
 #about-p {
   margin-top: 0px;
-  padding-top: 15vh;
-  padding-bottom: 15vh;
+  padding-top: 10vh;
+  padding-bottom: 5vh;
   text-align: justify;
 }
 
@@ -877,6 +878,10 @@ background-color: var(--nav-color);
 
   #nav-text {
     font-size: 20px;
+  }
+
+  #about-p {
+    padding-top: 15vh;
   }
 
   

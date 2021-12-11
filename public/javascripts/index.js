@@ -563,7 +563,6 @@ function navMenuButtonPress(el) {
 }
 
 function extendMenu() {
-    console.log("extend Animation start");
 
 
     midAnimationExtend = true;
@@ -581,14 +580,12 @@ function extendMenu() {
         collapsableMenu.style.display = "block";
         collapsableMenuButton.className = "selected";
         collapsableMenuBG.className = "nav-extended";
-        console.log("extend Animation end");
         controller.abort();
     }, { signal: controller.signal });
 }
 
 function collapseMenu() {
 
-    console.log("collapse Animation start");
 
 
     midAnimationCollapse = true;
@@ -605,7 +602,6 @@ function collapseMenu() {
         midAnimationCollapse = false;
         collapsableMenuButton.className = "";
         collapsableMenuBG.className = "nav-collapsed";
-        console.log("collapse Animation end");
         controller.abort();
     }, { signal: controller.signal });
 
