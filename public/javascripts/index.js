@@ -579,6 +579,8 @@ function extendMenu() {
     collapsableMenuBG.addEventListener(endAnimation, () => {
         midAnimationExtend = false;
         collapsableMenu.style.display = "block";
+        collapsableMenuButton.className = "selected";
+        collapsableMenuBG.className = "nav-extended";
         console.log("extend Animation end");
         controller.abort();
     }, { signal: controller.signal });
@@ -601,6 +603,8 @@ function collapseMenu() {
         collapsableMenuBG.className = "";
         collapsableMenu.style.display = "none";
         midAnimationCollapse = false;
+        collapsableMenuButton.className = "";
+        collapsableMenuBG.className = "nav-collapsed";
         console.log("collapse Animation end");
         controller.abort();
     }, { signal: controller.signal });
