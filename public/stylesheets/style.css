@@ -283,7 +283,8 @@ footer {
   display: flex;
   flex-flow: row nowrap;
   column-gap: 20px;
-  padding: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin: auto;
 }
 
@@ -902,7 +903,9 @@ background-color: var(--nav-color);
     font-size: 20px;
   }
 
-
+  #contacts * {
+    font-size: 13px;
+  }
   
 }
 
