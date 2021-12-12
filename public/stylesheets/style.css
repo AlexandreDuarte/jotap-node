@@ -69,6 +69,8 @@ body {
 }
 
 #content {
+  
+  z-index: 0;
   min-height: calc(100vh - 50px);
 }
 
@@ -203,6 +205,8 @@ footer {
   margin-top: auto;
   margin-bottom: auto;
   width: calc(100% - 160px);
+  opacity: 0.25;
+  color: var(--text-color);
 }
 
 .icon {
@@ -264,13 +268,31 @@ footer {
 }
 
 #about-p {
+  
   margin-top: 0px;
-  padding-top: 10vh;
-  padding-bottom: 5vh;
   text-align: justify;
 }
 
+#about-h1 {
+  margin-top: 0px;
+  padding-top: 15vh;
+  text-align: center;
+}
 
+#contacts {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 20px;
+  padding: 15px;
+  margin: auto;
+}
+
+.contact-link {
+  all: inherit;
+  cursor: pointer;
+  height: 1rem;
+  z-index: 1;
+}
 
 /*.section-hello {
   
@@ -880,9 +902,6 @@ background-color: var(--nav-color);
     font-size: 20px;
   }
 
-  #about-p {
-    padding-top: 15vh;
-  }
 
   
 }
