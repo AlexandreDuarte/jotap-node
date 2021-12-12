@@ -260,7 +260,7 @@ footer {
   margin-left: auto;
   margin-right: auto;
   background-image: url(../images/about-image.jpeg);
-  height: 50vh;
+  height: max(400px, 50vh);
   aspect-ratio: calc(750/902);
   background-repeat: no-repeat;
   background-size: contain;
