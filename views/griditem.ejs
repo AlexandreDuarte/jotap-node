@@ -4,8 +4,8 @@
 
             <div class="grid-info">
                 <h1 class="grid-h">
-                    <span lang="pt"><%= obra.titlept %></span>
-                    <span lang="en"><%= obra.titleen %></span>
+                    <span lang="pt"><%= obra.titlept != "" ? obra.titlept : "Sem título" %></span>
+                    <span lang="en"><%= obra.titleen != "" ? obra.titleen : "Untitled" %></span>
                 </h1>
                 <p class="grid-p">
                     <span lang="pt"><%= obra.descriptionpt %></span>
