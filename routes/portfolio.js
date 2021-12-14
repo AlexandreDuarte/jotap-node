@@ -43,7 +43,7 @@ router.get('/griditems', async function (req, res, next) {
 
   if (req.query.filter) {
     if (req.query.filter === "other") {
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC OFFSET $3 FETCH FIRST 5 ROW ONLY;', ['canvas', 'murals', req.query.page]);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC OFFSET $3 FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural', req.query.page]);
       
       if (rows) {
         res.render('griditem-batch', { obras: rows });
