@@ -17,18 +17,18 @@ router.get('/', async function (req, res, next) {
 
   if (req.query.filter) {
     if (req.query.filter === "other") {
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC, id FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural']);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC, id DESC FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural']);
       
       res.render('portfolio', { obras: rows, activefilter: [false, false, false, true] });
     } else {
       qfilter = req.query.filter;
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year DESC, id FETCH FIRST 5 ROW ONLY;', [qfilter]);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year DESC, id DESC FETCH FIRST 5 ROW ONLY;', [qfilter]);
       
       res.render('portfolio', { obras: rows, activefilter: [false, qfilter === "canvas", qfilter === "mural", false] });
     }
     
   } else {
-    const { rows } = await pool.query('SELECT * FROM obra ORDER BY year DESC, id FETCH FIRST 5 ROW ONLY;');
+    const { rows } = await pool.query('SELECT * FROM obra ORDER BY year DESC, id DESC FETCH FIRST 5 ROW ONLY;');
     
     res.render('portfolio', { obras: rows, activefilter: [true, false, false, false] });
   }
@@ -43,7 +43,7 @@ router.get('/griditems', async function (req, res, next) {
 
   if (req.query.filter) {
     if (req.query.filter === "other") {
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC, id OFFSET $3 FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural', req.query.page]);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC, id DESC OFFSET $3 FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural', req.query.page]);
       
       if (rows) {
         res.render('griditem-batch', { obras: rows });
@@ -52,7 +52,7 @@ router.get('/griditems', async function (req, res, next) {
       }
     } else {
       qfilter = req.query.filter;
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year DESC, id OFFSET $2 FETCH FIRST 5 ROW ONLY;', [qfilter, req.query.page]);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year DESC, id DESC OFFSET $2 FETCH FIRST 5 ROW ONLY;', [qfilter, req.query.page]);
       
       if (rows) {
         res.render('griditem-batch', { obras: rows });
@@ -62,7 +62,7 @@ router.get('/griditems', async function (req, res, next) {
     }
     
   } else {
-    const { rows } = await pool.query('SELECT * FROM obra ORDER BY year DESC, id OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
+    const { rows } = await pool.query('SELECT * FROM obra ORDER BY year DESC, id DESC OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
     
     if (rows) {
       res.render('griditem-batch', { obras: rows });
