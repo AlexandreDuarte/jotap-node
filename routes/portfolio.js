@@ -43,7 +43,7 @@ router.get('/griditems', async function (req, res, next) {
 
   if (req.query.filter) {
     if (req.query.filter === "other") {
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year OFFSET $3 FETCH FIRST 5 ROW ONLY;', ['canvas', 'murals', req.query.page]);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC OFFSET $3 FETCH FIRST 5 ROW ONLY;', ['canvas', 'murals', req.query.page]);
       
       if (rows) {
         res.render('griditem-batch', { obras: rows });
@@ -52,7 +52,7 @@ router.get('/griditems', async function (req, res, next) {
       }
     } else {
       qfilter = req.query.filter;
-      const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year OFFSET $2 FETCH FIRST 5 ROW ONLY;', [qfilter, req.query.page]);
+      const { rows } = await pool.query('SELECT * FROM obra WHERE category=$1::text ORDER BY year DESC OFFSET $2 FETCH FIRST 5 ROW ONLY;', [qfilter, req.query.page]);
       
       if (rows) {
         res.render('griditem-batch', { obras: rows });
@@ -62,7 +62,7 @@ router.get('/griditems', async function (req, res, next) {
     }
     
   } else {
-    const { rows } = await pool.query('SELECT * FROM obra ORDER BY year OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
+    const { rows } = await pool.query('SELECT * FROM obra ORDER BY year DESC OFFSET $1 FETCH FIRST 5 ROW ONLY;', [req.query.page]);
     
     if (rows) {
       res.render('griditem-batch', { obras: rows });
