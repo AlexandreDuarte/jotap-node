@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Gravit.io -->
+
+<svg
+   style="isolation:isolate"
+   viewBox="0 0 16 11"
+   width="16pt"
+   height="11pt"
+   version="1.1"
+   id="svg35"
+   sodipodi:docname="british-flag.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview37"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="pt"
+     showgrid="true"
+     showguides="true"
+     inkscape:lockguides="false"
+     inkscape:zoom="22.627417"
+     inkscape:cx="13.567611"
+     inkscape:cy="11.070641"
+     inkscape:window-width="2021"
+     inkscape:window-height="2075"
+     inkscape:window-x="20"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g33">
+    <inkscape:grid
+       type="xygrid"
+       id="grid39"
+       spacingy="0.49999999"
+       units="pt"
+       spacingx="0.49999999" />
+  </sodipodi:namedview>
+  <defs
+     id="defs5">
+    <clipPath
+       id="_clipPath_zxL8lEbjFa3und8q9LGA23n4Orn8GhEj">
+      <rect
+         width="16"
+         height="11"
+         id="rect2" />
+    </clipPath>
+  </defs>
+  <g
+     clip-path="url(#_clipPath_zxL8lEbjFa3und8q9LGA23n4Orn8GhEj)"
+     id="g33">
+    <path
+       d="M 0.99999998,11 6.4999999,6.9999999 V 11 Z"
+       fill="#006600"
+       id="path13"
+       style="stroke-width:1.09545"
+       sodipodi:nodetypes="cccc" />
+    <path
+       d="m 0,4.4999999 h 6.9999999 l -10e-8,1.9999999 L 0,6.4999999 Z"
+       fill="#006600"
+       id="path15"
+       style="stroke-width:1.18322"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m -0.49999999,11 5.49999989,-4.0000001 1,-3e-7 L 0.49999999,11 Z"
+       fill="#006600"
+       id="path15-7"
+       style="isolation:isolate;stroke-width:1.18322"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="M 9.9999998,3.9999999 15.5,-1.8e-7 l 1,-3e-7 L 11,3.9999999 Z"
+       fill="#006600"
+       id="path15-7-2"
+       style="isolation:isolate;stroke-width:1.18322;fill:#ff0000;fill-opacity:1"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="M -0.99999998,1.5 2.9999999,3.9999999 H 4.0000001 L 0,1.5 Z"
+       fill="#006600"
+       id="path15-7-5"
+       style="isolation:isolate;stroke-width:1.18322"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="M 11.999999,6.9999999 16,9.4999998 h 1 L 12.999999,6.9999999 Z"
+       fill="#006600"
+       id="path15-7-5-3"
+       style="isolation:isolate;stroke-width:1.18322;fill:#ff0000;fill-opacity:1"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m 0,6.9999999 v 0 H 2.4999999 L 0,8.4999999 Z"
+       fill="#006600"
+       id="path17"
+       style="stroke-width:1.18436"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m 0,2.4999999 v 0 l 2.5,1.5 H 0 Z"
+       fill="#006600"
+       id="path17-6"
+       style="isolation:isolate;stroke-width:1.18436"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m 6.9999999,6.4999999 h 2 L 8.9999998,11 H 6.9999999 Z"
+       fill="#ff0000"
+       id="path19"
+       style="stroke-width:0.639601"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="M 9.4999998,6.9999999 15,11 v 0 H 9.4999998 Z"
+       fill="#ff0000"
+       id="path21"
+       style="stroke-width:0.426401"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="M 13.5,6.9999999 H 16 v 1.5 0 z"
+       fill="#ff0000"
+       id="path23"
+       style="stroke-width:0.603022"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m 13.5,3.9999999 2.5,-1.5 v 1.5 0 z"
+       fill="#ff0000"
+       id="path23-3"
+       style="isolation:isolate;stroke-width:0.603022"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="M 6.9999998,4.4999999 H 16 v 2 H 6.9999998 Z"
+       fill="#ff0000"
+       id="path25"
+       style="stroke-width:1.41421" />
+    <path
+       d="M 9.4999998,0 H 15.999999 15 L 9.4999998,3.9999999 Z"
+       fill="#ff0000"
+       id="path27"
+       style="stroke-width:0.816496"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m 7,0 h 1.9999997 l 10e-8,4.9999999 L 7,4.9999998 Z"
+       fill="#ff0000"
+       id="path29"
+       style="stroke-width:1.05409"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       d="m 1,0 h 5.5000001 l 0,3.9999999 z"
+       fill="#006600"
+       id="path31"
+       style="stroke-width:0.894427"
+       sodipodi:nodetypes="cccc" />
+  </g>
+</svg>

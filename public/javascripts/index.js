@@ -102,13 +102,18 @@ window.onload = () => {
 
     for (let i = 0; i < pathPortuguese.length; i++) {
 
-        let portList = getCoords(pathPortuguese[i]);
-        let amerList = getCoords(pathAmerican[i]);
+        let portList = getCoords(pathPortuguese[i], true);
+        let amerList = getCoords(pathAmerican[i], true);
+
+        console.log(portList);
+        console.log(amerList);
 
         let deltaSub = [];
 
         for (let j = 0; j < portList.length; j++) {
-            deltaSub.push(amerList[j] - portList[j]);
+            if (!isNaN(portList[j])) {
+                deltaSub.push(amerList[j] - portList[j]);
+            }
         }
 
         deltaPath.push(deltaSub);
@@ -418,14 +423,38 @@ function triggerLanguageChange() {
 
         for (let i = 0; i < pathPortuguese.length; i++) {
 
-            let portList = getCoords(pathPortuguese[i]);
+            let portList = getCoords(pathPortuguese[i], false);
+
+            console.log(portList);
+            console.log(deltaPath[i]);
+            console.log(pathPortuguese[i].id);
+
+            let offset = 0;
 
             for (let j = 0; j < portList.length; j++) {
-                portList[j] += pathMod * deltaPath[i][j] / steps;
+                if (!isNaN(portList[j])) {
+                    portList[j] += pathMod * deltaPath[i][j+offset] / steps;
+                } else if (typeof portList[j] === 'string' && portList[j].includes(",")) {
+                    if (portList[j].split(',').length != 1) {
+                        let rest = portList[j].split(',');
+                        console.log(rest);
+                        console.log(offset);
+                        let v1 = parseFloat(rest[0]);
+                        let v2 = parseFloat(rest[1]);
+                        v1 += pathMod * deltaPath[i][j+offset] / steps;
+                        v2 += pathMod * deltaPath[i][j+offset+1] / steps;
+                        offset += 1;
+                        portList[j] = `${v1},${v2}`;
+                    }
+                } else {
+                    offset -= 1;
+                }
             }
 
-            pathPortuguese[i].setAttribute('d', ` M ${portList[0]} ${portList[1]} L ${portList[2]} ${portList[3]} L ${portList[4]} ${portList[5]} L ${portList[6]} ${portList[7]} Z `);
+            console.log(portList);
 
+            pathPortuguese[i].setAttribute('d', portList.join(" "));
+/*
             if (!english) {
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
@@ -450,7 +479,7 @@ function triggerLanguageChange() {
                         pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                     }
                 }
-            }
+            }*/
         }
 
         count++;
@@ -461,15 +490,24 @@ function stepColor(color, targetColor, step) {
     return [parseInt(color[0]) + (targetColor[0] - parseInt(color[0])) / step, parseInt(color[1]) + (targetColor[1] - parseInt(color[1])) / step, parseInt(color[2]) + (targetColor[2] - parseInt(color[2])) / step];
 }
 
-function getCoords(element) {
+function getCoords(element, countCommaAsSeparator) {
     var result = [];
 
     let d = element.getAttribute("d");
-    var dList = d.split(" ");
+    var dList;
+    if (countCommaAsSeparator) {
+        dList = d.split(/[\s,]/g);
+    } else {
+        dList = d.split(' ');
+    }
 
     for (let j = 0; j < dList.length; j++) {
-        if (dList[j] != "" && !isNaN(dList[j]))
-            result.push(parseFloat(dList[j]));
+        if (dList[j] != "")
+            if (!isNaN(dList[j])) {
+                result.push(parseFloat(dList[j]));
+            } else {
+                result.push(dList[j]);
+            }
     }
 
     return result;
