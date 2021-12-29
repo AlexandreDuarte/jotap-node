@@ -267,6 +267,19 @@ footer {
   background-position: center;
 }
 
+#exposicao-image {
+  position: relative;
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/desconfinar.jpg);
+  height: max(400px, 50vh);
+  aspect-ratio: calc(750/902);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
 #about-p {
   
   margin-top: 0px;

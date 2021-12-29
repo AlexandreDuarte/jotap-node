@@ -3,6 +3,9 @@ var pathPortuguese, pathAmerican;
 var deltaPath = [];
 var pathMod = 1;
 
+var colorPort = [];
+var colorAmer = [];
+
 var english;
 
 var collapsableMenu;
@@ -52,6 +55,7 @@ var narrowScreen;
 var portfolioRequests = 0;
 var portfolioWaitingHttpResponse = false;
 var portfolioCategory = '';
+
 
 window.onpopstate = () => {
 
@@ -105,8 +109,8 @@ window.onload = () => {
         let portList = getCoords(pathPortuguese[i], true);
         let amerList = getCoords(pathAmerican[i], true);
 
-        console.log(portList);
-        console.log(amerList);
+        colorPort.push(pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
+        colorAmer.push(pathAmerican[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
 
         let deltaSub = [];
 
@@ -349,10 +353,6 @@ function triggerLanguageChange() {
     languageChangeAnim = true;
 
     var count = 0;
-    var colorRed = [255, 0, 0];
-    var colorGreen = [0, 102, 0];
-    var colorDre = [206, 51, 49];
-    var colorBlue = [54, 87, 120];
 
     for (let i = 0; i < pathPortuguese.length; i++) {
         if (pathPortuguese[i].id.includes("back")) {
@@ -366,30 +366,17 @@ function triggerLanguageChange() {
 
             if (!english) {
                 for (let i = 0; i < pathPortuguese.length; i++) {
-                    if (pathPortuguese[i].id == "back-0") {
-                        pathPortuguese[i].setAttribute('fill', 'rgb(0,102,0)');
-                    } else if (pathPortuguese[i].id == "back-1") {
-                        pathPortuguese[i].setAttribute('fill', 'rgb(255,0,0)');
-                    } else if (pathPortuguese[i].id == "back-2") {
-                        pathPortuguese[i].setAttribute('fill', 'rgba(0,0,0,0)');
-                    } else if (pathPortuguese[i].id.includes('red')) {
-                        pathPortuguese[i].setAttribute('fill', `rgb(${colorRed[0]}, ${colorRed[1]}, ${colorRed[2]})`);
-                    } else if (pathPortuguese[i].id.includes('green')) {
-                        pathPortuguese[i].setAttribute('fill', `rgb(${colorGreen[0]}, ${colorGreen[1]}, ${colorGreen[2]})`);
-                    }
+                    
+                    pathPortuguese[i].setAttribute('fill', `rgb(${colorPort[i][0]}, ${colorPort[i][1]}, ${colorPort[i][2]})`);
                 }
                 currentLanguage = supportedLanguages.PT;
                 hash = "";
 
             } else {
                 for (let i = 0; i < pathPortuguese.length; i++) {
-                    if (pathPortuguese[i].id.includes("back")) {
-                        pathPortuguese[i].setAttribute('fill', 'rgba(0,0,0,0)');
-                    } else if (pathPortuguese[i].id.includes('dre')) {
-                        pathPortuguese[i].setAttribute('fill', `rgb(${colorDre[0]}, ${colorDre[1]}, ${colorDre[2]})`);
-                    } else if (pathPortuguese[i].id.includes('blue')) {
-                        pathPortuguese[i].setAttribute('fill', `rgb(${colorBlue[0]}, ${colorBlue[1]}, ${colorBlue[2]})`);
-                    }
+                    
+                    pathPortuguese[i].setAttribute('fill', `rgb(${colorAmer[i][0]}, ${colorAmer[i][1]}, ${colorAmer[i][2]})`);
+                    
                 }
                 currentLanguage = supportedLanguages.EN;
                 hash = "#en";
@@ -425,10 +412,6 @@ function triggerLanguageChange() {
 
             let portList = getCoords(pathPortuguese[i], false);
 
-            console.log(portList);
-            console.log(deltaPath[i]);
-            console.log(pathPortuguese[i].id);
-
             let offset = 0;
 
             for (let j = 0; j < portList.length; j++) {
@@ -437,8 +420,6 @@ function triggerLanguageChange() {
                 } else if (typeof portList[j] === 'string' && portList[j].includes(",")) {
                     if (portList[j].split(',').length != 1) {
                         let rest = portList[j].split(',');
-                        console.log(rest);
-                        console.log(offset);
                         let v1 = parseFloat(rest[0]);
                         let v2 = parseFloat(rest[1]);
                         v1 += pathMod * deltaPath[i][j+offset] / steps;
@@ -451,35 +432,27 @@ function triggerLanguageChange() {
                 }
             }
 
-            console.log(portList);
 
             pathPortuguese[i].setAttribute('d', portList.join(" "));
-/*
+
             if (!english) {
+                
+
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
-
-                    if (pathPortuguese[i].id.includes('red')) {
-                        let newColor = stepColor(color, colorRed, steps);
-                        pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
-                    } else if (pathPortuguese[i].id.includes('green')) {
-                        let newColor = stepColor(color, colorGreen, steps);
-                        pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
-                    }
+                    let newColor = stepColor(color, colorPort[i], steps);
+                    
+                    pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
             } else {
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
 
-                    if (pathPortuguese[i].id.includes('dre')) {
-                        let newColor = stepColor(color, colorDre, steps);
-                        pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
-                    } else if (pathPortuguese[i].id.includes('blue')) {
-                        let newColor = stepColor(color, colorBlue, steps);
-                        pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
-                    }
+                    let newColor = stepColor(color, colorAmer[i], steps);
+                    
+                    pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
-            }*/
+            }
         }
 
         count++;
