@@ -20,7 +20,7 @@
 
   scrollbar-color: var(--nav-highlight-color) var(--nav-color);
 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Urbanist', sans-serif;
 }
 
 
@@ -439,6 +439,7 @@ ol {
   width: min(50vw, var(--nav-center-width));
   position: absolute;
   color: var(--nav-highlight-color);
+  font-family: 'Urbanist', sans-serif;
   font-size: 25px;
   transform: none;
   z-index: 1;

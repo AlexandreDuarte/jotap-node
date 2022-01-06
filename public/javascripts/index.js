@@ -56,6 +56,7 @@ var portfolioRequests = 0;
 var portfolioWaitingHttpResponse = false;
 var portfolioCategory = '';
 
+var scrollbarWidth;
 
 window.onpopstate = () => {
 
@@ -68,10 +69,22 @@ window.onresize = () => {
 
     identifyCollapsableMenu();
 
+    
+
+    var scrollDiv = document.createElement("div");
+    scrollDiv.className = "scrollbar-measure";
+    document.body.appendChild(scrollDiv);
+
+    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    console.warn(scrollbarWidth);
+
+    document.body.removeChild(scrollDiv);
+
+    document.getElementById("banner").style.width = `${scrollbarWidth}px`
+
 };
 
 window.onload = () => {
-
 
     pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
     pathAmerican = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
@@ -147,8 +160,8 @@ window.onload = () => {
         mouseLeftFlag = true;
     });
 
-    
-    
+
+
 
     navOffset = 0;
     lastScrollTop = 0;
@@ -157,7 +170,7 @@ window.onload = () => {
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems(); 
+        if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.scrollingElement.scrollHeight - window.screen.availHeight - 50) requestPortfolioItems();
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
@@ -183,6 +196,19 @@ window.onload = () => {
 
         lastScrollTop = scrollTop;
     });
+
+    
+
+    var scrollDiv = document.createElement("div");
+    scrollDiv.className = "scrollbar-measure";
+    document.body.appendChild(scrollDiv);
+
+    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    console.warn(scrollbarWidth);
+
+    document.body.removeChild(scrollDiv);
+
+    document.getElementById("banner").style.width = `${scrollbarWidth}px`
 
 
 
@@ -240,16 +266,16 @@ function requestPortfolioItems() {
 
             collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
 
-            
-            portfolioRequests+=1;
+
+            portfolioRequests += 1;
         }
 
         portfolioWaitingHttpResponse = false;
 
     };
-    
-    request.open("GET", `portfoliopage/griditems?page=${portfolioRequests*5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
-    
+
+    request.open("GET", `portfoliopage/griditems?page=${portfolioRequests * 5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
+
     request.send();
 
 
@@ -261,12 +287,12 @@ function identifyCollapsableMenu() {
         collapsableMenu = document.getElementById("nav-small-screen-menu");
         collapsableMenuBG = document.getElementById("nav-small-screen-menu-background");
         collapsableMenuButton = document.getElementById("nav-small-screen-button");
-        
+
         collapsableMenu.style.display = "block";
 
         collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
         collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
-        
+
         if (!narrowListeners) {
             setupNavListenersWideScreen(true);
             narrowListners = true;
@@ -297,23 +323,23 @@ function identifyCollapsableMenu() {
 function setupNavListenersWideScreen(narrowScreen) {
 
 
-        collapsableMenuButton.addEventListener('mouseleave', e => {
+    collapsableMenuButton.addEventListener('mouseleave', e => {
 
-            if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
+        if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
 
-            if (collapsableMenuBG.className === "nav-extended") {
-                collapseMenu();
-            }
-        });
+        if (collapsableMenuBG.className === "nav-extended") {
+            collapseMenu();
+        }
+    });
 
-        collapsableMenuButton.addEventListener('mouseenter', e => {
+    collapsableMenuButton.addEventListener('mouseenter', e => {
 
-            if (collapsableMenuBG.className !== "nav-extended") {
-                extendMenu();
-            }
-        });
+        if (collapsableMenuBG.className !== "nav-extended") {
+            extendMenu();
+        }
+    });
 
-    
+
 
     navBar.addEventListener('mouseleave', e => {
 
@@ -366,7 +392,7 @@ function triggerLanguageChange() {
 
             if (!english) {
                 for (let i = 0; i < pathPortuguese.length; i++) {
-                    
+
                     pathPortuguese[i].setAttribute('fill', `rgb(${colorPort[i][0]}, ${colorPort[i][1]}, ${colorPort[i][2]})`);
                 }
                 currentLanguage = supportedLanguages.PT;
@@ -374,9 +400,9 @@ function triggerLanguageChange() {
 
             } else {
                 for (let i = 0; i < pathPortuguese.length; i++) {
-                    
+
                     pathPortuguese[i].setAttribute('fill', `rgb(${colorAmer[i][0]}, ${colorAmer[i][1]}, ${colorAmer[i][2]})`);
-                    
+
                 }
                 currentLanguage = supportedLanguages.EN;
                 hash = "#en";
@@ -416,14 +442,14 @@ function triggerLanguageChange() {
 
             for (let j = 0; j < portList.length; j++) {
                 if (!isNaN(portList[j])) {
-                    portList[j] += pathMod * deltaPath[i][j+offset] / steps;
+                    portList[j] += pathMod * deltaPath[i][j + offset] / steps;
                 } else if (typeof portList[j] === 'string' && portList[j].includes(",")) {
                     if (portList[j].split(',').length != 1) {
                         let rest = portList[j].split(',');
                         let v1 = parseFloat(rest[0]);
                         let v2 = parseFloat(rest[1]);
-                        v1 += pathMod * deltaPath[i][j+offset] / steps;
-                        v2 += pathMod * deltaPath[i][j+offset+1] / steps;
+                        v1 += pathMod * deltaPath[i][j + offset] / steps;
+                        v2 += pathMod * deltaPath[i][j + offset + 1] / steps;
                         offset += 1;
                         portList[j] = `${v1},${v2}`;
                     }
@@ -436,12 +462,12 @@ function triggerLanguageChange() {
             pathPortuguese[i].setAttribute('d', portList.join(" "));
 
             if (!english) {
-                
+
 
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
                     let newColor = stepColor(color, colorPort[i], steps);
-                    
+
                     pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
             } else {
@@ -449,7 +475,7 @@ function triggerLanguageChange() {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
 
                     let newColor = stepColor(color, colorAmer[i], steps);
-                    
+
                     pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
             }
@@ -577,7 +603,7 @@ function extendMenu() {
 
 
     midAnimationExtend = true;
-    
+
     collapsableMenu.style.display = "block";
 
     collapsableMenuButton.className = "selected";
@@ -720,7 +746,7 @@ function portfolioButton(category) {
 
 function exhibitionsButton() {
     if (window.location.pathname === "/exhibitions") return;
-    
+
     if (narrowScreen) collapseMenu();
 
     window.history.pushState({}, '', window.location.origin + "/" + 'exhibitions' + hash);
