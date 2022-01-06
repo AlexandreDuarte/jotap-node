@@ -761,15 +761,15 @@ function selectorBannerButton(value) {
 function updateBannerElements() {
 
     if (bannerPos == 1) {
-        document.getElementById("arrow-right").style.opacity = "0";
+        document.getElementById("arrow-right").style.display = "none";
     } else {
-        document.getElementById("arrow-right").style.opacity = "0.7";
+        document.getElementById("arrow-right").style.display = "block";
     }
 
     if (bannerPos == -1) {
-        document.getElementById("arrow-left").style.opacity = "0";
+        document.getElementById("arrow-left").style.display = "none";
     } else {
-        document.getElementById("arrow-left").style.opacity = "0.7";
+        document.getElementById("arrow-left").style.display = "block";
     }
 
     let elements = document.getElementsByClassName("banner-background");
