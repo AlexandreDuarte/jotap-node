@@ -356,7 +356,6 @@ footer {
   position: relative;
   transform: translateX(-100%);
 
-  flex-basis: max(900px, 80vw);
   flex-grow: 0;
   flex-shrink: 0;
 }
