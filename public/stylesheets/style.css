@@ -230,9 +230,8 @@ footer {
 
 .section-banner {
   display: unset;
-  margin-top: 70px;
-  border-bottom: 1px solid var(--nav-secondary-color);
-  padding-bottom: 20px;
+  border: unset;
+  background: unset;
 }
 
 .section-list {
@@ -329,13 +328,15 @@ footer {
 #banner {
   position: relative;
   overflow: hidden;
-  width: max(900px, calc(80vw - 40px));
+  width: max(900px, 80vw);
   aspect-ratio: 16/9;
   
   display: inline-box;
   display: -webkit-inline-box;
 
   margin: 20px 0px;
+  
+  margin-top: min(calc((100vh - 900px * 9 / 16) / 2), calc((100vh - (80vw) * 9 / 16)/2));;
 }
 
 .banner-background {
