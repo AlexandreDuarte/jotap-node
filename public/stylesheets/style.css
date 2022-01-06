@@ -590,7 +590,7 @@ ol {
 }
 
 #portfolio-items-filter {
-  margin-top: 70px;
+  margin: 70px auto 0 auto;
   width: max(60vw, 800px);
   display: flex;
   flex-flow: row nowrap;
@@ -841,7 +841,6 @@ background-color: var(--nav-color);
   #portfolio-items-filter {
     /*margin-top: 60px;*/
     width: min(calc(100vw - 40px), 800px);
-    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
     margin: 70px auto 0 auto;
