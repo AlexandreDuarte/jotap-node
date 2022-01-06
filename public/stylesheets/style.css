@@ -229,6 +229,7 @@ footer {
 }
 
 .section-banner {
+  display: unset;
   margin-top: 70px;
   border-bottom: 1px solid var(--nav-secondary-color);
   padding-bottom: 20px;
@@ -340,8 +341,8 @@ footer {
 .banner-background {
   width: 100%;
   aspect-ratio: 16/9;
-  background-size: 100% auto;
-  background-position-y: center;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   position: relative;
   transform: translateX(-100%);
@@ -814,7 +815,9 @@ background-color: var(--nav-color);
   }
 
   #banner {
-    width: 100%;
+    width: 90vw;
+    height: 80vh;
+    margin-top: 10vh;
   }
 
   .selection-bar {
@@ -925,6 +928,7 @@ background-color: var(--nav-color);
     
     width: 90%;
   }
+
   
 }
 
