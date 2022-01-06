@@ -23,6 +23,13 @@
   font-family: 'Urbanist', sans-serif;
 }
 
+.scrollbar-measure {
+	width: 100px;
+	height: 100px;
+	overflow: scroll;
+	position: absolute;
+	top: -9999px;
+}
 
 body::-webkit-scrollbar {
   width: auto;
@@ -331,12 +338,13 @@ footer {
   width: max(900px, 80vw);
   aspect-ratio: 16/9;
   
-  display: inline-box;
-  display: -webkit-inline-box;
+  display: flex;
 
-  margin: 20px 0px;
+  margin: auto;
   
-  margin-top: min(calc((100vh - 900px * 9 / 16) / 2), calc((100vh - (80vw) * 9 / 16)/2));;
+  margin-top: min(calc((100vh - 900px * 9 / 16) / 2), calc((100vh - (80vw) * 9 / 16)/2));
+
+  outline: 2px solid var(--section-background);
 }
 
 .banner-background {
@@ -347,6 +355,10 @@ footer {
   background-repeat: no-repeat;
   position: relative;
   transform: translateX(-100%);
+
+  flex-basis: max(900px, 80vw);
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .banner-background-left {
@@ -817,7 +829,7 @@ background-color: var(--nav-color);
   }
 
   #banner {
-    width: 100vw;
+    width: 100%;
     height: 80vh;
     margin-top: 10vh;
   }

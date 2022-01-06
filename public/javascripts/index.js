@@ -80,7 +80,7 @@ window.onresize = () => {
 
     document.body.removeChild(scrollDiv);
 
-    document.getElementById("banner").style.width = `${scrollbarWidth}px`
+    document.getElementById("content").style.width = `calc(100vw - ${scrollbarWidth}px)`
 
 };
 
@@ -208,7 +208,7 @@ window.onload = () => {
 
     document.body.removeChild(scrollDiv);
 
-    document.getElementById("banner").style.width = `${scrollbarWidth}px`
+    document.getElementById("content").style.width = `calc(100vw - ${scrollbarWidth}px)`
 
 
 
