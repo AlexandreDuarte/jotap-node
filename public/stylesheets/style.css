@@ -242,6 +242,7 @@ footer {
   position: relative;
   margin: auto;
   margin-top: -10vh;
+  padding-top: 10vh;
   z-index: -1;
   min-height: calc(60vh - 70px);
   height: auto;
@@ -273,22 +274,22 @@ footer {
   margin-left: auto;
   margin-right: auto;
   background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/desconfinar.jpg);
-  height: max(400px, 50vh);
-  aspect-ratio: calc(750/902);
+  height: min(90vw, 50vh);
+  aspect-ratio: 1;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 #about-p {
-  
   margin-top: 0px;
   text-align: justify;
+  width: 50%;
 }
 
 #about-h1 {
   margin-top: 0px;
-  padding-top: 15vh;
+  padding-top: 5vh;
   text-align: center;
 }
 
@@ -901,7 +902,6 @@ background-color: var(--nav-color);
     width: 80vw;
   }
 
-  
 
 }
 
@@ -918,6 +918,12 @@ background-color: var(--nav-color);
 
   #contacts * {
     font-size: 13px;
+  }
+
+  
+  #about-p{
+    
+    width: 90%;
   }
   
 }
