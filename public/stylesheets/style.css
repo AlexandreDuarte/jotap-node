@@ -810,12 +810,12 @@ background-color: var(--nav-color);
   }
 
   .section-banner {
-    width: calc(100vw - 40px);
+    width: 100vw;
     justify-content: flex-start;
   }
 
   #banner {
-    width: 90vw;
+    width: 100vw;
     height: 80vh;
     margin-top: 10vh;
   }
