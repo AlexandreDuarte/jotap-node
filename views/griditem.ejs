@@ -1,17 +1,6 @@
 <a onclick='openImagePage("<%- obra.id %>");'>
     <div class="grid-item">
         <div class="grid-item-content" style='background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/thumbnail_<%= obra.fileid %>.jpg);'>
-
-            <div class="grid-info">
-                <h1 class="grid-h">
-                    <span lang="pt"><%= obra.title != "" ? obra.title : "Sem título" %></span>
-                    <span lang="en"><%= obra.title != "" ? obra.title : "Untitled" %></span>
-                </h1>
-                <p class="grid-p">
-                    <span lang="pt"><%= obra.descriptionpt %></span>
-                    <span lang="en"><%= obra.descriptionen %></span>
-                </p>
-            </div>
         </div>
     </div>
 </a>
