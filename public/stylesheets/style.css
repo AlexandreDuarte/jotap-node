@@ -863,7 +863,7 @@ background-color: var(--nav-color);
   
 
   .grid-item{
-    width: min(calc(100vw - 40px), 800px);
+    width: min(75vw, 800px);
     margin: 0;
   }
 
@@ -900,7 +900,7 @@ background-color: var(--nav-color);
   }
 
   #grid-imageoverlay {
-    width: 80vw;
+    width: 90vw;
     height: 80vh;
     grid-template-columns: auto;
     align-content: center;
@@ -909,13 +909,13 @@ background-color: var(--nav-color);
 
   #imageoverlay-image {
     height: 60vh;
-    width: 80vw;
+    width: 90vw;
     margin: 1.5rem;
   }
 
   #imageoverlay-description {
     margin: 0 1.5rem;
-    width: 80vw;
+    width: 90vw;
   }
 
 
