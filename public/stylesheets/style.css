@@ -721,7 +721,7 @@ background-color: var(--nav-color);
 
 #grid-imageoverlay {
   position: relative;
-  width: 65vw;
+  width: 80vw;
   height: 80vh;
   display: grid;
   grid-template-columns: auto auto;
@@ -737,7 +737,7 @@ background-color: var(--nav-color);
 
 #imageoverlay-image {
   height: 80vh;
-  width: 40vw;
+  width: 55vw;
   justify-self: center;
   
   background-size: contain;
