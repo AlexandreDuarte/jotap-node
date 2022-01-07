@@ -1,10 +1,10 @@
 
-var pathPortuguese, pathAmerican;
+var pathPortuguese, pathEnglish;
 var deltaPath = [];
 var pathMod = 1;
 
 var colorPort = [];
-var colorAmer = [];
+var coloreng = [];
 
 var english;
 
@@ -87,7 +87,7 @@ window.onresize = () => {
 window.onload = () => {
 
     pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
-    pathAmerican = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
+    pathEnglish = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
 
 
     if (window.location.hash == "#en") {
@@ -120,16 +120,16 @@ window.onload = () => {
     for (let i = 0; i < pathPortuguese.length; i++) {
 
         let portList = getCoords(pathPortuguese[i], true);
-        let amerList = getCoords(pathAmerican[i], true);
+        let engList = getCoords(pathEnglish[i], true);
 
         colorPort.push(pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
-        colorAmer.push(pathAmerican[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
+        coloreng.push(pathEnglish[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
 
         let deltaSub = [];
 
         for (let j = 0; j < portList.length; j++) {
             if (!isNaN(portList[j])) {
-                deltaSub.push(amerList[j] - portList[j]);
+                deltaSub.push(engList[j] - portList[j]);
             }
         }
 
@@ -401,7 +401,7 @@ function triggerLanguageChange() {
             } else {
                 for (let i = 0; i < pathPortuguese.length; i++) {
 
-                    pathPortuguese[i].setAttribute('fill', `rgb(${colorAmer[i][0]}, ${colorAmer[i][1]}, ${colorAmer[i][2]})`);
+                    pathPortuguese[i].setAttribute('fill', `rgb(${coloreng[i][0]}, ${coloreng[i][1]}, ${coloreng[i][2]})`);
 
                 }
                 currentLanguage = supportedLanguages.EN;
@@ -474,7 +474,7 @@ function triggerLanguageChange() {
                 for (let i = 0; i < pathPortuguese.length; i++) {
                     let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
 
-                    let newColor = stepColor(color, colorAmer[i], steps);
+                    let newColor = stepColor(color, coloreng[i], steps);
 
                     pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
