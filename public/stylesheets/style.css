@@ -791,7 +791,7 @@ background-color: var(--nav-color);
   }
 
   #nav-small-screen-button:hover {
-    filter: brightness(1400%);
+    filter: brightness(880%);
   }
 
   #nav-arrow-button {
