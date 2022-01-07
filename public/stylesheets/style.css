@@ -78,7 +78,7 @@ body {
 #content {
   
   z-index: 0;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 70px);
 }
 
 #language-select-hidden {
@@ -764,7 +764,7 @@ background-color: var(--nav-color);
   }
 
   footer {
-    margin-top: 0px;
+    background-color: var(--nav-color);
   }
 
   #nav-button, #nav-button-left, #nav-menu-left {
