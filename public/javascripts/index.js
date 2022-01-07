@@ -175,7 +175,7 @@ window.onload = () => {
         if (collapsableMenuBG.className === "nav-extended") return;
 
 
-        if (scrollTop > lastScrollTop) {
+        if (scrollTop > lastScrollTop && scrollTop > 0) { 
             if (show) {
                 show = false;
                 if (navOffset > -50) {
