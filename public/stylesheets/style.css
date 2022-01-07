@@ -764,7 +764,8 @@ background-color: var(--nav-color);
   }
 
   #nav-menu-left-buffer {
-    background-color: var(--nav-secundary-color);
+    height: calc(var(--nav-height)/8);
+    background-color: #d5d5d5af;
   }
 
   #nav-button, #nav-button-left, #nav-menu-left {
