@@ -450,7 +450,7 @@ ol {
 }
 
 #nav-text {
-  width: var(--nav-center-width);
+  width: min(50vw, var(--nav-center-width));
   position: absolute;
   color: var(--nav-highlight-color);
   font-family: 'Urbanist', sans-serif;
