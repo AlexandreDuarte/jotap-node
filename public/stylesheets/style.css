@@ -198,7 +198,6 @@ section {
   border-left: 1px solid var(--nav-secondary-color);
   width: 1000px;
   min-height: 100vh;
-  min-width: 400px;
 }
 
 footer {
