@@ -251,7 +251,7 @@ footer {
   margin-top: -10vh;
   padding-top: 10vh;
   z-index: -1;
-  min-height: calc(60vh - 70px);
+  min-height: unset;
   height: auto;
 }
 
