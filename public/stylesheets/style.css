@@ -190,7 +190,7 @@ section {
   background-color: var(--nav-highlight-color);
   border-right: 1px solid var(--nav-secondary-color);
   border-left: 1px solid var(--nav-secondary-color);
-  width: max(70vw, 800px);
+  width: 1000px;
   min-height: 100vh;
 }
 
@@ -250,6 +250,7 @@ footer {
   margin: auto;
   margin-top: -10vh;
   padding-top: 10vh;
+  padding-bottom: 5vh;
   z-index: -1;
   min-height: unset;
   height: auto;
@@ -291,7 +292,7 @@ footer {
 #about-p {
   margin-top: 0px;
   text-align: justify;
-  width: 50%;
+  width: 70%;
 }
 
 #about-h1 {
@@ -477,7 +478,7 @@ ol {
 }
 
 .nav-right {
-  width: calc((100% - max(400px, 30%))/2);
+  width: calc((100% - min(var(--nav-center-width), 30%))/2);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -487,7 +488,7 @@ ol {
 }
 
 .nav-left {
-  width: calc((100% - max(400px, 30%))/2);
+  width: calc((100% - min(var(--nav-center-width), 30%))/2);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -756,6 +757,13 @@ background-color: var(--nav-color);
   height: max-content;
 }
 
+#banner {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  margin-top: 0;
+}
+
 @media only screen and (max-width: 1015px) {
 
   section {
@@ -828,12 +836,7 @@ background-color: var(--nav-color);
     justify-content: flex-start;
   }
 
-  #banner {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    margin-top: 0;
-  }
+  
 
   .selection-bar {
     display: none;

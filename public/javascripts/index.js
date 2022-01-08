@@ -65,7 +65,7 @@ window.onpopstate = () => {
 
 
 window.onresize = () => {
-    collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+    collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
 
     identifyCollapsableMenu();
 
@@ -264,7 +264,7 @@ function requestPortfolioItems() {
             });
 
 
-            collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+            collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
 
 
             portfolioRequests += 1;
@@ -291,7 +291,7 @@ function identifyCollapsableMenu() {
         collapsableMenu.style.display = "block";
 
         collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
-        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
 
         if (!narrowListeners) {
             setupNavListenersWideScreen(true);
@@ -309,7 +309,7 @@ function identifyCollapsableMenu() {
         collapsableMenu.style.display = "block";
 
         collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
-        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
         if (!wideListeners) {
             setupNavListenersWideScreen(false);
             wideListeners = true;
@@ -666,7 +666,7 @@ function requesteContentPage(contentIDs) {
             value.className = currentLanguage.pt;
         });
 
-        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
     };
 
     request.open("GET", contentIDs);
@@ -694,7 +694,7 @@ function requesteContent(contentIDs) {
         });
 
 
-        collapsableMenu.style.left = collapsableMenuButton.offsetLeft + "px";
+        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
     };
 
     request.open("GET", contentIDs);
