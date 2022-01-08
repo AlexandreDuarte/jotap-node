@@ -192,6 +192,7 @@ section {
   border-left: 1px solid var(--nav-secondary-color);
   width: 1000px;
   min-height: 100vh;
+  min-width: 400px;
 }
 
 footer {
@@ -304,7 +305,6 @@ footer {
 #contacts {
   display: flex;
   flex-flow: row nowrap;
-  column-gap: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
   margin: auto;
@@ -315,6 +315,7 @@ footer {
   cursor: pointer;
   height: 1rem;
   z-index: 1;
+  padding: 0px;
 }
 
 /*.section-hello {
@@ -351,6 +352,7 @@ footer {
 .banner-background {
   width: 100%;
   aspect-ratio: 16/9;
+  height: -webkit-fill-available;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -448,7 +450,7 @@ ol {
 }
 
 #nav-text {
-  width: min(50vw, var(--nav-center-width));
+  width: var(--nav-center-width);
   position: absolute;
   color: var(--nav-highlight-color);
   font-family: 'Urbanist', sans-serif;
@@ -457,6 +459,8 @@ ol {
   z-index: 1;
   text-align: center;
   user-select: none;
+  -webkit-user-select: none;
+  margin: auto;
 }
 
 #nav-center {
@@ -478,7 +482,7 @@ ol {
 }
 
 .nav-right {
-  width: calc((100% - min(var(--nav-center-width), 30%))/2);
+  width: calc((100% - min(var(--nav-center-width), 50vw))/2);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -488,7 +492,7 @@ ol {
 }
 
 .nav-left {
-  width: calc((100% - min(var(--nav-center-width), 30%))/2);
+  width: calc((100% - min(var(--nav-center-width), 50vw))/2);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -504,6 +508,7 @@ ol {
   width: var(--nav-button-width);
   height: 100%;
   user-select: none;
+  -webkit-user-select: none;
   font-size: 16px;
   cursor: pointer;
   /*text-decoration: none;
@@ -537,6 +542,7 @@ ol {
   position: relative;
   width: 100%;
   user-select: none;
+  -webkit-user-select: none;
   font-size: 13px;
   height: calc(var(--nav-height)/2);
   background-color: var(--nav-color);
@@ -566,8 +572,7 @@ ol {
 #nav-arrow-button {
   display: block;
   position: fixed;
-  height: auto;
-  aspect-ratio: 1;
+  width: 20px;
   height: 20px;
   background: url(../images/icon-arrow.svg);
   background-repeat: no-repeat;
@@ -660,6 +665,7 @@ background-color: var(--nav-color);
   height: 0;
   transition: height 400ms;
   user-select: none;
+  -webkit-user-select: none;
   color: var(--nav-color);
 }
 
@@ -669,6 +675,7 @@ background-color: var(--nav-color);
   margin-top: auto;
   margin-bottom: 0;
   user-select: none;
+  -webkit-user-select: none;
   color: var(--nav-color);
 }
 
@@ -703,6 +710,7 @@ background-color: var(--nav-color);
   right: 10px;
   color: var(--text-color);
   user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
 }
 
