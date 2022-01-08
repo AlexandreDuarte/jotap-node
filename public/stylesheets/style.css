@@ -460,7 +460,7 @@ ol {
 }
 
 #nav-text {
-  width: var(--nav-center-width);
+  width: min(50vw, var(--nav-center-width));
   position: absolute;
   -webkit-text-fill-color: var(--nav-highlight-color); 
   -webkit-opacity: 1; 
