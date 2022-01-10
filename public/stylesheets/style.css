@@ -124,6 +124,9 @@ p {
   width: 90%;
   margin: 5px auto;
   font-size: 15px;
+  -webkit-text-fill-color: var(--text-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--text-color);
   text-overflow: ellipsis;
   overflow: hidden;
@@ -133,6 +136,9 @@ h1 {
   width: 90%;
   margin: 5px auto;
   font-size: 17px;
+  -webkit-text-fill-color: var(--text-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--text-color);
 }
 
@@ -214,12 +220,16 @@ footer {
   margin-bottom: auto;
   width: calc(100% - 160px);
   opacity: 0.25;
+  -webkit-text-fill-color: var(--text-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--text-color);
 }
 
 .icon {
   display: block;
   width: 25px;
+  height: -webkit-fill-available;
   aspect-ratio: 1;
   background-position: center;
   background-size: contain;
@@ -271,7 +281,7 @@ footer {
   margin-right: auto;
   background-image: url(../images/about-image.jpeg);
   height: max(400px, 50vh);
-  aspect-ratio: calc(750/902);
+  width: calc(750 * max(400px, 50vh) / 902);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -338,6 +348,7 @@ footer {
   position: relative;
   overflow: hidden;
   width: max(900px, 80vw);
+  height: -webkit-fill-available;
   aspect-ratio: 16/9;
   
   display: flex;
@@ -351,8 +362,8 @@ footer {
 
 .banner-background {
   width: 100%;
-  aspect-ratio: 16/9;
   height: -webkit-fill-available;
+  aspect-ratio: 16/9;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -452,6 +463,9 @@ ol {
 #nav-text {
   width: var(--nav-center-width);
   position: absolute;
+  -webkit-text-fill-color: var(--nav-highlight-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-highlight-color);
   font-family: 'Urbanist', sans-serif;
   font-size: 25px;
@@ -507,8 +521,8 @@ ol {
   position: relative;
   width: var(--nav-button-width);
   height: 100%;
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
   font-size: 16px;
   cursor: pointer;
   /*text-decoration: none;
@@ -517,11 +531,17 @@ ol {
 }
 
 .not-selected {
+  -webkit-text-fill-color: var(--nav-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-color);
 }
 
 #nav-button:hover, #nav-button-left:hover {
   background-color: var(--nav-color);
+  -webkit-text-fill-color: var(--nav-highlight-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-highlight-color);
   text-decoration-color: var(--nav-highlight-color);
   box-shadow: inset 0px 2px 4px #202020;
@@ -532,6 +552,9 @@ ol {
 
 .selected {
   background-color: var(--nav-color);
+  -webkit-text-fill-color: var(--nav-highlight-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-highlight-color);
   box-shadow: inset 0px 2px 4px #202020;
 }
@@ -546,6 +569,9 @@ ol {
   font-size: 13px;
   height: calc(var(--nav-height)/2);
   background-color: var(--nav-color);
+  -webkit-text-fill-color: var(--nav-highlight-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-highlight-color);
   cursor: pointer;
   /*text-decoration: none;
@@ -556,6 +582,9 @@ ol {
 
 .nav-menu-button:hover {
   background-color: var(--nav-highlight-color-transparent);
+  -webkit-text-fill-color: var(--nav-colr); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-color);
   /*transition: color 100ms ease-in;
   transition: background-color 100ms ease-in;
@@ -603,10 +632,16 @@ ol {
 
 #portfolio-items-filter > .nav-menu-button {
   background-color: var(--section-background);
+  -webkit-text-fill-color: var(--nav-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-color);
 }
 #portfolio-items-filter > .nav-menu-button:hover {
-background-color: var(--nav-color);
+  background-color: var(--nav-color);
+  -webkit-text-fill-color: var(--section-background); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--section-background);
   /*transition: color 100ms ease-in;
   transition: background-color 100ms ease-in;
@@ -617,6 +652,9 @@ background-color: var(--nav-color);
 
 #portfolio-items-filter > .selected {
   background-color: var(--nav-color);
+  -webkit-text-fill-color: var(--section-background); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--section-background);
   box-shadow: none;
 }
@@ -636,6 +674,7 @@ background-color: var(--nav-color);
 .grid-item {
   background-color: transparent;
   width: max(60vw, 800px);
+  height: -webkit-fill-available;
   aspect-ratio: 4/3;
   overflow: clip;
   transform: scale(100%);
@@ -664,8 +703,11 @@ background-color: var(--nav-color);
   bottom: 0;
   height: 0;
   transition: height 400ms;
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
+  -webkit-text-fill-color: var(--nav-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-color);
 }
 
@@ -674,8 +716,11 @@ background-color: var(--nav-color);
   padding-top: 5px;
   margin-top: auto;
   margin-bottom: 0;
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
+  -webkit-text-fill-color: var(--nav-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-color);
 }
 
@@ -683,6 +728,7 @@ background-color: var(--nav-color);
   position: relative;
   margin: 5%;
   width: 90%;
+  height: -webkit-fill-available;
   aspect-ratio: 4/3;
   background-repeat: no-repeat;
   background-size: contain;
@@ -708,6 +754,9 @@ background-color: var(--nav-color);
   position: absolute;
   top: 10px;
   right: 10px;
+  -webkit-text-fill-color: var(--text-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--text-color);
   user-select: none;
   -webkit-user-select: none;
@@ -715,6 +764,9 @@ background-color: var(--nav-color);
 }
 
 #back:hover {
+  -webkit-text-fill-color: var(--nav-secondary-color); 
+  -webkit-opacity: 1; 
+  opacity: 1;
   color: var(--nav-secondary-color);
 }
 
@@ -795,6 +847,7 @@ background-color: var(--nav-color);
     top: 0;
     left: 0;
     height: 100%;
+    width: -webkit-fill-available;
     aspect-ratio: 1;
     background-image: url("../images/bar-menu.svg");
     background-size: contain;
