@@ -228,7 +228,7 @@ footer {
 .icon {
   display: block;
   width: 25px;
-  height: -webkit-fill-available;
+  height: 25px;
   aspect-ratio: 1;
   background-position: center;
   background-size: contain;
