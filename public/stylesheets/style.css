@@ -623,7 +623,7 @@ ol {
 }
 
 #portfolio-items-filter {
-  margin: 70px auto 0 auto;
+  margin: 70px auto 30px auto;
   width: max(60vw, 800px);
   display: flex;
   flex-flow: row nowrap;
@@ -672,8 +672,8 @@ ol {
 
 .grid-item {
   background-color: transparent;
+  height: max(45vw, 600px);
   width: max(60vw, 800px);
-  height: min-intrinsic;
   aspect-ratio: 4/3;
   overflow: clip; 
   transform: scale(100%);
@@ -924,8 +924,9 @@ ol {
   }*/
   
 
-  .grid-item{
+  .grid-item {
     width: min(75vw, 800px);
+    height: min(56.25vw, 600px);
     margin: 0;
   }
 
