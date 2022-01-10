@@ -265,6 +265,10 @@ footer {
   height: auto;
 }
 
+#exposition-related-images > img {
+  width: 40%;
+}
+
 .section-filter {
   height: 200px;
   margin-left: auto;
@@ -728,9 +732,7 @@ ol {
   width: 90%;
   height: -webkit-fill-available;
   aspect-ratio: 4/3;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+  object-fit: contain;
   background-color: var(--background-color);
   border: 1px solid var(--nav-secondary-color);
 }
@@ -930,7 +932,9 @@ ol {
     margin: 0;
   }
 
-  
+  #exposition-related-images > img {
+    width: calc(50% - 2.5px);
+  }
 
   .grid-item-content {
     width: 100%;
