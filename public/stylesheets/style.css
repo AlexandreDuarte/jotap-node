@@ -672,8 +672,8 @@ ol {
 
 .grid-item {
   background-color: transparent;
-  height: max(45vw, 600px);
-  width: max(60vw, 800px);
+  height: min(45vw, 600px);
+  width: min(60vw, 800px);
   aspect-ratio: 4/3;
   overflow: clip; 
   transform: scale(100%);
@@ -935,7 +935,6 @@ ol {
   }
 
   .grid-item-content {
-    width: 100%;
     margin: 0;
   }
 
