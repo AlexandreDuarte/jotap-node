@@ -277,16 +277,13 @@ footer {
 }
 
 #about-image {
+  display: block;
   position: relative;
   margin-top: 70px;
   margin-left: auto;
   margin-right: auto;
-  background-image: url(../images/about-image.jpeg);
   height: max(400px, 50vh);
   width: calc(750 * max(400px, 50vh) / 902);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
 #exposicao-image {
@@ -730,7 +727,7 @@ ol {
   position: relative;
   margin: 5%;
   width: 90%;
-  height: -webkit-fill-available;
+  height: min-intrinsic;
   aspect-ratio: 4/3;
   object-fit: contain;
   background-color: var(--background-color);
