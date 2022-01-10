@@ -673,7 +673,7 @@ ol {
 .grid-item {
   background-color: transparent;
   width: max(60vw, 800px);
-  height: -webkit-fill-available;
+  height: min-intrinsic;
   aspect-ratio: 4/3;
   overflow: clip;
   transform: scale(100%);
