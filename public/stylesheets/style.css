@@ -675,7 +675,7 @@ ol {
   width: max(60vw, 800px);
   height: min-intrinsic;
   aspect-ratio: 4/3;
-  overflow: clip;
+  overflow: clip; 
   transform: scale(100%);
   transition: transform 400ms;
 }

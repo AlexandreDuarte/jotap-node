@@ -2,17 +2,17 @@
     <div id="grid-imageoverlay">
         <button id="back" onclick="closeImageoverlay()">
             <span lang="pt">VOLTAR</span>
-            <span lang="en">BACK</span>
+            <span lang="en" style="display: none;">BACK</span>
         </button>
         <div id="imageoverlay-image" style='background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/<%= obra.fileid %>.jpg);'></div>
         <div id="imageoverlay-description">
             <h1>
                 <span lang="pt"><%= (obra.title != "" ? obra.title : "Sem título") + ", " + obra.year %></span>
-                <span lang="en"><%= (obra.title != "" ? obra.title : "Untitled") + ", " + obra.year %></span>
+                <span lang="en" style="display: none;"><%= (obra.title != "" ? obra.title : "Untitled") + ", " + obra.year %></span>
             </h1>
             <p id="imageoverlay-p">
                 <span lang="pt"><%= obra.descriptionpt %></span>
-                <span lang="en"><%= obra.descriptionen %></span>
+                <span lang="en" style="display: none;"><%= obra.descriptionen %></span>
             </p>
             <p class="imageoverlay-p">
                 <%= obra.dimensions %>
