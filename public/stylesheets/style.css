@@ -337,7 +337,6 @@ footer {
 }*/
 
 .section-overlay {
-  isolation: isolate;
   mix-blend-mode: overlay;
   background: linear-gradient(60deg, var(--nav-color) 0%, var(--nav-color-2) 100%);
   opacity: 0.8;
