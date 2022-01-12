@@ -1,19 +1,19 @@
 <div id="portfolio-items-filter">
     <button id="portfolio-filter-button-all" class="nav-menu-button <%= activefilter[0] ? "selected" : "" %>" onclick="portfolioButton('')">
         <span lang="pt">TUDO</span>
-        <span lang="en" style="display: none;">ALL</span>
+        <span lang="en" class="hide">ALL</span>
     </button>
     <button id="portfolio-filter-button-canvas" class="nav-menu-button <%= activefilter[1] ? "selected" : "" %>" onclick="portfolioButton('canvas')">
         <span lang="pt">TELAS</span>
-        <span lang="en" style="display: none;">CANVAS</span>
+        <span lang="en" class="hide">CANVAS</span>
     </button>
     <button id="portfolio-filter-button-mural" class="nav-menu-button <%= activefilter[2] ? "selected" : "" %>" onclick="portfolioButton('mural')">
         <span lang="pt">MURAIS</span>
-        <span lang="en" style="display: none;">MURALS</span>
+        <span lang="en" class="hide">MURALS</span>
     </button>
     <button id="portfolio-filter-button-other" class="nav-menu-button <%= activefilter[3] ? "selected" : "" %>" onclick="portfolioButton('other')">
         <span lang="pt">OUTROS</span>    
-        <span lang="en" style="display: none;">OTHER</span>
+        <span lang="en" class="hide">OTHER</span>
     </button>
 </div>
 <div id = "portfolio-items-container" class="grid-container">
