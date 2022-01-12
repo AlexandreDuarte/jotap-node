@@ -673,11 +673,11 @@ function requesteContentPage(contentIDs) {
     request.send();
 }
 
-function requesteContent(contentIDs) {
+function requesteContent(contentIDs, rootElement) {
     var request = new XMLHttpRequest();
 
     request.onload = function () {
-        let content = document.getElementById("content");
+        let content = rootElement;
         content.innerHTML += this.responseText;
 
         let child = content.lastChild;
@@ -823,7 +823,7 @@ function closeImageoverlay() {
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        requesteContent(`portfoliopage/imageoverlay?id=${id}`);
+        requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.body);
         imagePageOverlay = true;
     }
 }
