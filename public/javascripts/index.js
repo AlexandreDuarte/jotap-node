@@ -822,15 +822,15 @@ function updateBannerElements() {
 var imagePageOverlay;
 
 function closeImageoverlay() {
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
-    document.getElementById("imageoverlay").outerHTML = "";
+    new URLSearchParams(window.location.search).delete("id");
+        document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
 
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? (`?filter=${portfolioCategory}` + `&id=${id}`) : ('' + `?id=${id}`)) + hash);
+        new URLSearchParams(window.location.search).append("id", id);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
