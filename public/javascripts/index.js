@@ -225,7 +225,8 @@ function requestCurrentPage() {
         requesteContentPage("exhibitionspage");
         currentTab = tabs.ALL;
     } else if (window.location.pathname === "/portfolio") {
-        portfolioCategory = window.location.search;
+        let params = new URLSearchParams(window.location.search);
+        portfolioCategory = params.get("filter");
         requesteContentPage("portfoliopage" + portfolioCategory);
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
