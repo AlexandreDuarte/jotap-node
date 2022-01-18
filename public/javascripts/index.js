@@ -823,7 +823,7 @@ function closeImageoverlay() {
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.body);
+        requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
 }
