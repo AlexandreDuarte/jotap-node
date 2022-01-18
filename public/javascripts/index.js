@@ -226,8 +226,13 @@ function requestCurrentPage() {
         currentTab = tabs.ALL;
     } else if (window.location.pathname === "/portfolio") {
         let params = new URLSearchParams(window.location.search);
-        portfolioCategory = params.get("filter");
+        if (params.get("filter")) {
+            portfolioCategory = params.get("filter");
+        }
         requesteContentPage("portfoliopage" + portfolioCategory);
+        if (params.get("id")) {
+            openImagePage(params.get("id"));
+        }
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
         portfolioPopulated = false;
