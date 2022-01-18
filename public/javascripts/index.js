@@ -830,7 +830,7 @@ function closeImageoverlay() {
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` + `&id=${id}` : '' + `?id=${id}`) + hash);
+        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? (`?filter=${portfolioCategory}` + `&id=${id}`) : ('' + `?id=${id}`)) + hash);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
