@@ -15,6 +15,11 @@ router.get('/', async function (req, res, next) {
 
   let qfilter = "";
 
+  if (req.query.id) {
+    const { rows } = await pool.query('SELECT * FROM obras WHERE id = $1', [req.query.id])
+    res.render('imageoverlay', { obra: rows[0] });
+  } 
+
   if (req.query.filter) {
     if (req.query.filter === "other") {
       const { rows } = await pool.query('SELECT * FROM obras WHERE category!=$1::text AND category!=$2::text ORDER BY year DESC, id DESC FETCH FIRST 5 ROW ONLY;', ['canvas', 'mural']);

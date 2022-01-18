@@ -816,6 +816,7 @@ function updateBannerElements() {
 var imagePageOverlay;
 
 function closeImageoverlay() {
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
     document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
@@ -823,6 +824,7 @@ function closeImageoverlay() {
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
+        window.history.pushState({}, '', window.location.origin + `/portfolio?id=${id}`);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
