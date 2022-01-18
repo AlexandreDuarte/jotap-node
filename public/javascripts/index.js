@@ -830,7 +830,7 @@ function closeImageoverlay() {
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        window.history.pushState({}, '', window.location.origin + `/portfolio?id=${id}`);
+        window.history.pushState({}, '', window.location.origin + window.location.pathname + window.location.search + `?id=${id}`);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
