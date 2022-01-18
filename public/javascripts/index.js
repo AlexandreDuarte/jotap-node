@@ -58,6 +58,8 @@ var portfolioCategory = '';
 
 var scrollbarWidth;
 
+var searchParams = new URLSearchParams("");
+
 window.onpopstate = () => {
 
     requestCurrentPage();
@@ -655,6 +657,7 @@ function requesteContentPage(contentIDs) {
     bannerPos = 0;
     portfolioRequests = 0;
     imagePageOverlay = false;
+    searchParams = new URLSearchParams(window.location.search);
     var request = new XMLHttpRequest();
 
     request.onload = function () {
@@ -739,9 +742,18 @@ function portfolioButton(category) {
         portfolioCategory = category
     } else {
         portfolioCategory = '';
-    };
+    }
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : '') + hash);
+    searchParams = new URLSearchParams("");
+
+    if (portfolioCategory != '') {
+        if (searchParams.has("filter")) {
+            searchParams.set("filter", portfolioCategory);
+        } else {
+            searchParams.append("filter", portfolioCategory);
+        }
+    }
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + searchParams.toString() + hash);
     requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
@@ -822,15 +834,17 @@ function updateBannerElements() {
 var imagePageOverlay;
 
 function closeImageoverlay() {
-    new URLSearchParams(window.location.search).delete("id");
-        document.getElementById("imageoverlay").outerHTML = "";
+    searchParams.delete("id");
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + searchParams.toString() + hash);
+    document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
 
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        new URLSearchParams(window.location.search).append("id", id);
+        searchParams.append("id", id);
+        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + searchParams.toString() + hash);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
