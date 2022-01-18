@@ -229,7 +229,7 @@ function requestCurrentPage() {
         if (params.get("filter")) {
             portfolioCategory = params.get("filter");
         }
-        requesteContentPage("portfoliopage" + portfolioCategory);
+        requesteContentPage("portfoliopage" + `?filter=${portfolioCategory}`);
         if (params.get("id")) {
             openImagePage(params.get("id"));
         }
