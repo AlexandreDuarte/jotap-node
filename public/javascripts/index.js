@@ -753,7 +753,7 @@ function portfolioButton(category) {
             searchParams.append("filter", portfolioCategory);
         }
     }
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio?' + searchParams.toString() + hash);
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio?' + (searchParams.toString() != "") ? `?${searchParams.toString()}`: "" + hash);
     requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
@@ -835,7 +835,7 @@ var imagePageOverlay;
 
 function closeImageoverlay() {
     searchParams.delete("id");
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio?' + searchParams.toString() + hash);
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (searchParams.toString() != "") ? `?${searchParams.toString()}`: "" + hash);
     document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
@@ -844,7 +844,7 @@ function closeImageoverlay() {
 function openImagePage(id) {
     if (!imagePageOverlay) {
         searchParams.append("id", id);
-        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio?' + searchParams.toString() + hash);
+        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + (searchParams.toString() != "") ? `?${searchParams.toString()}`: "" + hash);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
