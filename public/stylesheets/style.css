@@ -735,7 +735,7 @@ footer {
     bottom: 0;
 }
 
-.image-overlay-back-button {
+.imageoverlay-back-button {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -748,7 +748,7 @@ footer {
     cursor: pointer;
 }
 
-.image-overlay-back-button:hover {
+.imageoverlay-back-button:hover {
     -webkit-text-fill-color: var(--nav-secondary-color);
     -webkit-opacity: 1;
     opacity: 1;
