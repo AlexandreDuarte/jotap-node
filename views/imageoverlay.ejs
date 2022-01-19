@@ -4,7 +4,7 @@
             <span lang="pt">VOLTAR</span>
             <span lang="en" class="hide">BACK</span>
         </button>
-        <div id="imageoverlay-image" style='background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/<%= obra.fileid %>.jpg);'></div>
+        <img id="imageoverlay-image" src='background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/<%= obra.fileid %>.jpg);'>
         <div id="imageoverlay-description">
             <h1>
                 <span lang="pt"><%= (obra.title != "" ? obra.title : "Sem título") + ", " + obra.year %></span>

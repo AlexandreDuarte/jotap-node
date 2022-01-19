@@ -785,10 +785,7 @@ footer {
     height: 80vh;
     width: 55vw;
     justify-self: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
+    object-fit: contain;
 }
 
 #imageoverlay-description {
