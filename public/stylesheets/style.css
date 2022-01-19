@@ -932,7 +932,7 @@ footer {
     #imageoverlay-image {
         height: 60vh;
         width: 90vw;
-        padding: 0;
+        padding: 1rem 0;
     }
     #imageoverlay-description {
         margin: 0 1.5rem;
