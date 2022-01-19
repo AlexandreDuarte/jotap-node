@@ -767,7 +767,7 @@ footer {
 
 #grid-imageoverlay {
     position: relative;
-    width: 90vw;
+    width: min(90vw, 120vh);
     height: 80vh;
     display: grid;
     grid-template-columns: auto auto;
@@ -783,7 +783,7 @@ footer {
 
 #imageoverlay-image {
     height: calc(80vh - 5rem);
-    width: calc(65vw - 2.5rem);
+    width: calc(min(65vw, calc(120*65/90)) - 2.5rem);
     justify-self: center;
     object-fit: contain;
     padding: 2.5rem;
@@ -791,7 +791,7 @@ footer {
 }
 
 #imageoverlay-description {
-    width: calc(25vw - 2.5rem);
+    width: calc(min(25vw, calc(120*25/90)) - 2.5rem);
     height: auto;
     padding: 0;
 }
