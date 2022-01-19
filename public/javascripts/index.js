@@ -1,4 +1,3 @@
-
 var pathPortuguese, pathEnglish;
 var deltaPath = [];
 var pathMod = 1;
@@ -71,7 +70,7 @@ window.onresize = () => {
 
     identifyCollapsableMenu();
 
-    
+
 
     var scrollDiv = document.createElement("div");
     scrollDiv.className = "scrollbar-measure";
@@ -99,7 +98,7 @@ window.onload = () => {
 
         let ptTextFields = document.querySelectorAll('[lang="pt"]');
 
-        ptTextFields.forEach(function (value) {
+        ptTextFields.forEach(function(value) {
             value.className = "hide";
         });
 
@@ -111,7 +110,7 @@ window.onload = () => {
 
         let enTextFields = document.querySelectorAll('[lang="en"]');
 
-        enTextFields.forEach(function (value) {
+        enTextFields.forEach(function(value) {
             value.className = "hide";
         });
 
@@ -177,7 +176,7 @@ window.onload = () => {
         if (collapsableMenuBG.className === "nav-extended") return;
 
 
-        if (scrollTop > lastScrollTop && scrollTop > 0) { 
+        if (scrollTop > lastScrollTop && scrollTop > 0) {
             if (show) {
                 show = false;
                 if (navOffset > -50) {
@@ -186,8 +185,7 @@ window.onload = () => {
                     navBar.style.transition = "top 100ms";
                 }
             }
-        }
-        else if (!show) {
+        } else if (!show) {
             show = true;
             if (navOffset < 0) {
                 navOffset = 0;
@@ -199,7 +197,7 @@ window.onload = () => {
         lastScrollTop = scrollTop;
     });
 
-    
+
 
     var scrollDiv = document.createElement("div");
     scrollDiv.className = "scrollbar-measure";
@@ -251,7 +249,7 @@ function requestPortfolioItems() {
 
     var request = new XMLHttpRequest();
 
-    request.onload = function () {
+    request.onload = function() {
 
         if (this.responseText === "") portfolioPopulated = true;
 
@@ -263,11 +261,11 @@ function requestPortfolioItems() {
             let enTextFields = content.querySelectorAll('[lang="en"]');
             let ptTextFields = content.querySelectorAll('[lang="pt"]');
 
-            enTextFields.forEach(function (value) {
+            enTextFields.forEach(function(value) {
                 value.className = currentLanguage.en;
             });
 
-            ptTextFields.forEach(function (value) {
+            ptTextFields.forEach(function(value) {
                 value.className = currentLanguage.pt;
             });
 
@@ -307,8 +305,7 @@ function identifyCollapsableMenu() {
         }
 
         narrowScreen = true;
-    }
-    else {
+    } else {
 
         collapsableMenu = document.getElementById("nav-menu-left");
         collapsableMenuBG = document.getElementById("nav-menu-left-background");
@@ -421,11 +418,11 @@ function triggerLanguageChange() {
             let enTextFields = document.querySelectorAll('[lang="en"]');
             let ptTextFields = document.querySelectorAll('[lang="pt"]');
 
-            enTextFields.forEach(function (value) {
+            enTextFields.forEach(function(value) {
                 value.className = currentLanguage.en;
             });
 
-            ptTextFields.forEach(function (value) {
+            ptTextFields.forEach(function(value) {
                 value.className = currentLanguage.pt;
             });
 
@@ -660,18 +657,18 @@ function requesteContentPage(contentIDs) {
     searchParams = new URLSearchParams(window.location.search);
     var request = new XMLHttpRequest();
 
-    request.onload = function () {
+    request.onload = function() {
         let content = document.getElementById("content");
         content.innerHTML = this.responseText;
 
         let enTextFields = content.querySelectorAll('[lang="en"]');
         let ptTextFields = content.querySelectorAll('[lang="pt"]');
 
-        enTextFields.forEach(function (value) {
+        enTextFields.forEach(function(value) {
             value.className = currentLanguage.en;
         });
 
-        ptTextFields.forEach(function (value) {
+        ptTextFields.forEach(function(value) {
             value.className = currentLanguage.pt;
         });
 
@@ -685,7 +682,7 @@ function requesteContentPage(contentIDs) {
 function requesteContent(contentIDs, rootElement) {
     var request = new XMLHttpRequest();
 
-    request.onload = function () {
+    request.onload = function() {
         let content = rootElement;
         content.innerHTML += this.responseText;
 
@@ -694,11 +691,11 @@ function requesteContent(contentIDs, rootElement) {
         let enTextFields = child.querySelectorAll('[lang="en"]');
         let ptTextFields = child.querySelectorAll('[lang="pt"]');
 
-        enTextFields.forEach(function (value) {
+        enTextFields.forEach(function(value) {
             value.className = currentLanguage.en;
         });
 
-        ptTextFields.forEach(function (value) {
+        ptTextFields.forEach(function(value) {
             value.className = currentLanguage.pt;
         });
 
@@ -753,7 +750,7 @@ function portfolioButton(category) {
             searchParams.append("filter", portfolioCategory);
         }
     }
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}`: "") + hash);
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
     requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
@@ -835,7 +832,7 @@ var imagePageOverlay;
 
 function closeImageoverlay() {
     searchParams.delete("id");
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}`: "") + hash);
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
     document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
@@ -846,7 +843,7 @@ function openImagePage(id) {
         if (!searchParams.has("id")) {
             searchParams.append("id", id);
         }
-        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}`: "") + hash);
+        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
