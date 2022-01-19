@@ -791,7 +791,7 @@ footer {
 }
 
 #imageoverlay-description {
-    width: calc(min(25vw, max(calc(120vh *25/90)), calc(800px *25/90)) - 2.5rem);
+    width: calc(min(25vw, max(calc(120vh *25/90), calc(800px *25/90))) - 2.5rem);
     height: auto;
     padding: 0;
 }
