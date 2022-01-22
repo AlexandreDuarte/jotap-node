@@ -1,5 +1,5 @@
 var express = require('express');
-var pool = require('../db/db_local');
+var pool = require('../db/db');
 var router = express.Router();
 
 /* GET home page. */
