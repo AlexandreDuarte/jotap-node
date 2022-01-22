@@ -1,6 +1,6 @@
 <div id="imageoverlay">
     <div id="grid-imageoverlay">
-        <button id="back-button" class="imageoverlay-back-button" onclick="closeImageoverlay()">
+        <button id="back-button" class="imageoverlay-button imageoverlay-back-button" onclick="closeImageoverlay()">
             <span lang="pt">VOLTAR</span>
             <span lang="en" class="hide">BACK</span>
         </button>
@@ -18,6 +18,13 @@
                 <%= obra.dimensions %>
             </p>
         </div>
+        <button id="share-button" class="imageoverlay-button imageoverlay-share-button" onclick='copy()'>
+        </button>
+        <p id="imageoverlay-copied" class="imageoverlay-copied" style="opacity: 0;">
+            <span lang="pt">Link copiado!</span>
+            <span lang="en" class="hide">Copied to clipboard!</span>
+        </p>
+
     </div>
 
 </div>

@@ -735,10 +735,8 @@ footer {
     bottom: 0;
 }
 
-.imageoverlay-back-button {
+.imageoverlay-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
     -webkit-text-fill-color: var(--text-color);
     -webkit-opacity: 1;
     opacity: 1;
@@ -748,7 +746,45 @@ footer {
     cursor: pointer;
 }
 
-.imageoverlay-back-button:hover {
+.imageoverlay-copied {
+    position: absolute;
+    -webkit-text-fill-color: var(--nav-highlight-color);
+    -webkit-opacity: 1;
+    opacity: 1;
+    color: var(--text-color);
+    user-select: none;
+    -webkit-user-select: none;
+    bottom: 7px;
+    right: 0;
+    width: max-content;
+    padding: 5px;
+    height: max-content;
+    transform: translateX(-42px);
+    background-color: var(--nav-color);
+}
+
+.imageoverlay-back-button {
+    top: 10px;
+    right: 10px;
+}
+
+.imageoverlay-share-button {
+    bottom: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: url(../images/share-icon.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: invert(5%) sepia(2%) saturate(5867%) hue-rotate(163deg) brightness(92%) contrast(88%);
+    cursor: pointer;
+}
+
+.imageoverlay-share-button:hover {
+    filter: invert(100%) sepia(14%) saturate(1%) hue-rotate(230deg) brightness(90%) contrast(80%);
+}
+
+.imageoverlay-button:hover {
     -webkit-text-fill-color: var(--nav-secondary-color);
     -webkit-opacity: 1;
     opacity: 1;
@@ -783,7 +819,7 @@ footer {
 
 #imageoverlay-image {
     height: calc(max(80vh, 500px) - 5rem);
-    width: calc(min(65vw, max(calc(120vh *65/90), calc(800px *65/90))) - 2.5rem);
+    width: calc(min(65vw, calc(max(120vh, 800px) *65/90)) - 2.5rem);
     justify-self: center;
     object-fit: contain;
     padding: 2.5rem;
@@ -791,7 +827,7 @@ footer {
 }
 
 #imageoverlay-description {
-    width: calc(min(25vw, max(calc(120vh *25/90), calc(800px *25/90))) - 2.5rem);
+    width: calc(min(25vw, calc(max(120vh, 800px) *25/90)) - 2.5rem);
     height: auto;
     padding: 0;
 }
@@ -1002,13 +1038,25 @@ footer {
     animation: nav-extend 100ms linear forwards;
 }
 
+.fade-in {
+    -webkit-animation: fade-in 1s linear;
+    animation: fade-in 1s linear;
+}
+
+.fade-out {
+    -webkit-animation: fade-out 1s linear;
+    animation: fade-out 1s linear;
+}
+
 @keyframes nav-extend {
     0% {
         transform: translateY(-100%);
+        -webkit-opacity: 0;
         opacity: 0;
     }
     100% {
         transform: translateY(0);
+        -webkit-opacity: 1;
         opacity: 1;
     }
 }
@@ -1016,10 +1064,12 @@ footer {
 @keyframes nav-collapse {
     0% {
         transform: translateY(0);
+        -webkit-opacity: 1;
         opacity: 1;
     }
     100% {
         transform: translateY(-100%);
+        -webkit-opacity: 0;
         opacity: 0;
     }
 }
@@ -1093,5 +1143,27 @@ footer {
     }
     100% {
         transform: rotate(270deg);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        -webkit-opacity: 0;
+        opacity: 0;
+    }
+    100% {
+        -webkit-opacity: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        -webkit-opacity: 1;
+        opacity: 1;
+    }
+    100% {
+        -webkit-opacity: 0;
+        opacity: 0;
     }
 }
