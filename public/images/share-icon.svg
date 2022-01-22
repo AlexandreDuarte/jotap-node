@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="isolation:isolate" viewBox="0 0 32 32" width="32pt" height="32pt">
+    <defs>
+        <clipPath id="_clipPath_njjzQF6yb4LxeE0VLwlJl2f1s01Z06oE">
+            <rect width="32" height="32" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#_clipPath_njjzQF6yb4LxeE0VLwlJl2f1s01Z06oE)">
+        <g>
+            <path
+                d=" M 5 16 C 5 14.344 6.344 13 8 13 C 9.656 13 11 14.344 11 16 C 11 17.656 9.656 19 8 19 C 6.344 19 5 17.656 5 16 Z "
+                fill="rgb(0,0,0)" />
+            <path
+                d=" M 20 8 C 20 6.896 20.896 6 22 6 C 23.104 6 24 6.896 24 8 C 24 9.104 23.104 10 22 10 C 20.896 10 20 9.104 20 8 Z "
+                fill="rgb(0,0,0)" />
+            <path
+                d=" M 18 24 C 18 21.792 19.792 20 22 20 C 24.208 20 26 21.792 26 24 C 26 26.208 24.208 28 22 28 C 19.792 28 18 26.208 18 24 Z "
+                fill="rgb(0,0,0)" />
+            <line x1="8" y1="16" x2="22" y2="8" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(0,0,0)"
+                stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+            <line x1="8" y1="16" x2="22" y2="24" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(0,0,0)"
+                stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" />
+        </g>
+    </g>
+</svg>
