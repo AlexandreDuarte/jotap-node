@@ -98,7 +98,7 @@ window.onload = () => {
 
         let ptTextFields = document.querySelectorAll('[lang="pt"]');
 
-        ptTextFields.forEach(function(value) {
+        ptTextFields.forEach(function (value) {
             value.className = "hide";
         });
 
@@ -110,7 +110,7 @@ window.onload = () => {
 
         let enTextFields = document.querySelectorAll('[lang="en"]');
 
-        enTextFields.forEach(function(value) {
+        enTextFields.forEach(function (value) {
             value.className = "hide";
         });
 
@@ -249,7 +249,7 @@ function requestPortfolioItems() {
 
     var request = new XMLHttpRequest();
 
-    request.onload = function() {
+    request.onload = function () {
 
         if (this.responseText === "") portfolioPopulated = true;
 
@@ -261,11 +261,11 @@ function requestPortfolioItems() {
             let enTextFields = content.querySelectorAll('[lang="en"]');
             let ptTextFields = content.querySelectorAll('[lang="pt"]');
 
-            enTextFields.forEach(function(value) {
+            enTextFields.forEach(function (value) {
                 value.className = currentLanguage.en;
             });
 
-            ptTextFields.forEach(function(value) {
+            ptTextFields.forEach(function (value) {
                 value.className = currentLanguage.pt;
             });
 
@@ -418,11 +418,11 @@ function triggerLanguageChange() {
             let enTextFields = document.querySelectorAll('[lang="en"]');
             let ptTextFields = document.querySelectorAll('[lang="pt"]');
 
-            enTextFields.forEach(function(value) {
+            enTextFields.forEach(function (value) {
                 value.className = currentLanguage.en;
             });
 
-            ptTextFields.forEach(function(value) {
+            ptTextFields.forEach(function (value) {
                 value.className = currentLanguage.pt;
             });
 
@@ -657,18 +657,18 @@ function requesteContentPage(contentIDs) {
     searchParams = new URLSearchParams(window.location.search);
     var request = new XMLHttpRequest();
 
-    request.onload = function() {
+    request.onload = function () {
         let content = document.getElementById("content");
         content.innerHTML = this.responseText;
 
         let enTextFields = content.querySelectorAll('[lang="en"]');
         let ptTextFields = content.querySelectorAll('[lang="pt"]');
 
-        enTextFields.forEach(function(value) {
+        enTextFields.forEach(function (value) {
             value.className = currentLanguage.en;
         });
 
-        ptTextFields.forEach(function(value) {
+        ptTextFields.forEach(function (value) {
             value.className = currentLanguage.pt;
         });
 
@@ -682,7 +682,7 @@ function requesteContentPage(contentIDs) {
 function requesteContent(contentIDs, rootElement) {
     var request = new XMLHttpRequest();
 
-    request.onload = function() {
+    request.onload = function () {
         let content = rootElement;
         content.innerHTML += this.responseText;
 
@@ -691,11 +691,11 @@ function requesteContent(contentIDs, rootElement) {
         let enTextFields = child.querySelectorAll('[lang="en"]');
         let ptTextFields = child.querySelectorAll('[lang="pt"]');
 
-        enTextFields.forEach(function(value) {
+        enTextFields.forEach(function (value) {
             value.className = currentLanguage.en;
         });
 
-        ptTextFields.forEach(function(value) {
+        ptTextFields.forEach(function (value) {
             value.className = currentLanguage.pt;
         });
 
@@ -829,15 +829,50 @@ function updateBannerElements() {
 
 var copydelay = false;
 
+function fallbackCopyTextToClipboard() {
+    var textArea = document.createElement("textarea");
+    textArea.value = window.location.toString();
+
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        document.execCommand('copy');
+        let copiedpopup = document.getElementById("imageoverlay-copied");
+        if (copiedpopup.classList.contains("fade-out")) {
+            copiedpopup.classList.remove("fade-out");
+        }
+        copiedpopup.classList.add("fade-in");
+
+        setTimeout(() => {
+            let copiedpopup = document.getElementById("imageoverlay-copied");
+            copiedpopup.classList.remove("fade-in");
+            copiedpopup.classList.add("fade-out");
+            copydelay = false;
+        }, 1000);
+    } catch (err) {
+        console.error('Unable to copy to clipboard');
+    }
+
+    document.body.removeChild(textArea);
+}
+
 function copy() {
     if (!navigator.clipboard || copydelay) {
+        fallbackCopyTextToClipboard();
         return;
     }
     copydelay = true;
 
-    navigator.clipboard.writeText(window.location.toString()).then(function() {
+    navigator.clipboard.writeText(window.location.toString()).then(function () {
         console.log('Async: Copying to clipboard was successful!');
-    }, function(err) {
+    }, function (err) {
         console.error('Async: Could not copy text: ', err);
     });
 
