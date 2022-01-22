@@ -864,10 +864,15 @@ function fallbackCopyTextToClipboard() {
 }
 
 function copy() {
-    if (!navigator.clipboard || copydelay) {
+    if(copydelay) {
+        return;
+    }
+    
+    if (!navigator.clipboard) {
         fallbackCopyTextToClipboard();
         return;
     }
+
     copydelay = true;
 
     navigator.clipboard.writeText(window.location.toString()).then(function () {
