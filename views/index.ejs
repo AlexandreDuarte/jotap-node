@@ -6,16 +6,8 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <% if (obra) { %>
-  <meta property="og:title" content="<%= (obra.title != '' ? obra.title : 'Sem título') %>" />
-  <meta property="og:type" content="<%= obra.category %>" />
-  <meta property="og:url" content="<%= url %>" />
-  <meta property="og:description" content="<%= obra.descriptionpt %>" />
-  <meta property="og:image" content="https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/<%= obra.fileid %>.jpg" />
-  <% } else { %>
   <title>João Ribeiro</title>
   <meta name="description" content="João Ribeiro">
-  <% } %>
   <script src="/javascripts/index.js"></script>
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
