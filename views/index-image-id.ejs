@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <% if (obra) { %>
   <meta property="og:title" content="<%= (obra.title != '' ? obra.title : 'Sem título') %>" />
-  <meta property="og:type" content="<%= obra.category %>" />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="<%= url %>" />
   <meta property="og:description" content="<%= obra.descriptionpt %>" />
   <meta property="og:image" content="https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/thumbnail_<%= obra.fileid %>.jpg" />
