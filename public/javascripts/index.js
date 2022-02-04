@@ -865,32 +865,35 @@ function fallbackCopyTextToClipboard() {
 
 async function copy(values) {
 
-    if(copydelay) {
+    if (copydelay) {
         return;
     }
-    if(navigator.share) {
+    if (navigator.share) {
         await navigator.share({
             title: values.title,
             text: values.text,
             url: window.location.toString()
         }).catch();
-    } else if (!navigator.clipboard) {
-        fallbackCopyTextToClipboard();
     } else {
-        copydelay = true;
+        if (!navigator.clipboard) {
+            fallbackCopyTextToClipboard();
+        } else {
+            copydelay = true;
 
-        navigator.clipboard.writeText(window.location.toString()).then(function () {
-            console.log('Async: Copying to clipboard was successful!');
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
-        });
-    
+            navigator.clipboard.writeText(window.location.toString()).then(function () {
+                console.log('Async: Copying to clipboard was successful!');
+            }, function (err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+
+
+        }
         let copiedpopup = document.getElementById("imageoverlay-copied");
         if (copiedpopup.classList.contains("fade-out")) {
             copiedpopup.classList.remove("fade-out");
         }
         copiedpopup.classList.add("fade-in");
-    
+
         setTimeout(() => {
             let copiedpopup = document.getElementById("imageoverlay-copied");
             copiedpopup.classList.remove("fade-in");
