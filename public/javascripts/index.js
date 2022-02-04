@@ -863,18 +863,17 @@ function fallbackCopyTextToClipboard() {
     document.body.removeChild(textArea);
 }
 
-function copy(values) {
+async function copy(values) {
 
     if(copydelay) {
         return;
     }
     if(navigator.share) {
-        navigator.share({
+        await navigator.share({
             title: values.title,
             text: values.text,
             url: window.location.toString()
         }).catch();
-        return;
     } else if (!navigator.clipboard) {
         fallbackCopyTextToClipboard();
     } else {
