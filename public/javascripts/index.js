@@ -863,36 +863,42 @@ function fallbackCopyTextToClipboard() {
     document.body.removeChild(textArea);
 }
 
-function copy() {
+function copy(values) {
+
     if(copydelay) {
         return;
     }
-    
-    if (!navigator.clipboard) {
-        fallbackCopyTextToClipboard();
+    if(navigator.share) {
+        navigator.share({
+            title: values.title,
+            text: values.text,
+            url: window.location.toString()
+        }).catch();
         return;
-    }
+    } else if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard();
+    } else {
+        copydelay = true;
 
-    copydelay = true;
-
-    navigator.clipboard.writeText(window.location.toString()).then(function () {
-        console.log('Async: Copying to clipboard was successful!');
-    }, function (err) {
-        console.error('Async: Could not copy text: ', err);
-    });
-
-    let copiedpopup = document.getElementById("imageoverlay-copied");
-    if (copiedpopup.classList.contains("fade-out")) {
-        copiedpopup.classList.remove("fade-out");
-    }
-    copiedpopup.classList.add("fade-in");
-
-    setTimeout(() => {
+        navigator.clipboard.writeText(window.location.toString()).then(function () {
+            console.log('Async: Copying to clipboard was successful!');
+        }, function (err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    
         let copiedpopup = document.getElementById("imageoverlay-copied");
-        copiedpopup.classList.remove("fade-in");
-        copiedpopup.classList.add("fade-out");
-        copydelay = false;
-    }, 1000);
+        if (copiedpopup.classList.contains("fade-out")) {
+            copiedpopup.classList.remove("fade-out");
+        }
+        copiedpopup.classList.add("fade-in");
+    
+        setTimeout(() => {
+            let copiedpopup = document.getElementById("imageoverlay-copied");
+            copiedpopup.classList.remove("fade-in");
+            copiedpopup.classList.add("fade-out");
+            copydelay = false;
+        }, 1000);
+    }
 }
 
 
