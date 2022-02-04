@@ -18,7 +18,7 @@
                 <%= obra.dimensions %>
             </p>
         </div>
-        <button id="share-button" class="imageoverlay-button imageoverlay-share-button" onclick='copy()'>
+        <button id="share-button" class="imageoverlay-button imageoverlay-share-button" onclick='copy({title: <%= (obra.title != "" ? obra.title : "Sem título") + ", " + obra.year %>, text: obra.descriptionpt})'>
         </button>
         <p id="imageoverlay-copied" class="imageoverlay-copied" style="opacity: 0;">
             <span lang="pt">Link copiado!</span>
