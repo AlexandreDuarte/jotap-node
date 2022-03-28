@@ -282,7 +282,7 @@ footer {
     margin-top: 70px;
     margin-left: auto;
     margin-right: auto;
-    background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/desconfinar.jpg);
+    background-image: url(https://joaoribeiro-bucket.s3.eu-west-3.amazonaws.com/expo/desconfinar.jpg);
     height: min(90vw, 50vh);
     aspect-ratio: 1;
     background-repeat: no-repeat;
