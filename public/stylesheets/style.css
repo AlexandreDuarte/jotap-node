@@ -789,7 +789,6 @@ footer {
     right: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(3px);
     z-index: 2;
 }
 
