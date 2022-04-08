@@ -716,16 +716,31 @@ function centerTextButton() {
     requesteContentPage("homepage");
     currentTab = tabs.ALL;
 
+    
+    navOffset = 0;
+    lastScrollTop = 0;
+    window.scrollTo(0, 0);
+
 }
 
 function aboutButton() {
     if (window.location.pathname === "/about") return;
+
+
+    navOffset = 0;
+    lastScrollTop = 0;
+    window.scrollTo(0, 0);
 
     if (narrowScreen) collapseMenu();
 
     window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
     requesteContentPage("aboutpage");
     currentTab = tabs.ALL;
+
+    
+    navOffset = 0;
+    lastScrollTop = 0;
+    window.scrollTo(0, 0);
 
 }
 
@@ -756,6 +771,10 @@ function portfolioButton(category) {
     portfolioRequests = 1;
     portfolioPopulated = false;
 
+    navOffset = 0;
+    lastScrollTop = 0;
+    window.scrollTo(0, 0);
+
 
 }
 
@@ -767,6 +786,11 @@ function exhibitionsButton() {
     window.history.pushState({}, '', window.location.origin + "/" + 'exhibitions' + hash);
     requesteContentPage("exhibitionspage");
     currentTab = tabs.ALL;
+
+    
+    navOffset = 0;
+    lastScrollTop = 0;
+    window.scrollTo(0, 0);
 
 }
 
