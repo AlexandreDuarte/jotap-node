@@ -673,6 +673,11 @@ function requesteContentPage(contentIDs) {
         });
 
         collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
+
+        
+        navOffset = 0;
+        lastScrollTop = 0;
+        window.scrollTo(0, 0);
     };
 
     request.open("GET", contentIDs);
@@ -701,6 +706,11 @@ function requesteContent(contentIDs, rootElement) {
 
 
         collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
+
+        
+        navOffset = 0;
+        lastScrollTop = 0;
+        window.scrollTo(0, 0);
     };
 
     request.open("GET", contentIDs);
@@ -717,19 +727,12 @@ function centerTextButton() {
     currentTab = tabs.ALL;
 
     
-    navOffset = 0;
-    lastScrollTop = 0;
-    window.scrollTo(0, 0);
 
 }
 
 function aboutButton() {
     if (window.location.pathname === "/about") return;
 
-
-    navOffset = 0;
-    lastScrollTop = 0;
-    window.scrollTo(0, 0);
 
     if (narrowScreen) collapseMenu();
 
@@ -738,9 +741,6 @@ function aboutButton() {
     currentTab = tabs.ALL;
 
     
-    navOffset = 0;
-    lastScrollTop = 0;
-    window.scrollTo(0, 0);
 
 }
 
@@ -771,9 +771,6 @@ function portfolioButton(category) {
     portfolioRequests = 1;
     portfolioPopulated = false;
 
-    navOffset = 0;
-    lastScrollTop = 0;
-    window.scrollTo(0, 0);
 
 
 }
