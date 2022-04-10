@@ -927,7 +927,7 @@ footer {
         margin: 0;
     }
     #exposition-related-images img {
-        width: calc(50% - 2.5px);
+        width: max(60%, 400px);
     }
     .grid-item-content {
         margin: 0;
