@@ -3,12 +3,13 @@
   --nav-secondary-color: #52506ebb;
   --nav-highlight-color: #a7a5c5bb;*/
     --nav-color: #1e1e1e;
-    --nav-secondary-color: #d5d5d5af;
+    --nav-secondary-color: #ffffff4a;
     --nav-highlight-color: #f2f2f2;
     --nav-highlight-color-transparent: #f2f2f200;
     --section-background: #eaeaea;
     --background-color: hsl(200, 0%, 95%);
     --text-color: #505050;
+    --text-color-footer: #8f8f8f;
     --nav-height: 50px;
     --nav-center-width: clamp(350px, 30%, 500px);
     --nav-button-width: clamp(150px, 10vw, 200px);
@@ -89,7 +90,7 @@ body {
 }
 
 .bandw {
-    filter: saturate(400%) grayscale(100%) invert(80%) contrast(150%) brightness(40%);
+    filter: saturate(400%) grayscale(100%) invert(0%) contrast(120%) brightness(100%);
     transition: filter 500ms;
 }
 
@@ -201,7 +202,7 @@ footer {
     width: 100%;
     height: 50px;
     margin-top: 20px;
-    border-top: 1px solid var(--text-color);
+    border-top: 1px solid var(--text-color-footer);
     z-index: 1;
 }
 
@@ -211,10 +212,10 @@ footer {
     margin-bottom: auto;
     width: calc(100% - 160px);
     opacity: 0.25;
-    -webkit-text-fill-color: var(--text-color);
+    -webkit-text-fill-color: var(--text-color-footer);
     -webkit-opacity: 1;
     opacity: 1;
-    color: var(--text-color);
+    color: var(--text-color-footer);
 }
 
 .icon {
