@@ -843,7 +843,7 @@ footer {
     }
     #nav-menu-left-buffer {
         height: calc(var(--nav-height)/8);
-        background-color: #d5d5d5af;
+        background-color: var(--nav-secondary-color);
     }
     #nav-button,
     #nav-button-left,
