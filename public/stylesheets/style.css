@@ -927,7 +927,7 @@ footer {
         margin: 0;
     }
     #exposition-related-images img {
-        width: max(60%, 380px);
+        width: 60%;
     }
     .grid-item-content {
         margin: 0;
@@ -979,6 +979,9 @@ footer {
         font-size: 13px;
     }
     #about-p {
+        width: 90%;
+    }
+    #exposition-related-images img {
         width: 90%;
     }
 }
