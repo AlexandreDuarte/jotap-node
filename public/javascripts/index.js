@@ -228,12 +228,10 @@ function requestCurrentPage() {
         
         if (currentTab === tabs.PORTFOLIO) {
             if (imagePageOverlay) {
+                document.getElementById("imageoverlay").outerHTML = "";
+                imagePageOverlay = false;
                 if (params.get("id")) {
-                    closeImageoverlay();
                     openImagePage(params.get("id"));
-                } else {
-                    document.getElementById("imageoverlay").outerHTML = "";
-                    imagePageOverlay = false;
                 }
             }
             return;
@@ -938,8 +936,6 @@ async function copy(values) {
 var imagePageOverlay;
 
 function closeImageoverlay() {
-    searchParams.delete("id");
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
     document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
