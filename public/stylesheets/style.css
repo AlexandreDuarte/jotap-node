@@ -984,6 +984,11 @@ footer {
     #exposition-related-images img {
         width: 90%;
     }
+    .section-about p {
+        margin-top: 0px;
+        text-align: justify;
+        width: 85%;
+    }
 }
 
 @media only screen and (max-width: 500px) {
