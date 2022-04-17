@@ -225,6 +225,20 @@ function requestCurrentPage() {
         requesteContentPage("exhibitionspage");
         currentTab = tabs.ALL;
     } else if (window.location.pathname === "/portfolio") {
+        
+        if (currentTab === tabs.PORTFOLIO) {
+            if (imagePageOverlay) {
+                if (params.get("id")) {
+                    closeImageoverlay();
+                    openImagePage(params.get("id"));
+                } else {
+                    document.getElementById("imageoverlay").outerHTML = "";
+                    imagePageOverlay = false;
+                }
+            }
+            return;
+        }
+
         let params = new URLSearchParams(window.location.search);
         if (params.get("filter")) {
             portfolioCategory = params.get("filter");
@@ -233,6 +247,7 @@ function requestCurrentPage() {
         if (params.get("id")) {
             openImagePage(params.get("id"));
         }
+
         currentTab = tabs.PORTFOLIO;
         portfolioRequests = 1;
         portfolioPopulated = false;
@@ -655,11 +670,6 @@ function requesteContentPage(contentIDs) {
     portfolioRequests = 0;
     searchParams = new URLSearchParams(window.location.search);
     var request = new XMLHttpRequest();
-
-    if (imagePageOverlay) {
-        document.getElementById("imageoverlay").outerHTML = "";
-        imagePageOverlay = false;
-    }
 
     request.onload = function () {
         let content = document.getElementById("content");
