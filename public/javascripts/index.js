@@ -653,9 +653,13 @@ function collapseMenu() {
 function requesteContentPage(contentIDs) {
     bannerPos = 0;
     portfolioRequests = 0;
-    imagePageOverlay = false;
     searchParams = new URLSearchParams(window.location.search);
     var request = new XMLHttpRequest();
+
+    if (imagePageOverlay) {
+        document.getElementById("imageoverlay").outerHTML = "";
+        imagePageOverlay = false;
+    }
 
     request.onload = function () {
         let content = document.getElementById("content");
@@ -674,6 +678,7 @@ function requesteContentPage(contentIDs) {
 
         collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
 
+        
         
         navOffset = 0;
         lastScrollTop = 0;
@@ -706,11 +711,6 @@ function requesteContent(contentIDs, rootElement) {
 
 
         collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-
-        
-        navOffset = 0;
-        lastScrollTop = 0;
-        window.scrollTo(0, 0);
     };
 
     request.open("GET", contentIDs);
@@ -940,7 +940,10 @@ function openImagePage(id) {
         if (!searchParams.has("id")) {
             searchParams.append("id", id);
         }
-        window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+        let params = new URLSearchParams(window.location.search);
+        if (!params.get("id")) {
+            window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+        }
         requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
         imagePageOverlay = true;
     }
