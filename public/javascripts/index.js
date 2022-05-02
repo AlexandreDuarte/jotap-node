@@ -67,7 +67,6 @@ window.onpopstate = () => {
 
 window.onresize = () => {
     collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-    removeEventListeners();
     identifyCollapsableMenu();
 
 
