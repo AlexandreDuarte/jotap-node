@@ -67,7 +67,7 @@ window.onpopstate = () => {
 
 window.onresize = () => {
     collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-
+    removeEventListeners();
     identifyCollapsableMenu();
 
 
@@ -145,18 +145,14 @@ window.onload = () => {
     navMenuButton = document.getElementById("nav-arrow-button");
     identifyCollapsableMenu();
 
-
-    setupNavListenersWideScreen();
-
-
     requestCurrentPage();
 
-    document.getElementById('language-select-shell').addEventListener('mouseenter', e => {
+    document.getElementById('language-select-shell').addEventListener('mouseenter', _e => {
         if (!languageChangeAnim) document.getElementById('language-select').className = "";
         mouseLeftFlag = false;
     });
 
-    document.getElementById('language-select-shell').addEventListener('mouseleave', e => {
+    document.getElementById('language-select-shell').addEventListener('mouseleave', _e => {
         if (!languageChangeAnim) document.getElementById('language-select').className = "bandw";
         mouseLeftFlag = true;
     });
@@ -313,8 +309,8 @@ function identifyCollapsableMenu() {
         collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
 
         if (!narrowListeners) {
-            setupNavListenersWideScreen(true);
-            narrowListners = true;
+            setupNavListenersWideScreen();
+            narrowListeners = true;
         }
 
         narrowScreen = true;
@@ -329,7 +325,7 @@ function identifyCollapsableMenu() {
         collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
         collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
         if (!wideListeners) {
-            setupNavListenersWideScreen(false);
+            setupNavListenersWideScreen();
             wideListeners = true;
         }
 
@@ -338,42 +334,54 @@ function identifyCollapsableMenu() {
     collapsableMenu.style.display = "none";
 }
 
-function setupNavListenersWideScreen(narrowScreen) {
+function listener1(e) {
+    if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
+
+    if (collapsableMenuBG.className === "nav-extended") {
+        collapseMenu();
+    }
+}
+
+function listener2(_e) {
+    if (collapsableMenuBG.className !== "nav-extended") {
+        extendMenu();
+    }
+}
+
+function listener3(_e) {
+    if (collapsableMenuBG.className === "nav-extended") {
+        collapseMenu();
+    }
+}
+
+function listener4(e) {
+    if (e.offsetY <= 0) return;
+
+    if (collapsableMenuBG.className === "nav-extended") {
+        collapseMenu();
+    }
+}
+
+function setupNavListenersWideScreen() {
 
 
-    collapsableMenuButton.addEventListener('mouseleave', e => {
+    collapsableMenuButton.addEventListener('mouseleave', listener1);
 
-        if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
+    collapsableMenuButton.addEventListener('mouseenter', listener2);
 
-        if (collapsableMenuBG.className === "nav-extended") {
-            collapseMenu();
-        }
-    });
+    navBar.addEventListener('mouseleave', listener3);
 
-    collapsableMenuButton.addEventListener('mouseenter', e => {
+    collapsableMenu.addEventListener('mouseleave', listener4);
+}
 
-        if (collapsableMenuBG.className !== "nav-extended") {
-            extendMenu();
-        }
-    });
+function removeEventListeners() {
+    collapsableMenuButton.removeEventListener('mouseleave', listener1);
 
+    collapsableMenuButton.removeEventListener('mouseenter', listener2);
 
+    navBar.removeEventListener('mouseleave', listener3);
 
-    navBar.addEventListener('mouseleave', e => {
-
-        if (collapsableMenuBG.className === "nav-extended") {
-            collapseMenu();
-        }
-    });
-
-    collapsableMenu.addEventListener('mouseleave', e => {
-
-        if (e.offsetY <= 0) return;
-
-        if (collapsableMenuBG.className === "nav-extended") {
-            collapseMenu();
-        }
-    });
+    collapsableMenu.removeEventListener('mouseleave', listener4);
 }
 
 var languageChange = false;
@@ -398,9 +406,9 @@ function triggerLanguageChange() {
 
     var count = 0;
 
-    for (let i = 0; i < pathPortuguese.length; i++) {
-        if (pathPortuguese[i].id.includes("back")) {
-            pathPortuguese[i].setAttribute('fill', 'rgba(0,0,0,0)');
+    for (const element of pathPortuguese) {
+        if (element.id.includes("back")) {
+            element.setAttribute('fill', 'rgba(0,0,0,0)');
         }
     }
 
@@ -518,12 +526,12 @@ function getCoords(element, countCommaAsSeparator) {
         dList = d.split(' ');
     }
 
-    for (let j = 0; j < dList.length; j++) {
-        if (dList[j] != "")
-            if (!isNaN(dList[j])) {
-                result.push(parseFloat(dList[j]));
+    for (const num of dList) {
+        if (num != "")
+            if (!isNaN(num)) {
+                result.push(parseFloat(num));
             } else {
-                result.push(dList[j]);
+                result.push(num);
             }
     }
 
@@ -538,12 +546,10 @@ function navButtonPress() {
 
     if (midAnimation) return;
 
-    switch (navBar.className) {
-        case "nav-closed":
-            extend();
-            break;
-        default:
-            collapse();
+    if (navBar.className === "nav-closed") {
+        extend();
+    } else {
+        collapse();
     }
 
 
@@ -555,13 +561,6 @@ function extend() {
     navBar.className = "nav-open";
 
     midAnimation = true;
-
-    /*var c = elem.children;
-    var i;
-    for (i = 0; i < c.length; i++) {
-        c[i].style.display = "block";
-        c[i].className = "nav-button in"
-    }*/
 
     navCenter.className = "nav-center-in";
 
@@ -584,7 +583,7 @@ function collapse() {
     let navLeftMenuButton = collapsableMenuButton;
 
     if (navLeftMenuButton.className === "selected") {
-        collapseMenu(navLeftMenuButton);
+        collapseMenu();
     }
 
     navBar.className = "nav-closed";
@@ -608,12 +607,10 @@ function collapse() {
 function navMenuButtonPress(el) {
     if (midAnimation) return;
 
-    switch (el.className) {
-        case "selected":
-            collapseMenu();
-            break;
-        default:
-            extendMenu();
+    if (el.className === "selected") {
+        collapseMenu();
+    } else {
+        extendMenu();
     }
 }
 
