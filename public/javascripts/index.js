@@ -780,9 +780,10 @@ function portfolioButton(category) {
 }
 
 function exhibitionsButton() {
-    if (window.location.pathname === "/exhibitions") return;
 
     if (narrowScreen) collapseMenu();
+    
+    if (window.location.pathname === "/exhibitions") return;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'exhibitions' + hash);
     requesteContentPage("exhibitionspage");
