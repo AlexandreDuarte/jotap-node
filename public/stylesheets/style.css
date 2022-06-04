@@ -820,7 +820,7 @@ footer {
     align-items: center;
     row-gap: 0;
     column-gap: 0;
-    background-color: #17171738;
+    background-color: #1717177d;
     border: 1px solid var(--nav-secondary-color);
     top: 10vh;
 }
