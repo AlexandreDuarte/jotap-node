@@ -2,15 +2,15 @@
     /*--nav-color: #1b1a27;
   --nav-secondary-color: #52506ebb;
   --nav-highlight-color: #a7a5c5bb;*/
-    --nav-color: #101010;
+    --nav-color: #090909;
     --nav-secondary-color: #17171762;
-    --nav-footer: #101010;
+    --nav-footer: #090909;
     --nav-highlight-color: #e8e8e8;
     --nav-highlight-color-transparent: #f2f2f200;
     --section-background: #1717174a;
     --background-color: #171717;
     --text-color: #e8e8e8;
-    --text-color-footer: #e8e8e8;
+    --text-color-footer: #b1b1b1;
     --nav-height: 50px;
     --nav-center-width:
     clamp(350px, 30%, 500px);
@@ -18,7 +18,7 @@
     clamp(150px, 10vw, 200px);
     scrollbar-color: var(--nav-highlight-color) var(--nav-color);
     font-family: 'Urbanist', sans-serif;
-    --text-color-hover: #909090;
+    --text-color-hover: #e8e8e8;
 }
 
 .scrollbar-measure {
@@ -95,7 +95,7 @@ body {
 }
 
 .bandw {
-    filter: saturate(400%) grayscale(100%) invert(0%) contrast(150%) brightness(102%);
+    filter: saturate(400%) grayscale(100%) invert(0%) contrast(168%) brightness(150%);
     transition: filter 500ms;
 }
 
@@ -217,10 +217,10 @@ footer {
     margin-bottom: auto;
     width: calc(100% - 160px);
     opacity: 0.25;
-    -webkit-text-fill-color: #8e8e8e;
+    -webkit-text-fill-color: var(--text-color);
     -webkit-opacity: 1;
     opacity: 1;
-    color: var(--text-color-footer);
+    color: var(--text-color);
 }
 
 .icon {
@@ -230,7 +230,7 @@ footer {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    filter: invert(50%);
+    filter: invert(85%);
     margin: 5px;
 }
 
@@ -792,7 +792,7 @@ footer {
 }
 
 .imageoverlay-button:hover {
-    -webkit-text-fill-color: var(--text-color-hover);
+    -webkit-text-fill-color: var(--text-color-footer);
     -webkit-opacity: 1;
     opacity: 1;
     color: var(--nav-secondary-color);
