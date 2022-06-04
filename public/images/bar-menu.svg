@@ -7,8 +7,8 @@
         </clipPath>
     </defs>
     <g clip-path="url(#_clipPath_rHAh6iYtqJrzEfVg1CVFmqwnhS1TvHEy)">
-        <rect x="6" y="8" width="20" height="3" transform="matrix(1,0,0,1,0,0)" fill="#1e1e1e" />
-        <rect x="6" y="14" width="20" height="3" transform="matrix(1,0,0,1,0,0)" fill="#1e1e1e" />
-        <rect x="6" y="20" width="20" height="3" transform="matrix(1,0,0,1,0,0)" fill="#1e1e1e" />
+        <rect x="6" y="8" width="20" height="3" transform="matrix(1,0,0,1,0,0)" fill="#d5d5d5" />
+        <rect x="6" y="14" width="20" height="3" transform="matrix(1,0,0,1,0,0)" fill="#d5d5d5" />
+        <rect x="6" y="20" width="20" height="3" transform="matrix(1,0,0,1,0,0)" fill="#d5d5d5" />
     </g>
 </svg>

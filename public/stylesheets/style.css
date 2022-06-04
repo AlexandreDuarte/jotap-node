@@ -877,7 +877,7 @@ footer {
         cursor: pointer;
     }
     #nav-small-screen-button:hover {
-        filter: brightness(1000%);
+        filter: brightness(75%);
     }
     #nav-arrow-button {
         display: none;
