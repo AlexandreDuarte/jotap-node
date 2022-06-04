@@ -593,7 +593,7 @@ footer {
     background-repeat: no-repeat;
     background-size: contain;
     transform: rotate(-90deg);
-    filter: invert(5%) sepia(2%) saturate(5867%) hue-rotate(163deg) brightness(92%) contrast(88%);
+    filter: invert(5%) sepia(2%) saturate(5867%) hue-rotate(163deg) brightness(5%) contrast(100%);
     z-index: 1;
     right: calc(50% - 10px);
     top: var(--nav-height);
