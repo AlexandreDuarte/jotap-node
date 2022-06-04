@@ -2,18 +2,20 @@
     /*--nav-color: #1b1a27;
   --nav-secondary-color: #52506ebb;
   --nav-highlight-color: #a7a5c5bb;*/
-    --nav-color: #151515;
-    --nav-secondary-color: #17171782;
-    --nav-footer: #171717;
+    --nav-color: #111111;
+    --nav-secondary-color: #13131382;
+    --nav-footer: #111111;
     --nav-highlight-color: #d7d7d7;
     --nav-highlight-color-transparent: #f2f2f200;
     --section-background: #1717174a;
-    --background-color: hsl(0, 0%, 13.3%);
+    --background-color: #171717;
     --text-color: #d5d5d5;
     --text-color-footer: #8f8f8f;
     --nav-height: 50px;
-    --nav-center-width: clamp(350px, 30%, 500px);
-    --nav-button-width: clamp(150px, 10vw, 200px);
+    --nav-center-width:
+    clamp(350px, 30%, 500px);
+    --nav-button-width:
+    clamp(150px, 10vw, 200px);
     scrollbar-color: var(--nav-highlight-color) var(--nav-color);
     font-family: 'Urbanist', sans-serif;
     --text-color-hover:  #717171;
@@ -68,7 +70,7 @@ body {
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-color: #1a1a1a;
+    background-color: var(--background-color);
 }
 
 #content {
@@ -92,7 +94,7 @@ body {
 }
 
 .bandw {
-    filter: saturate(400%) grayscale(100%) invert(0%) contrast(145%) brightness(110%);
+    filter: saturate(400%) grayscale(100%) invert(0%) contrast(160%) brightness(120%);
     transition: filter 500ms;
 }
 
