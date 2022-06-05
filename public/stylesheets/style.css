@@ -2,13 +2,13 @@
     /*--nav-color: #1b1a27;
   --nav-secondary-color: #52506ebb;
   --nav-highlight-color: #a7a5c5bb;*/
-    --nav-color: #101010;
-    --nav-secondary-color: #101010a2;
-    --nav-footer: #101010;
+    --nav-color: #141414;
+    --nav-secondary-color: #202020a2;
+    --nav-footer: #141414;
     --nav-highlight-color: #e8e8e8;
     --nav-highlight-color-transparent: #f2f2f200;
     --section-background: #1818184a;
-    --background-color: #181818;
+    --background-color: #202020;
     --text-color: #e8e8e8;
     --text-color-footer: #b1b1b1;
     --nav-height: 50px;
@@ -95,7 +95,7 @@ body {
 }
 
 .bandw {
-    filter: saturate(400%) grayscale(100%) invert(0%) contrast(160%) brightness(150%);
+    filter: saturate(400%) grayscale(100%) invert(0%) contrast(160%) brightness(20%);
     transition: filter 500ms;
 }
 
