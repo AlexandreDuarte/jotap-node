@@ -79,8 +79,8 @@ window.onresize = () => {
 
     document.body.removeChild(scrollDiv);
 
-    document.getElementById("content").style.paddingLeft = `${scrollbarWidth}px`
-    document.getElementById("content").style.width = `calc(100vw - 2*${scrollbarWidth}px)`
+    document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
+    //document.getElementById("content").style.width = `calc(100vw - 2*${scrollbarWidth}px)`
 
 };
 
@@ -202,9 +202,9 @@ window.onload = () => {
 
     document.body.removeChild(scrollDiv);
 
-    document.getElementById("content").style.paddingLeft = `${scrollbarWidth}px`
+    document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
 
-    document.getElementById("content").style.width = `calc(100vw - 2*${scrollbarWidth}px)`
+    //document.getElementById("content").style.width = `calc(100vw - 2*${scrollbarWidth}px)`
 
 
 
