@@ -29,11 +29,11 @@
     top: -9999px;
 }
 
-body::-webkit-scrollbar {
+.scrollable::-webkit-scrollbar {
     width: auto;
 }
 
-body::-webkit-scrollbar-track-piece {
+.scrollable::-webkit-scrollbar-track-piece {
     background: var(--nav-color);
 }
 
@@ -43,11 +43,11 @@ body::-webkit-scrollbar-track-piece {
   background-color: var(--color-scrollbar-highlight);
 }*/
 
-body::-webkit-scrollbar-track {
+.scrollable::-webkit-scrollbar-track {
     background: var(--nav-color);
 }
 
-body::-webkit-scrollbar-thumb {
+.scrollable::-webkit-scrollbar-thumb {
     background-color: var(--nav-highlight-color);
 }
 
