@@ -688,7 +688,7 @@ function requesteContentPage(contentIDs) {
         
         navOffset = 0;
         lastScrollTop = 0;
-        window.scrollTo(0, 0);
+        document.getElementsByClassName("scrollable")[0].scrollTo(0, 0);
     };
 
     request.open("GET", contentIDs);
