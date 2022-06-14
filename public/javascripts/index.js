@@ -164,7 +164,7 @@ window.onload = () => {
 
     document.getElementsByClassName("scrollable").addEventListener('scroll', e => {
 
-        let scrollTop =d ocument.getElementsByClassName("scrollable").scrollTop;
+        let scrollTop = document.getElementsByClassName("scrollable").scrollTop;
 
         if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.getElementsByClassName("scrollable").scrollHeight - window.screen.availHeight - 50) requestPortfolioItems();
 
