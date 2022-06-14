@@ -76,11 +76,10 @@ window.onresize = () => {
     document.body.appendChild(scrollDiv);
 
     scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    console.warn(scrollbarWidth);
 
     document.body.removeChild(scrollDiv);
 
-    document.getElementById("content").style.width = `calc(100vw - ${scrollbarWidth}px)`
+    //document.getElementById("content").style.width = `calc(100vw - ${scrollbarWidth}px)`
 
 };
 
@@ -199,11 +198,10 @@ window.onload = () => {
     document.body.appendChild(scrollDiv);
 
     scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    console.warn(scrollbarWidth);
 
     document.body.removeChild(scrollDiv);
 
-    document.getElementById("content").style.width = `calc(100vw - ${scrollbarWidth}px)`
+    //document.getElementById("content").style.width = `calc(100vw - ${scrollbarWidth}px)`
 
 
 
