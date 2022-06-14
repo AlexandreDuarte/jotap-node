@@ -117,7 +117,7 @@ body {
     flex-flow: row-reverse nowrap;
     position: sticky;
     bottom: calc(4vh - 30px*11/32);
-    width: calc(100% - 8vh);
+    width: calc(100% - 4vh);
     margin-top: 20px;
     z-index: 2;
     pointer-events: none;
@@ -228,7 +228,7 @@ footer {
     margin: auto;
     margin-top: auto;
     margin-bottom: auto;
-    width: calc(100% - 160px);
+    width: calc(100% - 140px);
     opacity: 0.25;
     -webkit-text-fill-color: var(--text-color);
     -webkit-opacity: 1;
