@@ -162,7 +162,7 @@ window.onload = () => {
     navOffset = 0;
     lastScrollTop = 0;
 
-    document.getElementByClassName("scrollable")[0].addEventListener('onscroll', e => {
+    document.getElementsByClassName("scrollable")[0].addEventListener('onscroll', e => {
 
         let scrollTop = document.getElementsByClassName("scrollable")[0].scrollTop;
 
