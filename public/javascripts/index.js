@@ -170,7 +170,7 @@ window.onload = () => {
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
-        console.log(`${scrollTop}, ${document.getElementsByClassName("scrollable")[0].scrollHeight}, ${window.screen.availHeight - 100}`);
+        //console.log(`${scrollTop}, ${document.getElementsByClassName("scrollable")[0].scrollHeight}, ${window.screen.availHeight - 100}`);
 
         if (scrollTop > lastScrollTop && scrollTop > 0) {
             if (show) {
