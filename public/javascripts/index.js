@@ -166,10 +166,11 @@ window.onload = () => {
 
         let scrollTop = document.getElementsByClassName("scrollable")[0].scrollTop;
 
-        if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.getElementsByClassName("scrollable")[0].scrollHeight - window.screen.availHeight - 50) requestPortfolioItems();
+        if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.getElementsByClassName("scrollable")[0].scrollHeight - window.screen.availHeight - 100) requestPortfolioItems();
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
+        console.log(`${scrollTop}, ${document.getElementsByClassName("scrollable")[0].scrollHeight}, ${window.screen.availHeight - 100}`);
 
         if (scrollTop > lastScrollTop && scrollTop > 0) {
             if (show) {
