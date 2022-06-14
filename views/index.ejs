@@ -31,27 +31,30 @@
 
   <object id="language-select-hidden" data="/images/british-flag.svg" type="image/svg+xml">
   </object>
+  <div id="scrollable" class="scrollable">
+    <div id="content" style="isolation: isolate; z-index: 1;">
 
-  <div id="content" style="isolation: isolate; z-index: 1;">
+    </div>
 
+    <div class="flag-sticky">
+      <div id="flag-container">
+        <button id="language-select-shell" onclick="triggerLanguageChange()"></button>
+  
+        <object id="language-select" class="" data="/images/british-portuguese-flag.svg" type="image/svg+xml">
+        </object>
+      </div>
+    </div>
+  
+    <div style="height: auto; width: 100%;"></div>
+
+    
+    <%- include('footer.ejs') %>
   </div>
 
   <div id="overlay-items">
 
   </div>
-
-  <div class="flag-sticky">
-    <div id="flag-container">
-      <button id="language-select-shell" onclick="triggerLanguageChange()"></button>
-
-      <object id="language-select" class="" data="/images/british-portuguese-flag.svg" type="image/svg+xml">
-      </object>
-    </div>
-  </div>
-
-  <div style="height: auto; width: 100%;"></div>
-
-  <%- include('footer.ejs') %>
+  
 </body>
 
 
