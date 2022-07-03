@@ -172,7 +172,7 @@ window.onload = () => {
 
         //console.log(`${scrollTop}, ${document.getElementsByClassName("scrollable")[0].scrollHeight}, ${window.screen.availHeight - 100}`);
 
-        if (scrollTop >= lastScrollTop && scrollTop > 0) {
+        if (scrollTop > lastScrollTop && scrollTop > 0) {
             if (show) {
                 show = false;
                 if (navOffset > -50) {
@@ -181,7 +181,7 @@ window.onload = () => {
                     navBar.style.transition = "top 100ms";
                 }
             }
-        } else if (!show) {
+        } else if (!show && scrollTop < lastScrollTop) {
             show = true;
             if (navOffset < 0) {
                 navOffset = 0;
