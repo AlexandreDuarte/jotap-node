@@ -4,6 +4,8 @@ var pool = require('../db/db');
 
 var router = express.Router();
 
+//obra database rows ["title", "fileid", "category", "descriptionpt", "descriptionen", "dimensions", "year", "public"]
+
 router.get('/imageoverlay', async function(req, res, next) {
 
     const { rows } = await pool.query('SELECT * FROM obras WHERE id = $1', [req.query.id])

@@ -10,7 +10,7 @@ router.get('/about', function(req, res, next) {
     res.render('index');
 });
 
-router.get('/exhibitions', function(req, res, next) {
+router.get('/expositions', function(req, res, next) {
     res.render('index');
 })
 
@@ -25,11 +25,11 @@ router.get('/portfolio', async function(req, res, next) {
 });
 
 router.get('/aboutpage', function(req, res, next) {
-    res.render('sobre');
+    res.render('about');
 });
 
-router.get('/exhibitionspage', function(req, res, next) {
-    res.render('exposicoes');
+router.get('/expositionspage', function(req, res, next) {
+    res.render('expositions');
 });
 
 router.get('/homepage', function(req, res, next) {
