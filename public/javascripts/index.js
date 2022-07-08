@@ -41,9 +41,9 @@ var hash;
 
 var tabs = {
     PORTFOLIO: "PORTFOLIO",
-    ALL: "ALL"
+    OTHER: "OTHER"
 }
-var currentTab = tabs.ALL;
+var currentTab = tabs.OTHER;
 var portfolioPopulated = false;
 
 var narrowListeners = false;
@@ -58,6 +58,8 @@ var portfolioCategory = '';
 var scrollbarWidth;
 
 var searchParams = new URLSearchParams("");
+
+var imagePageOverlay = false;
 
 window.onpopstate = () => {
 
@@ -170,8 +172,6 @@ window.onload = () => {
 
         if (collapsableMenuBG.className === "nav-extended") return;
 
-        //console.log(`${scrollTop}, ${document.getElementsByClassName("scrollable")[0].scrollHeight}, ${window.screen.availHeight - 100}`);
-
         if (scrollTop > lastScrollTop && scrollTop > 0) {
             if (show) {
                 show = false;
@@ -217,24 +217,14 @@ window.onload = () => {
 function requestCurrentPage() {
     if (window.location.pathname === "/about") {
         requesteContentPage("aboutpage");
-        currentTab = tabs.ALL;
+        currentTab = tabs.OTHER;
     } else if (window.location.pathname === "/expositions") {
         requesteContentPage("expositionspage");
-        currentTab = tabs.ALL;
+        currentTab = tabs.OTHER;
     } else if (window.location.pathname === "/portfolio") {
 
-        if (currentTab === tabs.PORTFOLIO) {
-            if (imagePageOverlay) {
-                document.getElementById("imageoverlay").outerHTML = "";
-                imagePageOverlay = false;
-                if (params.get("id")) {
-                    openImagePage(params.get("id"));
-                }
-            }
-            return;
-        }
-
         let params = new URLSearchParams(window.location.search);
+
         if (params.get("filter")) {
             portfolioCategory = params.get("filter");
         }
@@ -248,7 +238,7 @@ function requestCurrentPage() {
         portfolioPopulated = false;
     } else {
         requesteContentPage("homepage");
-        currentTab = tabs.ALL;
+        currentTab = tabs.OTHER;
     }
 }
 
@@ -727,7 +717,7 @@ function centerTextButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + hash);
     requesteContentPage("homepage");
-    currentTab = tabs.ALL;
+    currentTab = tabs.OTHER;
 }
 
 function aboutButton() {
@@ -738,7 +728,7 @@ function aboutButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
     requesteContentPage("aboutpage");
-    currentTab = tabs.ALL;
+    currentTab = tabs.OTHER;
 }
 
 function portfolioButton(category) {
@@ -780,7 +770,7 @@ function expositionsButton() {
 
     window.history.pushState({}, '', window.location.origin + "/" + 'expositions' + hash);
     requesteContentPage("expositionspage");
-    currentTab = tabs.ALL;
+    currentTab = tabs.OTHER;
 
     navOffset = 0;
     lastScrollTop = 0;
@@ -922,7 +912,6 @@ async function copy(values) {
 }
 
 
-var imagePageOverlay;
 
 function closeImageoverlay() {
     searchParams.delete("id");
