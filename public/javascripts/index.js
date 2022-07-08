@@ -224,6 +224,12 @@ function requestCurrentPage() {
     } else if (window.location.pathname === "/portfolio") {
 
         let params = new URLSearchParams(window.location.search);
+        if (imagePageOverlay) {
+            if (!params.get("id")) {
+                document.getElementById("imageoverlay").outerHTML = "";
+                imagePageOverlay = false;
+            }
+        }
 
         if (params.get("filter")) {
             portfolioCategory = params.get("filter");
