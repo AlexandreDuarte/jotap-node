@@ -1,4 +1,4 @@
-# jotap-node
+# JP website
 
 Javascript/CSS/EJS website.
 
