@@ -701,6 +701,7 @@ function requesteContent(contentIDs, rootElement) {
             if (searchParams.has("id")) {
                 searchParams.delete("id");
                 window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+                imagePageOverlay = false;
             }
             return;
         }
