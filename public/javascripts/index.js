@@ -216,10 +216,10 @@ window.onload = () => {
 
 function requestCurrentPage() {
     if (window.location.pathname === "/about") {
-        requesteContentPage("aboutpage");
+        requestContentPage("aboutpage");
         currentTab = tabs.OTHER;
     } else if (window.location.pathname === "/expositions") {
-        requesteContentPage("expositionspage");
+        requestContentPage("expositionspage");
         currentTab = tabs.OTHER;
     } else if (window.location.pathname === "/portfolio") {
 
@@ -234,7 +234,7 @@ function requestCurrentPage() {
         if (params.get("filter")) {
             portfolioCategory = params.get("filter");
         }
-        requesteContentPage("portfoliopage" + `?filter=${portfolioCategory}`);
+        requestContentPage("portfoliopage" + `?filter=${portfolioCategory}`);
         if (params.get("id")) {
             openImagePage(params.get("id"));
         }
@@ -244,7 +244,7 @@ function requestCurrentPage() {
         portfolioPopulated = false;
     } else {
         window.history.pushState({}, '', window.location.origin + "/");
-        requesteContentPage("homepage");
+        requestContentPage("homepage");
         currentTab = tabs.OTHER;
     }
 }
@@ -655,7 +655,7 @@ function collapseMenu() {
 
 }
 
-function requesteContentPage(contentIDs) {
+function requestContentPage(contentIDs) {
     bannerPos = 0;
     portfolioRequests = 0;
     searchParams = new URLSearchParams(window.location.search);
@@ -693,16 +693,12 @@ function requesteContentPage(contentIDs) {
     request.send();
 }
 
-function requesteContent(contentIDs, rootElement) {
+function requestContent(contentIDs, rootElement, reject) {
     var request = new XMLHttpRequest();
-
+    
     request.onload = function () {
         if (request.status == 404) {
-            if (searchParams.has("id")) {
-                searchParams.delete("id");
-                window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
-                imagePageOverlay = false;
-            }
+            reject();
             return;
         }
 
@@ -736,7 +732,7 @@ function centerTextButton() {
     if (window.location.href === window.location.origin) return;
 
     window.history.pushState({}, '', window.location.origin + "/" + hash);
-    requesteContentPage("homepage");
+    requestContentPage("homepage");
     currentTab = tabs.OTHER;
 }
 
@@ -747,7 +743,7 @@ function aboutButton() {
     if (narrowScreen) collapseMenu();
 
     window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
-    requesteContentPage("aboutpage");
+    requestContentPage("aboutpage");
     currentTab = tabs.OTHER;
 }
 
@@ -773,7 +769,7 @@ function portfolioButton(category) {
         }
     }
     window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
-    requesteContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
+    requestContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
     currentTab = tabs.PORTFOLIO;
     portfolioRequests = 1;
     portfolioPopulated = false;
@@ -789,7 +785,7 @@ function expositionsButton() {
     if (window.location.pathname === "/expositions") return;
 
     window.history.pushState({}, '', window.location.origin + "/" + 'expositions' + hash);
-    requesteContentPage("expositionspage");
+    requestContentPage("expositionspage");
     currentTab = tabs.OTHER;
 
     navOffset = 0;
@@ -950,7 +946,14 @@ function openImagePage(id) {
         if (!params.get("id")) {
             window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
         }
-        requesteContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"));
+
+        requestContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"), () => {
+            if (searchParams.has("id")) {
+                searchParams.delete("id");
+                window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+                imagePageOverlay = false;
+            }
+        });
         imagePageOverlay = true;
     }
 }
