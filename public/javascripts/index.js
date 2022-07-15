@@ -243,6 +243,7 @@ function requestCurrentPage() {
         portfolioRequests = 1;
         portfolioPopulated = false;
     } else {
+        window.history.pushState({}, '', window.location.origin + "/");
         requesteContentPage("homepage");
         currentTab = tabs.OTHER;
     }
@@ -661,6 +662,10 @@ function requesteContentPage(contentIDs) {
     var request = new XMLHttpRequest();
 
     request.onload = function () {
+        if(request.status == 404) {
+            window.history.pushState({}, '', window.location.origin + "/");
+            return;
+        }
         let content = document.getElementById("content");
         content.innerHTML = this.responseText;
 
@@ -692,6 +697,14 @@ function requesteContent(contentIDs, rootElement) {
     var request = new XMLHttpRequest();
 
     request.onload = function () {
+        if (request.status == 404) {
+            if (searchParams.has("id")) {
+                searchParams.delete("id");
+                window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+            }
+            return;
+        }
+
         let content = rootElement;
         content.innerHTML += this.responseText;
 
