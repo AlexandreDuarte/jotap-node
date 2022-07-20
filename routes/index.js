@@ -2,17 +2,19 @@ var express = require('express');
 var pool = require('../db/db');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-    res.render('index');
-});
+const renderIndex = (request, response) => {
+    if (new URL(request.url, `http://${request.headers.host}`).hash === "en") {
+        response.render('index', {lang: "en"});
+    } else {
+        response.render('index', {lang: "pt"});
+    }
+}
 
-router.get('/about', function(req, res, next) {
-    res.render('index');
-});
+router.get('/', renderIndex);
 
-router.get('/expositions', function(req, res, next) {
-    res.render('index');
-})
+router.get('/about', renderIndex);
+
+router.get('/expositions', renderIndex);
 
 router.get('/portfolio', async function(req, res, next) {
     if (req.query.id) {
@@ -22,11 +24,11 @@ router.get('/portfolio', async function(req, res, next) {
                 res.render('index-image-id', { obra: rows[0], url: (new URL(req.url, `https://${req.headers.host}`)).href });
             }
         } catch(err) {
-            res.render('index');
+            renderIndex(req, res);
         }
         return;
     }
-    res.render('index');
+    renderIndex(req, res);
     
 });
 

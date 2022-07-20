@@ -97,7 +97,7 @@ window.onload = () => {
 
         english = true;
 
-        let ptTextFields = document.querySelectorAll('[lang="pt"]');
+        let ptTextFields = document.body.querySelectorAll('[lang="pt"]');
 
         ptTextFields.forEach(function (value) {
             value.className = "hide";
@@ -109,7 +109,7 @@ window.onload = () => {
 
         english = false;
 
-        let enTextFields = document.querySelectorAll('[lang="en"]');
+        let enTextFields = document.body.querySelectorAll('[lang="en"]');
 
         enTextFields.forEach(function (value) {
             value.className = "hide";
@@ -263,6 +263,7 @@ function requestPortfolioItems() {
         else {
             let content = document.getElementById("portfolio-items-container");
             content.innerHTML += this.responseText;
+
 
 
             let enTextFields = content.querySelectorAll('[lang="en"]');
@@ -420,6 +421,8 @@ function triggerLanguageChange() {
                     pathPortuguese[i].setAttribute('fill', `rgb(${colorPort[i][0]}, ${colorPort[i][1]}, ${colorPort[i][2]})`);
                 }
                 currentLanguage = supportedLanguages.PT;
+                
+                document.documentElement.setAttribute("lang", "pt");
                 hash = "";
 
             } else {
@@ -429,13 +432,15 @@ function triggerLanguageChange() {
 
                 }
                 currentLanguage = supportedLanguages.EN;
+
+                document.documentElement.setAttribute("lang", "en");
                 hash = "#en";
             }
 
             window.history.pushState({}, '', location.href.replace(location.hash, "") + hash);
 
-            let enTextFields = document.querySelectorAll('[lang="en"]');
-            let ptTextFields = document.querySelectorAll('[lang="pt"]');
+            let enTextFields = document.body.querySelectorAll('[lang="en"]');
+            let ptTextFields = document.body.querySelectorAll('[lang="pt"]');
 
             enTextFields.forEach(function (value) {
                 value.className = currentLanguage.en;
@@ -668,6 +673,7 @@ function requestContentPage(contentIDs) {
         }
         let content = document.getElementById("content");
         content.innerHTML = this.responseText;
+
 
         let enTextFields = content.querySelectorAll('[lang="en"]');
         let ptTextFields = content.querySelectorAll('[lang="pt"]');
