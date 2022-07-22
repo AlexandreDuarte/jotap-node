@@ -4,9 +4,9 @@ var router = express.Router();
 
 const renderIndex = (request, response) => {
     if (new URL(request.url, `http://${request.headers.host}`).hash === "en") {
-        response.render('index', {lang: "en"});
+        response.render('index', { lang: "en" });
     } else {
-        response.render('index', {lang: "pt"});
+        response.render('index', { lang: "pt" });
     }
 }
 
@@ -23,13 +23,13 @@ router.get('/portfolio', async function(req, res, next) {
             if (rows) {
                 res.render('index-image-id', { obra: rows[0], url: (new URL(req.url, `https://${req.headers.host}`)).href });
             }
-        } catch(err) {
+        } catch (err) {
             renderIndex(req, res);
         }
         return;
     }
     renderIndex(req, res);
-    
+
 });
 
 router.get('/aboutpage', function(req, res, next) {

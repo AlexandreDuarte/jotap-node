@@ -9,11 +9,11 @@ var router = express.Router();
 router.get('/imageoverlay', async function(req, res, _next) {
 
     try {
-    const { rows } = await pool.query('SELECT * FROM obras WHERE id = $1', [req.query.id])
+        const { rows } = await pool.query('SELECT * FROM obras WHERE id = $1', [req.query.id])
 
 
-    res.render('imageoverlay', { obra: rows[0] });
-    } catch(err) {
+        res.render('imageoverlay', { obra: rows[0] });
+    } catch (err) {
         res.status(404).send('');
     }
 });
@@ -26,7 +26,7 @@ router.get('/', async function(req, res, _next) {
         try {
             const { rows } = await pool.query('SELECT * FROM obras WHERE id = $1', [req.query.id])
             if (rows) res.render('imageoverlay', { obra: rows[0] });
-        } catch(err) {
+        } catch (err) {
             res.status(404).send('');
         }
     }
@@ -43,7 +43,7 @@ router.get('/', async function(req, res, _next) {
 
                 res.render('portfolio', { obras: rows, activefilter: [false, qfilter === "canvas", qfilter === "mural", false] });
             }
-        } catch(err) {
+        } catch (err) {
             const { rows } = await pool.query('SELECT * FROM obras ORDER BY year DESC, id DESC FETCH FIRST 5 ROW ONLY;');
             res.render('portfolio', { obras: rows, activefilter: [true, false, false, false] });
         }
@@ -72,7 +72,7 @@ router.get('/griditems', async function(req, res, _next) {
                 } else {
                     res.send('');
                 }
-            } catch(err) {
+            } catch (err) {
                 res.send('');
             }
         } else {
@@ -85,7 +85,7 @@ router.get('/griditems', async function(req, res, _next) {
                 } else {
                     res.send('');
                 }
-            } catch(err) {
+            } catch (err) {
                 res.send('');
             }
         }
@@ -99,7 +99,7 @@ router.get('/griditems', async function(req, res, _next) {
             } else {
                 res.send('');
             }
-        } catch(err) {
+        } catch (err) {
             res.send('');
         }
     }

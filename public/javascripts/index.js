@@ -1,484 +1,306 @@
-var pathPortuguese, pathEnglish;
-var deltaPath = [];
-var pathMod = 1;
-
-var colorPort = [];
-var coloreng = [];
-
-var english;
-
-var collapsableMenu;
-var collapsableMenuBG;
-var collapsableMenuButton;
-var navCenter;
-var navBar;
-var navText;
-var navMenuButton;
-
-var lastScrollTop;
-
-var navOffset;
-
-var mouseLeftFlag = false;
-
-var animationIntervalID;
-
-var show = true;
-
-var supportedLanguages = {
-    PT: {
-        pt: "",
-        en: "hide"
+const collapsableMenuItemsIds = {
+    smallScreen: {
+        collapsableMenu: "nav-small-screen-menu",
+        collapsableMenuBG: "nav-small-screen-menu-background",
+        collapsableMenuButton: "nav-small-screen-button"
     },
-    EN: {
-        pt: "hide",
-        en: ""
+    screen: {
+        collapsableMenu: "nav-menu-left",
+        collapsableMenuBG: "nav-menu-left-background",
+        collapsableMenuButton: "nav-button-left"
     }
 }
 
-var currentLanguage;
-var hash;
-
-var tabs = {
-    PORTFOLIO: "PORTFOLIO",
-    OTHER: "OTHER"
+const collapsableMenuInitializedListeners = {
+    narrowListeners: false,
+    wideListeners: false
 }
-var currentTab = tabs.OTHER;
-var portfolioPopulated = false;
 
-var narrowListeners = false;
-var wideListeners = false;
+class CollapsableMenuHandler {
 
-var narrowScreen;
+    constructor(initializedListeners, collapsableMenuIds, isNarrowScreen) {
+        let ids = isNarrowScreen ? collapsableMenuIds.smallScreen : collapsableMenuIds.screen;
+        this.collapsableMenu = document.getElementById(ids.collapsableMenu);
+        this.collapsableMenuBG = document.getElementById(ids.collapsableMenuBG);
+        this.collapsableMenuButton = document.getElementById(ids.collapsableMenuButton);
 
-var portfolioRequests = 0;
-var portfolioWaitingHttpResponse = false;
-var portfolioCategory = '';
+        this.collapsableMenu.style.display = "block";
 
-var scrollbarWidth;
+        this.collapsableMenu.style.height = this.collapsableMenuBG.offsetHeight.toString() + "px";
+        this.collapsableMenu.style.left = Math.round(this.collapsableMenuButton.offsetLeft) + "px";
 
-var searchParams = new URLSearchParams("");
+        if (!(isNarrowScreen ? initializedListeners.narrowListeners : initializedListeners.wideListeners)) {
+            this.setupNavigationListeners();
+            (isNarrowScreen ? initializedListeners.narrowListeners = true : initializedListeners.wideListeners = true);
+        }
 
-var imagePageOverlay = false;
+        this.narrowScreen = isNarrowScreen;
 
-window.onpopstate = () => {
-
-    requestCurrentPage();
-};
-
-
-window.onresize = () => {
-    collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-    identifyCollapsableMenu();
+        this.collapsableMenu.style.display = "none";
+    }
 
 
+    navigationListeners = {
+        listener1: function(e) {
+            if (e.offsetY >= this.collapsableMenuButton.offsetHeight + this.collapsableMenuButton.offsetTop) return;
 
-    var scrollDiv = document.createElement("div");
-    scrollDiv.className = "scrollbar-measure";
-    document.body.appendChild(scrollDiv);
+            if (this.collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        },
 
-    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        listener2: function(_e) {
+            if (this.collapsableMenuBG.className !== "nav-extended") {
+                extendMenu();
+            }
+        },
 
-    document.body.removeChild(scrollDiv);
+        listener3: function(_e) {
+            if (this.collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        },
 
-    document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
-    //document.getElementById("content").style.width = `calc(100vw - 2*${scrollbarWidth}px)`
+        listener4: function(e) {
+            if (e.offsetY <= 0) return;
 
-};
+            if (this.collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        }
+    }
 
-window.onload = () => {
+    setupNavigationListeners() {
+        this.collapsableMenuButton.addEventListener('mouseleave', this.navigationListeners.listener1.bind(this));
+        this.collapsableMenuButton.addEventListener('mouseenter', this.navigationListeners.listener2.bind(this));
+        //this.navBar.addEventListener('mouseleave', this.navigationListeners.listener3.bind(this));
+        this.collapsableMenu.addEventListener('mouseleave', this.navigationListeners.listener4.bind(this));
+    }
 
-    pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
-    pathEnglish = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
+    get isNarrowScreen() {
+        return this.narrowScreen;
+    }
+}
 
+class LanguageHandler {
+    supportedLanguages = {
+        EN: "#en",
+        PT: ""
+    }
+    animationTimeout;
+    currentLanguage;
 
-    if (window.location.hash == "#en") {
-        triggerLanguageChange();
+    constructor() {
 
-        english = true;
+        this.pathMod = 1;
 
-        let ptTextFields = document.body.querySelectorAll('[lang="pt"]');
+        this.steps = 15;
 
-        ptTextFields.forEach(function (value) {
-            value.className = "hide";
+        this.pathPortuguese = document.querySelector("#language-select").contentDocument.querySelectorAll("path");
+        this.pathEnglish = document.querySelector("#language-select-hidden").contentDocument.querySelectorAll("path");
+
+        this.colorPort = [];
+        this.coloreng = [];
+        this.deltaPath = [];
+
+        this.mouseLeftFlag = true;
+
+        this.languageChangeAnim = false;
+
+        document.getElementById('language-select-shell').addEventListener('mouseenter', _e => {
+            if (!this.languageChangeAnim) document.getElementById('language-select').className = "";
+            this.mouseLeftFlag = false;
         });
 
-        currentLanguage = supportedLanguages.EN;
-        hash = "#en"
-    } else {
-
-        english = false;
-
-        let enTextFields = document.body.querySelectorAll('[lang="en"]');
-
-        enTextFields.forEach(function (value) {
-            value.className = "hide";
+        document.getElementById('language-select-shell').addEventListener('mouseleave', _e => {
+            if (!this.languageChangeAnim) document.getElementById('language-select').className = "b-and-w";
+            this.mouseLeftFlag = true;
         });
 
-        currentLanguage = supportedLanguages.PT;
-        hash = "";
-    }
+        for (let i = 0; i < this.pathPortuguese.length; i++) {
 
-    for (let i = 0; i < pathPortuguese.length; i++) {
+            let portList = this.animation.getCoords(this.pathPortuguese[i], true);
+            let engList = this.animation.getCoords(this.pathEnglish[i], true);
 
-        let portList = getCoords(pathPortuguese[i], true);
-        let engList = getCoords(pathEnglish[i], true);
+            this.colorPort.push(this.pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
+            this.coloreng.push(this.pathEnglish[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
 
-        colorPort.push(pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
-        coloreng.push(pathEnglish[i].getAttribute('fill').split("(")[1].split(")")[0].split(","));
+            let deltaSub = [];
 
-        let deltaSub = [];
-
-        for (let j = 0; j < portList.length; j++) {
-            if (!isNaN(portList[j])) {
-                deltaSub.push(engList[j] - portList[j]);
-            }
-        }
-
-        deltaPath.push(deltaSub);
-
-    }
-
-
-    navCenter = document.getElementById("nav-center");
-    navBar = document.getElementById("nav-bar");
-    navText = document.getElementById("nav-text");
-    navMenuButton = document.getElementById("nav-arrow-button");
-    identifyCollapsableMenu();
-
-    requestCurrentPage();
-
-    document.getElementById('language-select-shell').addEventListener('mouseenter', _e => {
-        if (!languageChangeAnim) document.getElementById('language-select').className = "";
-        mouseLeftFlag = false;
-    });
-
-    document.getElementById('language-select-shell').addEventListener('mouseleave', _e => {
-        if (!languageChangeAnim) document.getElementById('language-select').className = "b-and-w";
-        mouseLeftFlag = true;
-    });
-
-
-
-
-    navOffset = 0;
-    lastScrollTop = 0;
-
-    document.getElementsByClassName("scrollable")[0].addEventListener('scroll', e => {
-
-        let scrollTop = document.getElementsByClassName("scrollable")[0].scrollTop;
-
-        if (!portfolioPopulated && !portfolioWaitingHttpResponse && currentTab == tabs.PORTFOLIO && scrollTop > document.getElementsByClassName("scrollable")[0].scrollHeight - window.screen.availHeight - 100) requestPortfolioItems();
-
-        if (collapsableMenuBG.className === "nav-extended") return;
-
-        if (scrollTop > lastScrollTop && scrollTop > 0) {
-            if (show) {
-                show = false;
-                if (navOffset > -50) {
-                    navOffset = -50;
-                    navBar.style.top = `${navOffset}px`;
-                    navBar.style.transition = "top 100ms";
+            for (let j = 0; j < portList.length; j++) {
+                if (!isNaN(portList[j])) {
+                    deltaSub.push(engList[j] - portList[j]);
                 }
             }
-        } else if (!show && scrollTop < lastScrollTop) {
-            show = true;
-            if (navOffset < 0) {
-                navOffset = 0;
-                navBar.style.top = `${navOffset}px`;
-                navBar.style.transition = "top 100ms";
-            }
+
+            this.deltaPath.push(deltaSub);
+
         }
-
-        lastScrollTop = scrollTop;
-    });
-
-
-
-    var scrollDiv = document.createElement("div");
-    scrollDiv.className = "scrollbar-measure";
-    document.body.appendChild(scrollDiv);
-
-    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-
-    document.body.removeChild(scrollDiv);
-
-    document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
-
-    //document.getElementById("content").style.width = `calc(100vw - 2*${scrollbarWidth}px)`
-
-
-
-    setTimeout(() => {
-        if (!mouseLeftFlag) document.getElementById('language-select').className = "b-and-w";
-    }, 3000);
-};
-
-function requestCurrentPage() {
-    if (window.location.pathname === "/about") {
-        requestContentPage("aboutpage");
-        currentTab = tabs.OTHER;
-    } else if (window.location.pathname === "/expositions") {
-        requestContentPage("expositionspage");
-        currentTab = tabs.OTHER;
-    } else if (window.location.pathname === "/portfolio") {
-
-        let params = new URLSearchParams(window.location.search);
-        if (imagePageOverlay) {
-            if (!params.get("id")) {
-                document.getElementById("imageoverlay").outerHTML = "";
-                imagePageOverlay = false;
-            }
-        }
-
-        if (params.get("filter")) {
-            portfolioCategory = params.get("filter");
-        }
-        requestContentPage("portfoliopage" + `?filter=${portfolioCategory}`);
-        if (params.get("id")) {
-            openImagePage(params.get("id"));
-        }
-
-        currentTab = tabs.PORTFOLIO;
-        portfolioRequests = 1;
-        portfolioPopulated = false;
-    } else {
-        window.history.pushState({}, '', window.location.origin + "/");
-        requestContentPage("homepage");
-        currentTab = tabs.OTHER;
     }
-}
 
+    triggerLanguageChange(language) {
 
-function requestPortfolioItems() {
+        if (language == this.supportedLanguages.EN) {
 
-    portfolioWaitingHttpResponse = true;
+            document.documentElement.setAttribute("lang", "en");
+            let ptTextFields = document.body.querySelectorAll('[lang="pt"]');
+            let enTextFields = document.body.querySelectorAll('[lang="en"]');
 
-    var request = new XMLHttpRequest();
-
-    request.onload = function () {
-
-        if (this.responseText === "") portfolioPopulated = true;
-
-        else {
-            let content = document.getElementById("portfolio-items-container");
-            content.innerHTML += this.responseText;
-
-
-
-            let enTextFields = content.querySelectorAll('[lang="en"]');
-            let ptTextFields = content.querySelectorAll('[lang="pt"]');
-
-            enTextFields.forEach(function (value) {
-                value.className = currentLanguage.en;
+            enTextFields.forEach(function(value) {
+                value.className = "";
+            });
+            ptTextFields.forEach(function(value) {
+                value.className = "hide";
             });
 
-            ptTextFields.forEach(function (value) {
-                value.className = currentLanguage.pt;
-            });
+            this.currentLanguage = language;
+            this.english = true;
+        } else {
 
-
-            collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-
-
-            portfolioRequests += 1;
-        }
-
-        portfolioWaitingHttpResponse = false;
-
-    };
-
-    request.open("GET", `portfoliopage/griditems?page=${portfolioRequests * 5}` + (portfolioCategory != '' ? `&filter=${portfolioCategory}` : ''));
-
-    request.send();
-
-
-
-}
-
-function identifyCollapsableMenu() {
-    if (window.innerWidth <= 1015) {
-        collapsableMenu = document.getElementById("nav-small-screen-menu");
-        collapsableMenuBG = document.getElementById("nav-small-screen-menu-background");
-        collapsableMenuButton = document.getElementById("nav-small-screen-button");
-
-        collapsableMenu.style.display = "block";
-
-        collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
-        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-
-        if (!narrowListeners) {
-            setupNavListenersWideScreen();
-            narrowListeners = true;
-        }
-
-        narrowScreen = true;
-    } else {
-
-        collapsableMenu = document.getElementById("nav-menu-left");
-        collapsableMenuBG = document.getElementById("nav-menu-left-background");
-        collapsableMenuButton = document.getElementById("nav-button-left");
-
-        collapsableMenu.style.display = "block";
-
-        collapsableMenu.style.height = collapsableMenuBG.offsetHeight.toString() + "px";
-        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-        if (!wideListeners) {
-            setupNavListenersWideScreen();
-            wideListeners = true;
-        }
-
-        narrowScreen = false;
-    }
-    collapsableMenu.style.display = "none";
-}
-
-function listener1(e) {
-    if (e.offsetY >= collapsableMenuButton.offsetHeight + collapsableMenuButton.offsetTop) return;
-
-    if (collapsableMenuBG.className === "nav-extended") {
-        collapseMenu();
-    }
-}
-
-function listener2(_e) {
-    if (collapsableMenuBG.className !== "nav-extended") {
-        extendMenu();
-    }
-}
-
-function listener3(_e) {
-    if (collapsableMenuBG.className === "nav-extended") {
-        collapseMenu();
-    }
-}
-
-function listener4(e) {
-    if (e.offsetY <= 0) return;
-
-    if (collapsableMenuBG.className === "nav-extended") {
-        collapseMenu();
-    }
-}
-
-function setupNavListenersWideScreen() {
-
-
-    collapsableMenuButton.addEventListener('mouseleave', listener1);
-
-    collapsableMenuButton.addEventListener('mouseenter', listener2);
-
-    navBar.addEventListener('mouseleave', listener3);
-
-    collapsableMenu.addEventListener('mouseleave', listener4);
-}
-
-function removeEventListeners() {
-    collapsableMenuButton.removeEventListener('mouseleave', listener1);
-
-    collapsableMenuButton.removeEventListener('mouseenter', listener2);
-
-    navBar.removeEventListener('mouseleave', listener3);
-
-    collapsableMenu.removeEventListener('mouseleave', listener4);
-}
-
-var languageChange = false;
-var languageChangeAnim = false;
-
-var endAnimTimeout;
-
-var steps = 15;
-
-function triggerLanguageChange() {
-
-    if (languageChange) return;
-
-    if (languageChangeAnim) {
-        window.clearTimeout(endAnimTimeout);
-    }
-
-    english = !english;
-
-    languageChange = true;
-    languageChangeAnim = true;
-
-    var count = 0;
-
-    for (const element of pathPortuguese) {
-        if (element.id.includes("back")) {
-            element.setAttribute('fill', 'rgba(0,0,0,0)');
-        }
-    }
-
-    var intervalID = window.setInterval(() => {
-
-        if (count == steps) {
-
-            if (!english) {
-                for (let i = 0; i < pathPortuguese.length; i++) {
-
-                    pathPortuguese[i].setAttribute('fill', `rgb(${colorPort[i][0]}, ${colorPort[i][1]}, ${colorPort[i][2]})`);
-                }
-                currentLanguage = supportedLanguages.PT;
-                
-                document.documentElement.setAttribute("lang", "pt");
-                hash = "";
-
-            } else {
-                for (let i = 0; i < pathPortuguese.length; i++) {
-
-                    pathPortuguese[i].setAttribute('fill', `rgb(${coloreng[i][0]}, ${coloreng[i][1]}, ${coloreng[i][2]})`);
-
-                }
-                currentLanguage = supportedLanguages.EN;
-
-                document.documentElement.setAttribute("lang", "en");
-                hash = "#en";
-            }
-
-            window.history.pushState({}, '', location.href.replace(location.hash, "") + hash);
-
+            document.documentElement.setAttribute("lang", "pt");
             let enTextFields = document.body.querySelectorAll('[lang="en"]');
             let ptTextFields = document.body.querySelectorAll('[lang="pt"]');
 
-            enTextFields.forEach(function (value) {
-                value.className = currentLanguage.en;
+            enTextFields.forEach(function(value) {
+                value.className = "hide";
             });
-
-            ptTextFields.forEach(function (value) {
-                value.className = currentLanguage.pt;
+            ptTextFields.forEach(function(value) {
+                value.className = "";
             });
+            this.english = false;
+            this.currentLanguage = language;
+        }
+    }
 
-            endAnimTimeout = setTimeout(() => {
-                languageChangeAnim = false;
-                if (mouseLeftFlag) document.getElementById('language-select').className = "bandw";
+    scopedLanguageChange(scope) {
+
+        if (this.currentLanguage == this.supportedLanguages.EN) {
+
+            let ptTextFields = scope.querySelectorAll('[lang="pt"]');
+            let enTextFields = scope.querySelectorAll('[lang="en"]');
+
+            enTextFields.forEach(function(value) {
+                value.className = "";
+            });
+            ptTextFields.forEach(function(value) {
+                value.className = "hide";
+            });
+        } else {
+            let enTextFields = scope.querySelectorAll('[lang="en"]');
+            let ptTextFields = scope.querySelectorAll('[lang="pt"]');
+
+            enTextFields.forEach(function(value) {
+                value.className = "hide";
+            });
+            ptTextFields.forEach(function(value) {
+                value.className = "";
+            });
+        }
+    }
+
+
+
+    triggerLanguageChangeAnimation() {
+
+        if (this.languageChange) return false;
+
+        if (this.languageChangeAnim) {
+            window.clearTimeout(this.endAnimTimeout);
+        }
+
+        this.english = !this.english;
+
+        this.languageChange = true;
+        this.languageChangeAnim = true;
+
+        for (const element of this.pathPortuguese) {
+            if (element.id.includes("back")) {
+                element.setAttribute('fill', 'rgba(0,0,0,0)');
+            }
+        }
+
+        this.animation.step = 0;
+
+        this.intervalID = setInterval(this.animationCallback.bind(this), 200 / this.steps);
+    }
+
+    animation = {
+        step: 0,
+        stepColor: function(color, targetColor, step) {
+            return [parseInt(color[0]) + (targetColor[0] - parseInt(color[0])) / step, parseInt(color[1]) + (targetColor[1] - parseInt(color[1])) / step, parseInt(color[2]) + (targetColor[2] - parseInt(color[2])) / step];
+        },
+
+        getCoords: function(element, countCommaAsSeparator) {
+            let result = [];
+
+            let d = element.getAttribute("d");
+            let dList;
+            if (countCommaAsSeparator) {
+                dList = d.split(/[\s,]/g);
+            } else {
+                dList = d.split(' ');
+            }
+
+            for (const num of dList) {
+                if (num != "")
+                    if (!isNaN(num)) {
+                        result.push(parseFloat(num));
+                    } else {
+                        result.push(num);
+                    }
+            }
+
+            return result;
+        }
+    }
+
+    animationCallback = () => {
+
+        if (this.animation.step == this.steps) {
+
+            if (!this.currentLanguage === this.supportedLanguages.EN) {
+                for (let i = 0; i < this.pathPortuguese.length; i++) {
+
+                    this.pathPortuguese[i].setAttribute('fill', `rgb(${this.colorPort[i][0]}, ${this.colorPort[i][1]}, ${this.colorPort[i][2]})`);
+                }
+
+            } else {
+                for (let i = 0; i < this.pathPortuguese.length; i++) {
+
+                    this.pathPortuguese[i].setAttribute('fill', `rgb(${this.coloreng[i][0]}, ${this.coloreng[i][1]}, ${this.coloreng[i][2]})`);
+
+                }
+            }
+
+            window.history.pushState({}, '', location.href.replace(location.hash, this.currentLanguage));
+
+            this.endAnimTimeout = setTimeout(() => {
+                this.languageChangeAnim = false;
+                if (this.mouseLeftFlag) document.getElementById('language-select').className = "bandw";
             }, 2000);
 
-
-
-            languageChange = false;
-            pathMod = -pathMod;
-            window.clearInterval(intervalID);
+            this.languageChange = false;
+            this.pathMod = -this.pathMod;
+            clearInterval(this.intervalID);
             return;
         }
 
-        for (let i = 0; i < pathPortuguese.length; i++) {
+        for (let i = 0; i < this.pathPortuguese.length; i++) {
 
-            let portList = getCoords(pathPortuguese[i], false);
+            let portList = this.animation.getCoords(this.pathPortuguese[i], false);
 
             let offset = 0;
 
             for (let j = 0; j < portList.length; j++) {
                 if (!isNaN(portList[j])) {
-                    portList[j] += pathMod * deltaPath[i][j + offset] / steps;
+                    portList[j] += this.pathMod * this.deltaPath[i][j + offset] / this.steps;
                 } else if (typeof portList[j] === 'string' && portList[j].includes(",")) {
                     if (portList[j].split(',').length != 1) {
                         let rest = portList[j].split(',');
                         let v1 = parseFloat(rest[0]);
                         let v2 = parseFloat(rest[1]);
-                        v1 += pathMod * deltaPath[i][j + offset] / steps;
-                        v2 += pathMod * deltaPath[i][j + offset + 1] / steps;
+                        v1 += this.pathMod * this.deltaPath[i][j + offset] / this.steps;
+                        v2 += this.pathMod * this.deltaPath[i][j + offset + 1] / this.steps;
                         offset += 1;
                         portList[j] = `${v1},${v2}`;
                     }
@@ -488,297 +310,460 @@ function triggerLanguageChange() {
             }
 
 
-            pathPortuguese[i].setAttribute('d', portList.join(" "));
+            this.pathPortuguese[i].setAttribute('d', portList.join(" "));
 
-            if (!english) {
+            if (!this.currentLanguage === this.supportedLanguages.EN) {
 
 
-                for (let i = 0; i < pathPortuguese.length; i++) {
-                    let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
-                    let newColor = stepColor(color, colorPort[i], steps);
+                for (let k = 0; k < this.pathPortuguese.length; k++) {
+                    let color = this.pathPortuguese[k].getAttribute('fill').split("(")[1].split(")")[0].split(",");
+                    let newColor = this.animation.stepColor(color, this.colorPort[k], this.steps);
 
-                    pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
+                    this.pathPortuguese[k].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
             } else {
-                for (let i = 0; i < pathPortuguese.length; i++) {
-                    let color = pathPortuguese[i].getAttribute('fill').split("(")[1].split(")")[0].split(",");
+                for (let k = 0; k < this.pathPortuguese.length; k++) {
+                    let color = this.pathPortuguese[k].getAttribute('fill').split("(")[1].split(")")[0].split(",");
 
-                    let newColor = stepColor(color, coloreng[i], steps);
+                    let newColor = this.animation.stepColor(color, this.coloreng[k], this.steps);
 
-                    pathPortuguese[i].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
+                    this.pathPortuguese[k].setAttribute('fill', `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`);
                 }
             }
         }
 
-        count++;
-    }, 200 / steps);
-}
-
-function stepColor(color, targetColor, step) {
-    return [parseInt(color[0]) + (targetColor[0] - parseInt(color[0])) / step, parseInt(color[1]) + (targetColor[1] - parseInt(color[1])) / step, parseInt(color[2]) + (targetColor[2] - parseInt(color[2])) / step];
-}
-
-function getCoords(element, countCommaAsSeparator) {
-    var result = [];
-
-    let d = element.getAttribute("d");
-    var dList;
-    if (countCommaAsSeparator) {
-        dList = d.split(/[\s,]/g);
-    } else {
-        dList = d.split(' ');
+        this.animation.step++;
     }
+}
 
-    for (const num of dList) {
-        if (num != "")
-            if (!isNaN(num)) {
-                result.push(parseFloat(num));
-            } else {
-                result.push(num);
+class NavigatorHandler {
+
+    constructor() {
+
+        this.navCenter = document.getElementById("nav-center");
+        this.navBar = document.getElementById("nav-bar");
+        this.navText = document.getElementById("nav-text");
+        this.navMenuButton = document.getElementById("nav-arrow-button");
+        this.navOffset = 0;
+        this.lastScrollTop = 0;
+
+        document.getElementsByClassName("scrollable")[0].addEventListener('scroll', _e => {
+
+            let scrollTop = document.getElementsByClassName("scrollable")[0].scrollTop;
+
+            if (!tabHandler.portfolioPopulated && !tabHandler.portfolioWaitingHttpResponse && tabHandler.currentTab == tabHandler.tabs.PORTFOLIO && scrollTop > document.getElementsByClassName("scrollable")[0].scrollHeight - window.screen.availHeight - 100) tabHandler.requestPortfolioItems();
+
+            if (collapsableMenuHandler.collapsableMenuBG.className === "nav-extended") return;
+
+            if (scrollTop > this.lastScrollTop && scrollTop > 0) {
+                if (this.show) {
+                    this.show = false;
+                    if (this.navOffset > -50) {
+                        this.navOffset = -50;
+                        this.navBar.style.top = `${this.navOffset}px`;
+                        this.navBar.style.transition = "top 100ms";
+                    }
+                }
+            } else if (!this.show && scrollTop < this.lastScrollTop) {
+                this.show = true;
+                if (this.navOffset < 0) {
+                    this.navOffset = 0;
+                    this.navBar.style.top = `${this.navOffset}px`;
+                    this.navBar.style.transition = "top 100ms";
+                }
             }
+
+            this.lastScrollTop = scrollTop;
+        });
+
+
+
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+
+        document.body.removeChild(scrollDiv);
+
+        document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
     }
 
-    return result;
+    midAnimation = false;
+    midAnimationCollapse = false;
+    midAnimationExtend = false;
+
+    endAnimation = whichAnimationEvent();
+
+    navButtonPress() {
+
+        if (this.midAnimation) return;
+
+        if (this.navBar.className === "nav-closed") {
+            extend();
+        } else {
+            collapse();
+        }
+
+
+
+    }
+
+    extend() {
+        if (this.midAnimation) return;
+        this.navBar.className = "nav-open";
+
+        this.midAnimation = true;
+
+        this.navCenter.className = "nav-center-in";
+
+        this.navText.className = "nav-text-in";
+
+        this.navMenuButton.className = "rotate-in";
+
+        let controller = new AbortController();
+
+        this.navBar.addEventListener(this.endAnimation, () => {
+            this.midAnimation = false;
+            controller.abort();
+        }, { signal: controller.signal });
+    }
+
+    collapse() {
+        if (this.midAnimation) return;
+        this.midAnimation = true;
+
+        let navLeftMenuButton = collapsableMenuHandler.collapsableMenuButton;
+
+        if (navLeftMenuButton.className === "selected") {
+            collapseMenu();
+        }
+
+        this.navBar.className = "nav-closed";
+
+        this.navCenter.className = "nav-center-out";
+
+        this.navText.className = "nav-text-out";
+
+        this.navMenuButton.className = "rotate-out";
+
+        let controller = new AbortController();
+
+        this.navBar.addEventListener(this.endAnimation, () => {
+            this.midAnimation = false;
+            controller.abort();
+        }, { signal: controller.signal });
+
+
+    }
+
+    navMenuButtonPress(el) {
+        if (this.midAnimation) return;
+
+        if (el.className === "selected") {
+            this.collapseMenu();
+        } else {
+            this.extendMenu();
+        }
+    }
+
+    extendMenu() {
+
+
+        this.midAnimationExtend = true;
+
+        collapsableMenuHandler.collapsableMenu.style.display = "block";
+
+        collapsableMenuHandler.collapsableMenuButton.className = "selected";
+
+        collapsableMenuHandler.collapsableMenuBG.className = "nav-extended";
+
+        let controller = new AbortController();
+
+        collapsableMenuHandler.collapsableMenuBG.addEventListener(this.endAnimation, () => {
+            this.midAnimationExtend = false;
+            collapsableMenuHandler.collapsableMenu.style.display = "block";
+            collapsableMenuHandler.collapsableMenuButton.className = "selected";
+            collapsableMenuHandler.collapsableMenuBG.className = "nav-extended";
+            controller.abort();
+        }, { signal: controller.signal });
+    }
+
+    collapseMenu() {
+        this.midAnimationCollapse = true;
+
+        collapsableMenuHandler.collapsableMenuButton.className = "";
+
+        collapsableMenuHandler.collapsableMenuBG.className = "nav-collapsed";
+
+        let controller = new AbortController();
+
+        collapsableMenuHandler.collapsableMenuBG.addEventListener(this.endAnimation, () => {
+            collapsableMenuHandler.collapsableMenuBG.className = "";
+            collapsableMenuHandler.collapsableMenu.style.display = "none";
+            this.midAnimationCollapse = false;
+            collapsableMenuHandler.collapsableMenuButton.className = "";
+            collapsableMenuHandler.collapsableMenuBG.className = "nav-collapsed";
+            controller.abort();
+        }, { signal: controller.signal });
+
+
+    }
 }
 
-var midAnimation, midAnimationCollapse, midAnimationExtend = false;
+class TabHandler {
 
-var endAnimation = whichAnimationEvent();
+    searchParams = new URLSearchParams("");
+    portfolioRequests = 0;
+    portfolioWaitingHttpResponse = false;
+    portfolioCategory = '';
+    bannerPos = 0;
+
+    tabs = {
+        PORTFOLIO: "PORTFOLIO",
+        OTHER: "OTHER"
+    }
+    currentTab = this.tabs.OTHER;
+    portfolioPopulated = false;
+
+
+    requestCurrentPage() {
+        if (window.location.pathname === "/about") {
+            this.requestContentPage("aboutpage");
+            this.currentTab = this.tabs.OTHER;
+        } else if (window.location.pathname === "/expositions") {
+            this.requestContentPage("expositionspage");
+            this.currentTab = this.tabs.OTHER;
+        } else if (window.location.pathname === "/portfolio") {
+
+            let params = new URLSearchParams(window.location.search);
+            if (imagePageOverlay) {
+                if (!params.get("id")) {
+                    document.getElementById("imageoverlay").outerHTML = "";
+                    imagePageOverlay = false;
+                }
+            }
+
+            if (params.get("filter")) {
+                this.portfolioCategory = params.get("filter");
+            }
+            this.requestContentPage("portfoliopage" + `?filter=${this.portfolioCategory}`);
+            if (params.get("id")) {
+                openImagePage(params.get("id"));
+            }
+
+            this.currentTab = this.tabs.PORTFOLIO;
+            this.portfolioRequests = 1;
+            this.portfolioPopulated = false;
+        } else {
+            window.history.pushState({}, '', window.location.origin + "/");
+            this.requestContentPage("homepage");
+            this.currentTab = this.tabs.OTHER;
+        }
+    }
+
+
+    requestContentPage(contentIDs) {
+        this.bannerPos = 0;
+        this.portfolioRequests = 0;
+        this.searchParams = new URLSearchParams(window.location.search);
+        let request = new XMLHttpRequest();
+
+        request.onload = function() {
+            if (request.status == 404) {
+                window.history.pushState({}, '', window.location.origin + "/");
+                return;
+            }
+            let content = document.getElementById("content");
+            content.innerHTML = this.responseText;
+
+
+            languageHandler.scopedLanguageChange(content);
+
+            //collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
+
+
+
+            navigatorHandler.navOffset = 0;
+            navigatorHandler.lastScrollTop = 0;
+            document.getElementsByClassName("scrollable")[0].scrollTo(0, 0);
+        };
+
+        request.open("GET", contentIDs);
+        request.send();
+    }
+
+    requestContent(contentIDs, rootElement, reject) {
+        let request = new XMLHttpRequest();
+
+        request.onload = function() {
+            if (request.status == 404) {
+                reject();
+                return;
+            }
+
+            let content = rootElement;
+            content.innerHTML += this.responseText;
+
+            let child = content.lastChild;
+            languageHandler.scopedLanguageChange(child);
+
+
+            //collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
+        };
+
+        request.open("GET", contentIDs);
+        request.send();
+    }
+
+
+    requestPortfolioItems() {
+
+        this.portfolioWaitingHttpResponse = true;
+
+        let request = new XMLHttpRequest();
+
+        request.onload = function() {
+
+            if (this.responseText === "") this.portfolioPopulated = true;
+
+            else {
+                let content = document.getElementById("portfolio-items-container");
+                content.innerHTML += this.responseText;
+
+
+
+                languageHandler.scopedLanguageChange(content);
+
+
+                collapsableMenuHandler.collapsableMenu.style.left = Math.round(collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
+
+
+                this.portfolioRequests += 1;
+            }
+
+            this.portfolioWaitingHttpResponse = false;
+
+        };
+
+        request.open("GET", `portfoliopage/griditems?page=${this.portfolioRequests * 5}` + (this.portfolioCategory != '' ? `&filter=${this.portfolioCategory}` : ''));
+
+        request.send();
+
+
+
+    }
+
+}
+
+let collapsableMenuHandler;
+let languageHandler;
+let navigatorHandler;
+let tabHandler;
+
+window.onpopstate = () => {
+
+    tabHandler.requestCurrentPage();
+};
+
+window.onresize = () => {
+    collapsableMenuHandler.collapsableMenu.style.left = Math.round(collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
+    collapsableMenuHandler = new CollapsableMenuHandler(collapsableMenuInitializedListeners, collapsableMenuItemsIds, window.innerWidth <= 1015);
+};
+
+
+window.onload = () => {
+    collapsableMenuHandler = new CollapsableMenuHandler(collapsableMenuInitializedListeners, collapsableMenuItemsIds, window.innerWidth <= 1015);
+    tabHandler = new TabHandler();
+    languageHandler = new LanguageHandler(document);
+    languageHandler.triggerLanguageChange(window.location.hash);
+    //languageHandler.triggerLanguageChangeAnimation();
+    navigatorHandler = new NavigatorHandler();
+    tabHandler.requestCurrentPage();
+
+
+    let scrollDiv = document.createElement("div");
+    scrollDiv.className = "scrollbar-measure";
+    document.body.appendChild(scrollDiv);
+
+    let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+
+    document.body.removeChild(scrollDiv);
+
+    document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
+};
+
 
 function navButtonPress() {
-
-    if (midAnimation) return;
-
-    if (navBar.className === "nav-closed") {
-        extend();
-    } else {
-        collapse();
-    }
-
-
-
+    navigatorHandler.navButtonPress();
 }
 
 function extend() {
-    if (midAnimation) return;
-    navBar.className = "nav-open";
-
-    midAnimation = true;
-
-    navCenter.className = "nav-center-in";
-
-    navText.className = "nav-text-in";
-
-    navMenuButton.className = "rotate-in";
-
-    var controller = new AbortController();
-
-    navBar.addEventListener(endAnimation, () => {
-        midAnimation = false;
-        controller.abort();
-    }, { signal: controller.signal });
+    navigatorHandler.extend();
 }
 
 function collapse() {
-    if (midAnimation) return;
-    midAnimation = true;
-
-    let navLeftMenuButton = collapsableMenuButton;
-
-    if (navLeftMenuButton.className === "selected") {
-        collapseMenu();
-    }
-
-    navBar.className = "nav-closed";
-
-    navCenter.className = "nav-center-out";
-
-    navText.className = "nav-text-out";
-
-    navMenuButton.className = "rotate-out";
-
-    var controller = new AbortController();
-
-    navBar.addEventListener(endAnimation, () => {
-        midAnimation = false;
-        controller.abort();
-    }, { signal: controller.signal });
-
-
+    navigatorHandler.collapse();
 }
 
 function navMenuButtonPress(el) {
-    if (midAnimation) return;
-
-    if (el.className === "selected") {
-        collapseMenu();
-    } else {
-        extendMenu();
-    }
+    navigatorHandler.navMenuButtonPress(el);
 }
 
 function extendMenu() {
-
-
-    midAnimationExtend = true;
-
-    collapsableMenu.style.display = "block";
-
-    collapsableMenuButton.className = "selected";
-
-    collapsableMenuBG.className = "nav-extended";
-
-    var controller = new AbortController();
-
-    collapsableMenuBG.addEventListener(endAnimation, () => {
-        midAnimationExtend = false;
-        collapsableMenu.style.display = "block";
-        collapsableMenuButton.className = "selected";
-        collapsableMenuBG.className = "nav-extended";
-        controller.abort();
-    }, { signal: controller.signal });
+    navigatorHandler.extendMenu();
 }
 
 function collapseMenu() {
-    midAnimationCollapse = true;
-
-    collapsableMenuButton.className = "";
-
-    collapsableMenuBG.className = "nav-collapsed";
-
-    var controller = new AbortController();
-
-    collapsableMenuBG.addEventListener(endAnimation, () => {
-        collapsableMenuBG.className = "";
-        collapsableMenu.style.display = "none";
-        midAnimationCollapse = false;
-        collapsableMenuButton.className = "";
-        collapsableMenuBG.className = "nav-collapsed";
-        controller.abort();
-    }, { signal: controller.signal });
-
-
+    navigatorHandler.collapseMenu();
 }
-
-function requestContentPage(contentIDs) {
-    bannerPos = 0;
-    portfolioRequests = 0;
-    searchParams = new URLSearchParams(window.location.search);
-    var request = new XMLHttpRequest();
-
-    request.onload = function () {
-        if(request.status == 404) {
-            window.history.pushState({}, '', window.location.origin + "/");
-            return;
-        }
-        let content = document.getElementById("content");
-        content.innerHTML = this.responseText;
-
-
-        let enTextFields = content.querySelectorAll('[lang="en"]');
-        let ptTextFields = content.querySelectorAll('[lang="pt"]');
-
-        enTextFields.forEach(function (value) {
-            value.className = currentLanguage.en;
-        });
-
-        ptTextFields.forEach(function (value) {
-            value.className = currentLanguage.pt;
-        });
-
-        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-
-
-
-        navOffset = 0;
-        lastScrollTop = 0;
-        document.getElementsByClassName("scrollable")[0].scrollTo(0, 0);
-    };
-
-    request.open("GET", contentIDs);
-    request.send();
-}
-
-function requestContent(contentIDs, rootElement, reject) {
-    var request = new XMLHttpRequest();
-    
-    request.onload = function () {
-        if (request.status == 404) {
-            reject();
-            return;
-        }
-
-        let content = rootElement;
-        content.innerHTML += this.responseText;
-
-        let child = content.lastChild;
-
-        let enTextFields = child.querySelectorAll('[lang="en"]');
-        let ptTextFields = child.querySelectorAll('[lang="pt"]');
-
-        enTextFields.forEach(function (value) {
-            value.className = currentLanguage.en;
-        });
-
-        ptTextFields.forEach(function (value) {
-            value.className = currentLanguage.pt;
-        });
-
-
-        collapsableMenu.style.left = Math.round(collapsableMenuButton.offsetLeft) + "px";
-    };
-
-    request.open("GET", contentIDs);
-    request.send();
-}
-
 
 
 function centerTextButton() {
     if (window.location.href === window.location.origin) return;
 
-    window.history.pushState({}, '', window.location.origin + "/" + hash);
-    requestContentPage("homepage");
-    currentTab = tabs.OTHER;
+    window.history.pushState({}, '', window.location.origin + "/" + languageHandler.currentLanguage);
+    tabHandler.requestContentPage("homepage");
+    tabHandler.currentTab = tabHandler.tabs.OTHER;
 }
 
 function aboutButton() {
     if (window.location.pathname === "/about") return;
 
 
-    if (narrowScreen) collapseMenu();
+    if (collapsableMenuHandler.narrowScreen) collapseMenu();
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'about' + hash);
-    requestContentPage("aboutpage");
-    currentTab = tabs.OTHER;
+    window.history.pushState({}, '', window.location.origin + "/" + 'about' + languageHandler.currentLanguage);
+    tabHandler.requestContentPage("aboutpage");
+    tabHandler.currentTab = tabHandler.tabs.OTHER;
 }
 
 function portfolioButton(category) {
 
-    if (narrowScreen) collapseMenu();
+    if (collapsableMenuHandler.narrowScreen) collapseMenu();
 
-    if (window.location.pathname === "/portfolio" && category === portfolioCategory) return;
+    if (window.location.pathname === "/portfolio" && category === tabHandler.portfolioCategory) return;
 
     if (category) {
-        portfolioCategory = category
+        tabHandler.portfolioCategory = category
     } else {
-        portfolioCategory = '';
+        tabHandler.portfolioCategory = '';
     }
 
-    searchParams = new URLSearchParams("");
+    tabHandler.searchParams = new URLSearchParams("");
 
-    if (portfolioCategory != '') {
-        if (searchParams.has("filter")) {
-            searchParams.set("filter", portfolioCategory);
+    if (tabHandler.portfolioCategory != '') {
+        if (tabHandler.searchParams.has("filter")) {
+            tabHandler.searchParams.set("filter", tabHandler.portfolioCategory);
         } else {
-            searchParams.append("filter", portfolioCategory);
+            tabHandler.searchParams.append("filter", tabHandler.portfolioCategory);
         }
     }
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
-    requestContentPage("portfoliopage" + (portfolioCategory != '' ? `?filter=${portfolioCategory}` : ''));
-    currentTab = tabs.PORTFOLIO;
-    portfolioRequests = 1;
-    portfolioPopulated = false;
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((tabHandler.searchParams.toString() != "") ? `?${tabHandler.searchParams.toString()}` : "") + languageHandler.currentLanguage);
+    tabHandler.requestContentPage("portfoliopage" + (tabHandler.portfolioCategory != '' ? `?filter=${tabHandler.portfolioCategory}` : ''));
+    tabHandler.currentTab = tabHandler.tabs.PORTFOLIO;
+    tabHandler.portfolioRequests = 1;
+    tabHandler.portfolioPopulated = false;
 
 
 
@@ -786,26 +771,24 @@ function portfolioButton(category) {
 
 function expositionsButton() {
 
-    if (narrowScreen) collapseMenu();
+    if (collapsableMenuHandler.narrowScreen) collapseMenu();
 
     if (window.location.pathname === "/expositions") return;
 
-    window.history.pushState({}, '', window.location.origin + "/" + 'expositions' + hash);
-    requestContentPage("expositionspage");
-    currentTab = tabs.OTHER;
+    window.history.pushState({}, '', window.location.origin + "/" + 'expositions' + languageHandler.currentLanguage);
+    tabHandler.requestContentPage("expositionspage");
+    tabHandler.currentTab = tabHandler.tabs.OTHER;
 
-    navOffset = 0;
-    lastScrollTop = 0;
+    navigatorHandler.navOffset = 0;
+    navigatorHandler.lastScrollTop = 0;
     window.scrollTo(0, 0);
 
 }
 
-var bannerPos = 0;
-
 function leftBannerButton() {
-    if (bannerPos == -1) return;
+    if (tabHandler.bannerPos == -1) return;
 
-    bannerPos -= 1;
+    tabHandler.bannerPos -= 1;
 
 
 
@@ -814,30 +797,30 @@ function leftBannerButton() {
 }
 
 function rightBannerButton() {
-    if (bannerPos == 1) {
+    if (tabHandler.bannerPos == 1) {
         return;
     }
 
-    bannerPos += 1;
+    tabHandler.bannerPos += 1;
 
     updateBannerElements();
 }
 
 function selectorBannerButton(value) {
-    bannerPos = value;
+    tabHandler.bannerPos = value;
 
     updateBannerElements();
 }
 
 function updateBannerElements() {
 
-    if (bannerPos == 1) {
+    if (tabHandler.bannerPos == 1) {
         document.getElementById("arrow-right").style.display = "none";
     } else {
         document.getElementById("arrow-right").style.display = "block";
     }
 
-    if (bannerPos == -1) {
+    if (tabHandler.bannerPos == -1) {
         document.getElementById("arrow-left").style.display = "none";
     } else {
         document.getElementById("arrow-left").style.display = "block";
@@ -846,21 +829,22 @@ function updateBannerElements() {
     let elements = document.getElementsByClassName("banner-background");
 
     for (let i = 0; i < 3; i++) {
-        elements[i].style.transform = `translateX(${(-bannerPos - 1) * 100}%)`;
+        elements[i].style.transform = `translateX(${(-tabHandler.bannerPos - 1) * 100}%)`;
         elements[i].style.transition = 'transform 100ms';
     }
 
     let bar = document.getElementById("selected-bar");
 
 
-    bar.style.transform = `translateX(${(-0.5 + bannerPos) * 100}%)`;
+    bar.style.transform = `translateX(${(-0.5 + tabHandler.bannerPos) * 100}%)`;
     bar.style.transition = 'transform 100ms';
 }
 
-var copydelay = false;
+
+let copydelay = false;
 
 function fallbackCopyTextToClipboard() {
-    var textArea = document.createElement("textarea");
+    let textArea = document.createElement("textarea");
     textArea.value = window.location.toString();
 
     // Avoid scrolling to bottom
@@ -910,9 +894,9 @@ async function copy(values) {
         } else {
             copydelay = true;
 
-            navigator.clipboard.writeText(window.location.toString()).then(function () {
+            navigator.clipboard.writeText(window.location.toString()).then(function() {
                 console.log('Async: Copying to clipboard was successful!');
-            }, function (err) {
+            }, function(err) {
                 console.error('Async: Could not copy text: ', err);
             });
 
@@ -933,11 +917,11 @@ async function copy(values) {
     }
 }
 
-
+let imagePageOverlay = false;
 
 function closeImageoverlay() {
-    searchParams.delete("id");
-    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+    tabHandler.searchParams.delete("id");
+    window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((tabHandler.searchParams.toString() != "") ? `?${tabHandler.searchParams.toString()}` : "") + languageHandler.currentLanguage);
     document.getElementById("imageoverlay").outerHTML = "";
     imagePageOverlay = false;
 }
@@ -945,18 +929,18 @@ function closeImageoverlay() {
 
 function openImagePage(id) {
     if (!imagePageOverlay) {
-        if (!searchParams.has("id")) {
-            searchParams.append("id", id);
+        if (!tabHandler.searchParams.has("id")) {
+            tabHandler.searchParams.append("id", id);
         }
         let params = new URLSearchParams(window.location.search);
         if (!params.get("id")) {
-            window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+            window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((tabHandler.searchParams.toString() != "") ? `?${tabHandler.searchParams.toString()}` : "") + languageHandler.currentLanguage);
         }
 
-        requestContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"), () => {
-            if (searchParams.has("id")) {
-                searchParams.delete("id");
-                window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((searchParams.toString() != "") ? `?${searchParams.toString()}` : "") + hash);
+        tabHandler.requestContent(`portfoliopage/imageoverlay?id=${id}`, document.getElementById("overlay-items"), () => {
+            if (tabHandler.searchParams.has("id")) {
+                tabHandler.searchParams.delete("id");
+                window.history.pushState({}, '', window.location.origin + "/" + 'portfolio' + ((tabHandler.searchParams.toString() != "") ? `?${tabHandler.searchParams.toString()}` : "") + languageHandler.currentLanguage);
                 imagePageOverlay = false;
             }
         });
@@ -964,19 +948,28 @@ function openImagePage(id) {
     }
 }
 
+function triggerLanguageChange() {
+    if (languageHandler.currentLanguage == languageHandler.supportedLanguages.EN) {
+        languageHandler.triggerLanguageChange(languageHandler.supportedLanguages.PT);
+    } else {
+        languageHandler.triggerLanguageChange(languageHandler.supportedLanguages.EN);
+    }
+
+    languageHandler.triggerLanguageChangeAnimation();
+}
+
 
 function whichAnimationEvent() {
-    var t,
-        el = document.createElement("fakeelement");
+    let el = document.createElement("fakeelement");
 
-    var animations = {
+    let animations = {
         "animation": "animationend",
         "OAnimation": "oAnimationEnd",
         "MozAnimation": "animationend",
         "WebkitAnimation": "webkitAnimationEnd"
     };
 
-    for (t in animations) {
+    for (let t in animations) {
         if (el.style[t] !== undefined) {
             return animations[t];
         }

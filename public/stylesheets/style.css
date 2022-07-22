@@ -12,10 +12,8 @@
     --text-color: #e8e8e8;
     --text-color-footer: #b1b1b1;
     --nav-height: 50px;
-    --nav-center-width:
-        clamp(350px, 30%, 500px);
-    --nav-button-width:
-        clamp(150px, 10vw, 200px);
+    --nav-center-width: clamp(350px, 30%, 500px);
+    --nav-button-width: clamp(150px, 10vw, 200px);
     scrollbar-color: var(--nav-highlight-color) var(--nav-color);
     font-family: 'Urbanist', sans-serif;
     --text-color-hover: #e8e8e8;
@@ -51,7 +49,9 @@
     background-color: var(--nav-highlight-color);
 }
 
+
 /*GLOBAL related CSS*/
+
 .hide {
     display: none;
 }
@@ -133,9 +133,12 @@ h2 {
     color: var(--text-color);
 }
 
+
 /*end GLOBAL related CSS*/
 
+
 /*LANGUAGE flag related CSS*/
+
 #language-select-hidden {
     position: fixed;
     opacity: 0;
@@ -176,9 +179,12 @@ h2 {
     pointer-events: all;
 }
 
+
 /*end LANGUAGE flag related CSS*/
 
+
 /*EXPOSITION related CSS*/
+
 .section-exposition {
     position: relative;
     margin: auto;
@@ -246,9 +252,12 @@ h2 {
     object-fit: contain;
 }
 
+
 /*end EXPOSITION related CSS*/
 
+
 /*ABOUT related CSS*/
+
 .section-about {
     position: relative;
     margin: auto;
@@ -307,9 +316,12 @@ h2 {
     padding: 0px;
 }
 
+
 /*end ABOUT related CSS*/
 
+
 /*FOOTER related css*/
+
 footer {
     position: relative;
     bottom: 0;
@@ -335,9 +347,12 @@ footer {
     color: var(--text-color);
 }
 
+
 /*end FOOTER related CSS */
 
+
 /*ICON related CSS*/
+
 .icon {
     display: block;
     width: 20px;
@@ -357,9 +372,12 @@ footer {
     background-image: url(../images/instagram.svg);
 }
 
+
 /*end ICON related CSS*/
 
+
 /*HOMEPAGE related CSS*/
+
 .section-banner {
     display: unset;
     border: unset;
@@ -465,9 +483,12 @@ footer {
     box-shadow: 10px 5px 40px var(--nav-secondary-color);
 }
 
+
 /*end HOMEPAGE related CSS*/
 
+
 /*NAVBAR related CSS*/
+
 #nav-bar {
     display: flex;
     position: fixed;
@@ -673,9 +694,12 @@ button {
     display: none;
 }
 
+
 /*end NAVBAR related CSS*/
 
+
 /*PORTFOLIO related CSS*/
+
 #portfolio-items-filter {
     margin: 70px auto 30px auto;
     width: max(60vw, 800px);
@@ -767,9 +791,12 @@ button {
     bottom: 0;
 }
 
+
 /*end PORTFOLIO related CSS*/
 
+
 /*IMAGEOVERLAY related CSS*/
+
 .imageoverlay-button {
     position: absolute;
     -webkit-text-fill-color: var(--text-color);
@@ -870,6 +897,8 @@ button {
 #imageoverlay p {
     height: max-content;
 }
+
+
 /*end IMAGEOVERLAY related CSS*/
 
 #banner {
@@ -886,19 +915,16 @@ button {
         height: 100vh;
     }
     /*end GLOBAL related CSS*/
-
     /*NAVBAR related CSS*/
     #nav-menu-left-buffer {
         height: calc(var(--nav-height)/8);
         background-color: var(--nav-secondary-color);
     }
-
     #nav-button,
     #nav-button-left,
     #nav-menu-left {
         display: none;
     }
-
     #nav-small-screen-button {
         display: block;
         margin: auto auto;
@@ -916,15 +942,12 @@ button {
         box-shadow: none;
         cursor: pointer;
     }
-
     #nav-small-screen-button:hover {
         filter: brightness(75%);
     }
-
     #nav-arrow-button {
         display: none;
     }
-
     #nav-small-screen-menu {
         display: block;
         top: var(--nav-height);
@@ -932,7 +955,6 @@ button {
         width: var(--nav-button-width);
         overflow: hidden;
     }
-
     #nav-small-screen-menu-background {
         display: flex;
         flex-flow: column nowrap;
@@ -942,7 +964,6 @@ button {
         overflow: hidden;
         transform: translateY(-100%);
     }
-
     .nav-menu-button {
         font-size: 15px;
         height: 2.5rem;
@@ -951,18 +972,15 @@ button {
         color: var(--nav-highlight-color);
     }
     /*end NAVBAR related CSS*/
-
     /*HOMEPAGE related CSS*/
     .section-banner {
         width: 100vw;
         justify-content: flex-start;
     }
-
     .selection-bar {
         display: none;
     }
     /*end HOMEPAGE related CSS*/
-
     /*PORTFOLIO related CSS*/
     #portfolio-items-filter {
         width: min(calc(100vw - 40px), 800px);
@@ -970,54 +988,43 @@ button {
         align-items: center;
         margin: 70px auto 0 auto;
     }
-
     #portfolio-items-filter>.nav-menu-button {
         width: 100%;
         height: 1.5rem;
         font-size: 11px;
     }
-
     .grid-item {
         width: min(75vw, 800px);
         height: min(56.25vw, 600px);
         margin: 0;
     }
-
     .grid-item-content {
         margin: 0;
     }
-
     .grid-item:hover {
         transform: unset;
         cursor: pointer;
     }
-
     .grid-p {
         height: 0;
     }
-
     .grid-item:hover * p {
         height: 0;
     }
-
     .grid-container {
         width: calc(100vw - 40px);
         height: auto;
         margin-top: 2vw;
     }
-
     .grid-h {
         font-size: 13px;
     }
     /*end PORTFOLIO related CSS*/
-
     /*EXPOSITION related CSS*/
     #exposition-related-images img {
         width: 60%;
     }
     /*end EXPOSITION related CSS*/
-
-
     /*IMAGEOVERLAY related CSS*/
     #grid-imageoverlay {
         width: 90vw;
@@ -1026,13 +1033,11 @@ button {
         align-content: center;
         top: 5vh;
     }
-
     #imageoverlay-image {
         height: 60vh;
         width: 90vw;
         padding: 1rem 0;
     }
-
     #imageoverlay-description {
         margin: 0 1.5rem;
         width: 90vw;
@@ -1042,33 +1047,28 @@ button {
 
 @media only screen and (max-width: 700px) {
     /*GLOBAL related CSS*/
-    :root {
+     :root {
         --nav-height: 40px;
     }
     /*end GLOBAL related CSS*/
-
     /*NAVBAR related CSS*/
     #nav-text {
         font-size: 20px;
     }
-
     #contacts * {
         font-size: 13px;
     }
     /*end NAVBAR related CSS*/
-    
     /*EXPOSITION related CSS*/
     #exposition-related-images img {
         width: 90%;
     }
-
     .section-exposition p {
         margin-top: 0px;
         text-align: justify;
         width: 85%;
     }
     /*end EXPOSITION related CSS*/
-
     /*ABOUT related CSS*/
     .section-about p {
         margin-top: 0px;
@@ -1086,7 +1086,6 @@ button {
     }
     /*end ABOUT related CSS*/
 }
-
 
 .rotate-in {
     animation: rotate-in 400ms ease-in forwards;
@@ -1120,6 +1119,14 @@ button {
     animation: nav-in 600ms linear forwards;
 }
 
+.nav-out {
+    animation: nav-out 200ms linear forwards;
+}
+
+.nav-in {
+    animation: nav-in 200ms linear forwards;
+}
+
 .nav-collapsed {
     animation: nav-collapse 100ms linear forwards;
 }
@@ -1144,7 +1151,6 @@ button {
         -webkit-opacity: 0;
         opacity: 0;
     }
-
     100% {
         transform: translateY(0);
         -webkit-opacity: 1;
@@ -1158,7 +1164,6 @@ button {
         -webkit-opacity: 1;
         opacity: 1;
     }
-
     100% {
         transform: translateY(-100%);
         -webkit-opacity: 0;
@@ -1170,7 +1175,6 @@ button {
     0% {
         transform: translateY(-200%);
     }
-
     100% {
         transform: translateY(0%);
     }
@@ -1180,7 +1184,6 @@ button {
     0% {
         transform: translateY(0%);
     }
-
     100% {
         transform: translateY(-200%);
     }
@@ -1190,7 +1193,6 @@ button {
     0% {
         transform: translateY(-100%);
     }
-
     100% {
         transform: translateY(0);
     }
@@ -1200,7 +1202,24 @@ button {
     0% {
         transform: translateY(0);
     }
+    100% {
+        transform: translateY(-100%);
+    }
+}
 
+@keyframes nav-in-scroll {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes nav-out-scroll {
+    0% {
+        transform: translateY(0);
+    }
     100% {
         transform: translateY(-100%);
     }
@@ -1210,7 +1229,6 @@ button {
     0% {
         width: 0;
     }
-
     100% {
         width: 100%;
     }
@@ -1220,7 +1238,6 @@ button {
     0% {
         width: 100%;
     }
-
     100% {
         width: 0%;
     }
@@ -1230,7 +1247,6 @@ button {
     0% {
         transform: rotate(90deg);
     }
-
     100% {
         transform: rotate(270deg);
     }
@@ -1240,7 +1256,6 @@ button {
     0% {
         transform: rotate(-90deg);
     }
-
     100% {
         transform: rotate(90deg);
     }
@@ -1251,7 +1266,6 @@ button {
         -webkit-opacity: 0;
         opacity: 0;
     }
-
     100% {
         -webkit-opacity: 1;
         opacity: 1;
@@ -1263,7 +1277,6 @@ button {
         -webkit-opacity: 1;
         opacity: 1;
     }
-
     100% {
         -webkit-opacity: 0;
         opacity: 0;
