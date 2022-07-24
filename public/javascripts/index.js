@@ -1,25 +1,20 @@
-const collapsableMenuItemsIds = {
-    smallScreen: {
-        collapsableMenu: "nav-small-screen-menu",
-        collapsableMenuBG: "nav-small-screen-menu-background",
-        collapsableMenuButton: "nav-small-screen-button"
-    },
-    screen: {
-        collapsableMenu: "nav-menu-left",
-        collapsableMenuBG: "nav-menu-left-background",
-        collapsableMenuButton: "nav-button-left"
-    }
-}
-
-const collapsableMenuInitializedListeners = {
-    narrowListeners: false,
-    wideListeners: false
-}
-
 class CollapsableMenuHandler {
 
-    constructor(initializedListeners, collapsableMenuIds, isNarrowScreen) {
-        let ids = isNarrowScreen ? collapsableMenuIds.smallScreen : collapsableMenuIds.screen;
+    collapsableMenuItemsIds = {
+        smallScreen: {
+            collapsableMenu: "nav-small-screen-menu",
+            collapsableMenuBG: "nav-small-screen-menu-background",
+            collapsableMenuButton: "nav-small-screen-button"
+        },
+        screen: {
+            collapsableMenu: "nav-menu-left",
+            collapsableMenuBG: "nav-menu-left-background",
+            collapsableMenuButton: "nav-button-left"
+        }
+    }
+
+    constructor(isNarrowScreen) {
+        let ids = isNarrowScreen ? this.collapsableMenuItemsIds.smallScreen : this.collapsableMenuItemsIds.screen;
         this.collapsableMenu = document.getElementById(ids.collapsableMenu);
         this.collapsableMenuBG = document.getElementById(ids.collapsableMenuBG);
         this.collapsableMenuButton = document.getElementById(ids.collapsableMenuButton);
@@ -29,52 +24,11 @@ class CollapsableMenuHandler {
         this.collapsableMenu.style.height = this.collapsableMenuBG.offsetHeight.toString() + "px";
         this.collapsableMenu.style.left = Math.round(this.collapsableMenuButton.offsetLeft) + "px";
 
-        if (!(isNarrowScreen ? initializedListeners.narrowListeners : initializedListeners.wideListeners)) {
-            this.setupNavigationListeners();
-            (isNarrowScreen ? initializedListeners.narrowListeners = true : initializedListeners.wideListeners = true);
-        }
+
 
         this.narrowScreen = isNarrowScreen;
 
         this.collapsableMenu.style.display = "none";
-    }
-
-
-    navigationListeners = {
-        listener1: function(e) {
-            if (e.offsetY >= this.collapsableMenuButton.offsetHeight + this.collapsableMenuButton.offsetTop) return;
-
-            if (this.collapsableMenuBG.className === "nav-extended") {
-                collapseMenu();
-            }
-        },
-
-        listener2: function(_e) {
-            if (this.collapsableMenuBG.className !== "nav-extended") {
-                extendMenu();
-            }
-        },
-
-        listener3: function(_e) {
-            if (this.collapsableMenuBG.className === "nav-extended") {
-                collapseMenu();
-            }
-        },
-
-        listener4: function(e) {
-            if (e.offsetY <= 0) return;
-
-            if (this.collapsableMenuBG.className === "nav-extended") {
-                collapseMenu();
-            }
-        }
-    }
-
-    setupNavigationListeners() {
-        this.collapsableMenuButton.addEventListener('mouseleave', this.navigationListeners.listener1.bind(this));
-        this.collapsableMenuButton.addEventListener('mouseenter', this.navigationListeners.listener2.bind(this));
-        //this.navBar.addEventListener('mouseleave', this.navigationListeners.listener3.bind(this));
-        this.collapsableMenu.addEventListener('mouseleave', this.navigationListeners.listener4.bind(this));
     }
 
     get isNarrowScreen() {
@@ -258,7 +212,7 @@ class LanguageHandler {
 
         if (this.animation.step == this.steps) {
 
-            if (!this.currentLanguage === this.supportedLanguages.EN) {
+            if (this.currentLanguage === this.supportedLanguages.PT) {
                 for (let i = 0; i < this.pathPortuguese.length; i++) {
 
                     this.pathPortuguese[i].setAttribute('fill', `rgb(${this.colorPort[i][0]}, ${this.colorPort[i][1]}, ${this.colorPort[i][2]})`);
@@ -271,8 +225,7 @@ class LanguageHandler {
 
                 }
             }
-
-            window.history.pushState({}, '', location.href.replace(location.hash, this.currentLanguage));
+            window.history.pushState({}, '', (location.hash ? location.href.replace(location.hash, '') : location.href) + this.currentLanguage);
 
             this.endAnimTimeout = setTimeout(() => {
                 this.languageChangeAnim = false;
@@ -312,7 +265,7 @@ class LanguageHandler {
 
             this.pathPortuguese[i].setAttribute('d', portList.join(" "));
 
-            if (!this.currentLanguage === this.supportedLanguages.EN) {
+            if (this.currentLanguage === this.supportedLanguages.PT) {
 
 
                 for (let k = 0; k < this.pathPortuguese.length; k++) {
@@ -338,7 +291,18 @@ class LanguageHandler {
 
 class NavigatorHandler {
 
+    collapsableMenuInitializedListeners = {
+        narrowListeners: false,
+        wideListeners: false
+    }
+
+
+
     constructor() {
+
+        this.collapsableMenuHandler = new CollapsableMenuHandler(this.collapsableMenuInitializedListeners, window.innerWidth <= 1015);
+
+
 
         this.navCenter = document.getElementById("nav-center");
         this.navBar = document.getElementById("nav-bar");
@@ -353,7 +317,7 @@ class NavigatorHandler {
 
             if (!tabHandler.portfolioPopulated && !tabHandler.portfolioWaitingHttpResponse && tabHandler.currentTab == tabHandler.tabs.PORTFOLIO && scrollTop > document.getElementsByClassName("scrollable")[0].scrollHeight - window.screen.availHeight - 100) tabHandler.requestPortfolioItems();
 
-            if (collapsableMenuHandler.collapsableMenuBG.className === "nav-extended") return;
+            if (this.collapsableMenuHandler.collapsableMenuBG.className === "nav-extended") return;
 
             if (scrollTop > this.lastScrollTop && scrollTop > 0) {
                 if (this.show) {
@@ -387,6 +351,59 @@ class NavigatorHandler {
         document.body.removeChild(scrollDiv);
 
         document.getElementById("content").style.marginRight = `-${scrollbarWidth}px`
+    }
+
+    recreateCollapsableMenu() {
+        this.collapsableMenuHandler = new CollapsableMenuHandler(this.collapsableMenuInitializedListeners, window.innerWidth <= 1015);
+        if (!(this.collapsableMenuHandler.isNarrowScreen ? this.collapsableMenuInitializedListeners.narrowListeners : this.collapsableMenuInitializedListeners.wideListeners)) {
+            this.setupCollapsableMenuListeners();
+            (this.collapsableMenuHandler.isNarrowScreen ? this.collapsableMenuInitializedListeners.narrowListeners = true : this.collapsableMenuInitializedListeners.wideListeners = true);
+        }
+    }
+
+    navigationListeners = {
+        listener1: function(e) {
+            if (e.offsetY >= this.collapsableMenuHandler.collapsableMenuButton.offsetHeight + this.collapsableMenuHandler.collapsableMenuButton.offsetTop) return;
+
+            if (this.collapsableMenuHandler.collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        },
+
+        listener2: function(_e) {
+            if (this.collapsableMenuHandler.collapsableMenuBG.className !== "nav-extended") {
+                extendMenu();
+            }
+        },
+
+        listener3: function(_e) {
+            if (this.collapsableMenuHandler.collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        },
+
+        listener4: function(e) {
+            if (e.offsetY <= 0) return;
+
+            if (this.collapsableMenuHandler.collapsableMenuBG.className === "nav-extended") {
+                collapseMenu();
+            }
+        }
+    }
+
+    resize() {
+        this.collapsableMenuHandler.collapsableMenu.style.left = Math.round(this.collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
+    }
+
+    setupNavigationListeners() {
+        this.navBar.addEventListener('mouseleave', this.navigationListeners.listener3.bind(this));
+        this.setupCollapsableMenuListeners();
+    }
+
+    setupCollapsableMenuListeners() {
+        this.collapsableMenuHandler.collapsableMenuButton.addEventListener('mouseleave', this.navigationListeners.listener1.bind(this));
+        this.collapsableMenuHandler.collapsableMenuButton.addEventListener('mouseenter', this.navigationListeners.listener2.bind(this));
+        this.collapsableMenuHandler.collapsableMenu.addEventListener('mouseleave', this.navigationListeners.listener4.bind(this));
     }
 
     midAnimation = false;
@@ -433,7 +450,7 @@ class NavigatorHandler {
         if (this.midAnimation) return;
         this.midAnimation = true;
 
-        let navLeftMenuButton = collapsableMenuHandler.collapsableMenuButton;
+        let navLeftMenuButton = this.collapsableMenuHandler.collapsableMenuButton;
 
         if (navLeftMenuButton.className === "selected") {
             collapseMenu();
@@ -472,19 +489,19 @@ class NavigatorHandler {
 
         this.midAnimationExtend = true;
 
-        collapsableMenuHandler.collapsableMenu.style.display = "block";
+        this.collapsableMenuHandler.collapsableMenu.style.display = "block";
 
-        collapsableMenuHandler.collapsableMenuButton.className = "selected";
+        this.collapsableMenuHandler.collapsableMenuButton.className = "selected";
 
-        collapsableMenuHandler.collapsableMenuBG.className = "nav-extended";
+        this.collapsableMenuHandler.collapsableMenuBG.className = "nav-extended";
 
         let controller = new AbortController();
 
-        collapsableMenuHandler.collapsableMenuBG.addEventListener(this.endAnimation, () => {
+        this.collapsableMenuHandler.collapsableMenuBG.addEventListener(this.endAnimation, () => {
             this.midAnimationExtend = false;
-            collapsableMenuHandler.collapsableMenu.style.display = "block";
-            collapsableMenuHandler.collapsableMenuButton.className = "selected";
-            collapsableMenuHandler.collapsableMenuBG.className = "nav-extended";
+            this.collapsableMenuHandler.collapsableMenu.style.display = "block";
+            this.collapsableMenuHandler.collapsableMenuButton.className = "selected";
+            this.collapsableMenuHandler.collapsableMenuBG.className = "nav-extended";
             controller.abort();
         }, { signal: controller.signal });
     }
@@ -492,18 +509,18 @@ class NavigatorHandler {
     collapseMenu() {
         this.midAnimationCollapse = true;
 
-        collapsableMenuHandler.collapsableMenuButton.className = "";
+        this.collapsableMenuHandler.collapsableMenuButton.className = "";
 
-        collapsableMenuHandler.collapsableMenuBG.className = "nav-collapsed";
+        this.collapsableMenuHandler.collapsableMenuBG.className = "nav-collapsed";
 
         let controller = new AbortController();
 
-        collapsableMenuHandler.collapsableMenuBG.addEventListener(this.endAnimation, () => {
-            collapsableMenuHandler.collapsableMenuBG.className = "";
-            collapsableMenuHandler.collapsableMenu.style.display = "none";
+        this.collapsableMenuHandler.collapsableMenuBG.addEventListener(this.endAnimation, () => {
+            this.collapsableMenuHandler.collapsableMenuBG.className = "";
+            this.collapsableMenuHandler.collapsableMenu.style.display = "none";
             this.midAnimationCollapse = false;
-            collapsableMenuHandler.collapsableMenuButton.className = "";
-            collapsableMenuHandler.collapsableMenuBG.className = "nav-collapsed";
+            this.collapsableMenuHandler.collapsableMenuButton.className = "";
+            this.collapsableMenuHandler.collapsableMenuBG.className = "nav-collapsed";
             controller.abort();
         }, { signal: controller.signal });
 
@@ -636,7 +653,7 @@ class TabHandler {
                 languageHandler.scopedLanguageChange(content);
 
 
-                collapsableMenuHandler.collapsableMenu.style.left = Math.round(collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
+                this.collapsableMenuHandler.collapsableMenu.style.left = Math.round(this.collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
 
 
                 this.portfolioRequests += 1;
@@ -656,7 +673,6 @@ class TabHandler {
 
 }
 
-let collapsableMenuHandler;
 let languageHandler;
 let navigatorHandler;
 let tabHandler;
@@ -667,20 +683,20 @@ window.onpopstate = () => {
 };
 
 window.onresize = () => {
-    collapsableMenuHandler.collapsableMenu.style.left = Math.round(collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
-    collapsableMenuHandler = new CollapsableMenuHandler(collapsableMenuInitializedListeners, collapsableMenuItemsIds, window.innerWidth <= 1015);
+    navigatorHandler.resize();
+    navigatorHandler.recreateCollapsableMenu();
 };
 
 
 window.onload = () => {
-    collapsableMenuHandler = new CollapsableMenuHandler(collapsableMenuInitializedListeners, collapsableMenuItemsIds, window.innerWidth <= 1015);
+
     tabHandler = new TabHandler();
     languageHandler = new LanguageHandler(document);
-    languageHandler.triggerLanguageChange(window.location.hash);
     //languageHandler.triggerLanguageChangeAnimation();
     navigatorHandler = new NavigatorHandler();
-    tabHandler.requestCurrentPage();
 
+    languageHandler.triggerLanguageChange(window.location.hash);
+    tabHandler.requestCurrentPage();
 
     let scrollDiv = document.createElement("div");
     scrollDiv.className = "scrollbar-measure";
@@ -731,7 +747,7 @@ function aboutButton() {
     if (window.location.pathname === "/about") return;
 
 
-    if (collapsableMenuHandler.narrowScreen) collapseMenu();
+    if (navigatorHandler.collapsableMenuHandler.narrowScreen) collapseMenu();
 
     window.history.pushState({}, '', window.location.origin + "/" + 'about' + languageHandler.currentLanguage);
     tabHandler.requestContentPage("aboutpage");
@@ -740,7 +756,7 @@ function aboutButton() {
 
 function portfolioButton(category) {
 
-    if (collapsableMenuHandler.narrowScreen) collapseMenu();
+    if (navigatorHandler.collapsableMenuHandler.narrowScreen) collapseMenu();
 
     if (window.location.pathname === "/portfolio" && category === tabHandler.portfolioCategory) return;
 
@@ -771,7 +787,7 @@ function portfolioButton(category) {
 
 function expositionsButton() {
 
-    if (collapsableMenuHandler.narrowScreen) collapseMenu();
+    if (navigatorHandler.collapsableMenuHandler.narrowScreen) collapseMenu();
 
     if (window.location.pathname === "/expositions") return;
 
@@ -949,13 +965,13 @@ function openImagePage(id) {
 }
 
 function triggerLanguageChange() {
+    languageHandler.triggerLanguageChangeAnimation();
     if (languageHandler.currentLanguage == languageHandler.supportedLanguages.EN) {
         languageHandler.triggerLanguageChange(languageHandler.supportedLanguages.PT);
     } else {
         languageHandler.triggerLanguageChange(languageHandler.supportedLanguages.EN);
     }
 
-    languageHandler.triggerLanguageChangeAnimation();
 }
 
 
