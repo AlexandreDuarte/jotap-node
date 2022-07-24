@@ -543,6 +543,21 @@ class TabHandler {
     currentTab = this.tabs.OTHER;
     portfolioPopulated = false;
 
+    constructor() {
+        this.searchParams = new URLSearchParams("");
+        this.portfolioRequests = 0;
+        this.portfolioWaitingHttpResponse = false;
+        this.portfolioCategory = '';
+        this.bannerPos = 0;
+
+        this.tabs = {
+            PORTFOLIO: "PORTFOLIO",
+            OTHER: "OTHER"
+        }
+        this.currentTab = this.tabs.OTHER;
+        this.portfolioPopulated = false;
+    }
+
 
     requestCurrentPage() {
         if (window.location.pathname === "/about") {
@@ -636,30 +651,21 @@ class TabHandler {
 
     requestPortfolioItems() {
 
-        this.portfolioWaitingHttpResponse = true;
+        tabHandler.portfolioWaitingHttpResponse = true;
 
         let request = new XMLHttpRequest();
 
         request.onload = function() {
-
-            if (this.responseText === "") this.portfolioPopulated = true;
+            if (this.responseText === "") tabHandler.portfolioPopulated = true;
 
             else {
                 let content = document.getElementById("portfolio-items-container");
                 content.innerHTML += this.responseText;
 
-
-
-                languageHandler.scopedLanguageChange(content);
-
-
-                navigatorHandler.collapsableMenuHandler.collapsableMenu.style.left = Math.round(navigatorHandler.collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
-
-
-                this.portfolioRequests += 1;
+                tabHandler.portfolioRequests += 1;
             }
 
-            this.portfolioWaitingHttpResponse = false;
+            tabHandler.portfolioWaitingHttpResponse = false;
 
         };
 
