@@ -300,8 +300,7 @@ class NavigatorHandler {
 
     constructor() {
 
-        this.collapsableMenuHandler = new CollapsableMenuHandler(this.collapsableMenuInitializedListeners, window.innerWidth <= 1015);
-
+        this.collapsableMenuHandler = new CollapsableMenuHandler(window.innerWidth <= 1015);
 
 
         this.navCenter = document.getElementById("nav-center");
@@ -310,6 +309,7 @@ class NavigatorHandler {
         this.navMenuButton = document.getElementById("nav-arrow-button");
         this.navOffset = 0;
         this.lastScrollTop = 0;
+        this.setupNavigationListeners();
 
         document.getElementsByClassName("scrollable")[0].addEventListener('scroll', _e => {
 
@@ -354,9 +354,9 @@ class NavigatorHandler {
     }
 
     recreateCollapsableMenu() {
-        this.collapsableMenuHandler = new CollapsableMenuHandler(this.collapsableMenuInitializedListeners, window.innerWidth <= 1015);
+        this.collapsableMenuHandler = new CollapsableMenuHandler(window.innerWidth <= 1015);
         if (!(this.collapsableMenuHandler.isNarrowScreen ? this.collapsableMenuInitializedListeners.narrowListeners : this.collapsableMenuInitializedListeners.wideListeners)) {
-            this.setupCollapsableMenuListeners();
+            this.setupNavigationListeners();
             (this.collapsableMenuHandler.isNarrowScreen ? this.collapsableMenuInitializedListeners.narrowListeners = true : this.collapsableMenuInitializedListeners.wideListeners = true);
         }
     }
