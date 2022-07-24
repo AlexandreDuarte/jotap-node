@@ -653,7 +653,7 @@ class TabHandler {
                 languageHandler.scopedLanguageChange(content);
 
 
-                this.collapsableMenuHandler.collapsableMenu.style.left = Math.round(this.collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
+                navigatorHandler.collapsableMenuHandler.collapsableMenu.style.left = Math.round(navigatorHandler.collapsableMenuHandler.collapsableMenuButton.offsetLeft) + "px";
 
 
                 this.portfolioRequests += 1;
